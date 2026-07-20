@@ -1,0 +1,109 @@
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 64px;          /* hauteur navbar fixe */
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #040C25;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* ===== Navbar ===== */
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    background: rgba(4, 12, 37, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 40px;
+}
+
+/* Left side — logo + brand name */
+#navbar-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+#navbar-logo {
+    height: 32px;
+    width: auto;
+}
+
+#navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    background-image: linear-gradient(135deg, #5f86f2, #7464d8);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* Middle side — Links */
+
+#navbar-middle {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+#navbar-middle a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+#navbar-middle a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+
+/* Right side — CTA */
+#navbar-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+}
+
+/* CTA button */
+#navbar-cta {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 8px;
+    background-image: linear-gradient(135deg, #5f86f2, #7464d8);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#navbar-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
