@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denev CLI — Everyday dev utilities, one command away. Hashes, JWTs, JSON, URLs, time, and debug chores.</title>
+    <meta name="description" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon/favicon-48x48.png">
+    <link rel="shortcut icon" type="image/png" sizes="128x128" href="/favicon/favicon-128x128.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/landing/home.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="navbar-inner">
+            <div id="navbar-left">
+                <img src="/images/logo/denev.png" alt="denev logo" id="navbar-logo" inert="">
+                <span id="navbar-brand" inert>denev</span>
+            </div>
+            <div id="navbar-middle">
+                <a href="/index.html">Home</a>
+                <a href="/docs">Docs</a>
+                <a href="https://github.com/everwinner64/denev-cli-website" target="_blank">GitHub</a>
+            </div>
+            <div id="navbar-right">
+                <a href="/download" id="navbar-cta">Download</a>
+            </div>
+        </div>
+    </nav>
+    <div id="main-container">
+        <section id="hero">
+            <h1 id="hero-title">denev</h1>
+            <p id="hero-phonetic">/denɛv/</p>
+            <p id="hero-tagline">The CLI made for developers</p>
+            <div id="hero-actions">
+                <a href="/install" class="btn-primary">Get Started</a>
+                <a href="/docs" class="btn-secondary">Read the Docs</a>
+            </div>
+            <div id="hero-install">
+                <div id="hero-install-bar">
+                    <span id="curl">curl</span>
+                </div>
+                <div id="hero-install-command">
+                    <p>curl -fsSL https://opencode.ai/install | bash</p>
+                </div>
+            </div>
+            
+        </section>
+
+        <section id="features">
+            <h2 id="features-title">Everything in one CLI</h2>
+            <p id="features-subtitle">No more context-switching between tools</p>
+
+            <div id="features-grid">
+                <article class="feature-card">
+                    <div class="feature-accent crypto"></div>
+                    <h3 class="feature-card-title">Cryptography</h3>
+                    <p class="feature-card-desc">
+                        Hash files, compute HMACs, inspect JWTs, and verify signatures locally
+                        without pasting secrets into random web tools.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-accent regex"></div>
+                    <h3 class="feature-card-title">Regex Toolkit</h3>
+                    <p class="feature-card-desc">
+                        Test patterns, catch risky expressions, check portability, and keep
+                        reusable regexes close to your shell.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-accent net"></div>
+                    <h3 class="feature-card-title">Network & URLs</h3>
+                    <p class="feature-card-desc">
+                        Check status codes, inspect headers, measure DNS/TCP/TLS/TTFB timings,
+                        and break URLs into readable parts.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-accent cert"></div>
+                    <h3 class="feature-card-title">Certificate Ops</h3>
+                    <p class="feature-card-desc">
+                        Generate local X.509 certificates, inspect remote TLS chains, and spot
+                        expiry problems before they become deploy problems.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-accent data"></div>
+                    <h3 class="feature-card-title">Data Utilities</h3>
+                    <p class="feature-card-desc">
+                        Generate UUIDs, passwords, strings, integers, bytes, and Base64 output
+                        with predictable flags and copy-friendly results.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-accent fmt"></div>
+                    <h3 class="feature-card-title">Format & Time</h3>
+                    <p class="feature-card-desc">
+                        Extract JSON fields, compare payloads, clean sensitive keys, and convert
+                        timestamps without switching tools.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section id="demo">
+            <h2 id="demo-title">See it in action</h2>
+            <p id="demo-subtitle">A quick tour through everyday debug chores</p>
+
+            <div class="demo-terminal">
+                <div class="demo-terminal-bar">
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-title">denev@demo: ~</span>
+                </div>
+                <div class="demo-terminal-content">
+                    <p id="terminal-output"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pipeline">
+            <h2>Readable by default. Scriptable with --quiet.</h2>
+            <p id="quiet-description">
+                Denev gives you clean terminal output for humans, and stable stdout<br>
+                when you need to pipe results into commands, CI, shell scripts, and more!
+            </p>
+            <div class="demo-terminal">
+                <div class="demo-terminal-bar">
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-title">denev@demo: ~</span>
+                </div>
+                <div class="demo-terminal-content">
+                    <p id="terminal-output-quiet"></p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script type="module" src="/landing/terminal.js"></script>
+</body>
