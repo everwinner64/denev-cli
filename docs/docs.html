@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Denev CLI — Documentation</title>
-    <meta name="description" content="">
+    <meta name="description" content="The user documentation for the Denev command-line utility.">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon/favicon-48x48.png">
@@ -29,10 +29,162 @@
             </div>
             <div id="navbar-right">
                 <a href="/download" id="navbar-cta">Download</a>
+                <svg id="burger-menu" class="closed" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http:/www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228
+                    3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7
+                    11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20
+                    13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21
+                    17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z" fill="#7464d8"></path>
+                </svg>
             </div>
         </div>
     </nav>
-    <nav id="pages">
+    <div class="doc-layout">
+        <nav id="sections">
+            <div class="sidebar-group">
+                <span class="sidebar-category">First steps</span>
+                <div class="sidebar-children">
+                    <a href="#install" class="sidebar-link">Installation</a>
+                    <div class="sidebar-group-toggle">
+                        <a href="#get-started" class="sidebar-link parent">Getting started<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#typical-workflow" class="sidebar-link sub">A typical workflow</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-category">Concepts</span>
+                <div class="sidebar-children">
+                    <div class="sidebar-group-toggle">
+                        <a href="#concepts-conventions" class="sidebar-link parent">Concepts & conventions<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#concepts-conventions-input" class="sidebar-link sub">Input</a>
+                            <a href="#concepts-conventions-output" class="sidebar-link sub">Output & clipboard</a>
+                            <a href="#exit-codes" class="sidebar-link sub">Exit codes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-category">Modules list</span>
+                <div class="sidebar-children">
+                    <a href="#modules" class="sidebar-link">Modules</a>
+                </div>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-category">Commands</span>
+                <div class="sidebar-children">
+                    <a href="#stats" class="sidebar-link">stats</a>
 
-    </nav>
+                    <div class="sidebar-group-toggle">
+                        <a href="#crypto" class="sidebar-link parent">crypto<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#crypto-hash" class="sidebar-link sub">hash</a>
+                            <a href="#crypto-hmac" class="sidebar-link sub">hmac</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#jwt" class="sidebar-link parent">jwt<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#jwt-generate" class="sidebar-link sub">generate</a>
+                            <a href="#jwt-inspect" class="sidebar-link sub">inspect</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#base64" class="sidebar-link parent">base64<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#base64-encode" class="sidebar-link sub">encode</a>
+                            <a href="#base64-decode" class="sidebar-link sub">decode</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#regex" class="sidebar-link parent">regex<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#regex-test" class="sidebar-link sub">test</a>
+                            <a href="#regex-explain" class="sidebar-link sub">explain</a>
+                            <a href="#regex-pattern" class="sidebar-link sub">pattern</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#uuid" class="sidebar-link parent">uuid<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#uuid-generate" class="sidebar-link sub">generate</a>
+                            <a href="#uuid-validate" class="sidebar-link sub">validate</a>
+                            <a href="#uuid-inspect" class="sidebar-link sub">inspect</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#cert" class="sidebar-link parent">cert<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#cert-generate" class="sidebar-link sub">generate</a>
+                            <a href="#cert-inspect" class="sidebar-link sub">inspect</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#random" class="sidebar-link parent">random<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#random-string" class="sidebar-link sub">string</a>
+                            <a href="#random-int" class="sidebar-link sub">int</a>
+                            <a href="#random-bytes" class="sidebar-link sub">bytes</a>
+                            <a href="#random-password" class="sidebar-link sub">password</a>
+                            <a href="#random-pick" class="sidebar-link sub">pick</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#time" class="sidebar-link parent">time<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#time-convert" class="sidebar-link sub">convert</a>
+                            <a href="#time-diff" class="sidebar-link sub">diff</a>
+                            <a href="#time-add" class="sidebar-link sub">add</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#http" class="sidebar-link parent">http<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#http-status" class="sidebar-link sub">status</a>
+                            <a href="#http-headers" class="sidebar-link sub">headers</a>
+                            <a href="#http-timing" class="sidebar-link sub">timing</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#url" class="sidebar-link parent">url<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#url-inspect" class="sidebar-link sub">inspect</a>
+                            <a href="#url-encode" class="sidebar-link sub">encode</a>
+                            <a href="#url-decode" class="sidebar-link sub">decode</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group-toggle">
+                        <a href="#json" class="sidebar-link parent">json<span class="chevron"></span></a>
+                        <div class="sidebar-subs">
+                            <a href="#json-get" class="sidebar-link sub">get</a>
+                            <a href="#json-pick" class="sidebar-link sub">pick</a>
+                            <a href="#json-omit" class="sidebar-link sub">omit</a>
+                            <a href="#json-diff" class="sidebar-link sub">diff</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-category">Reference</span>
+                <div class="sidebar-children">
+                    <a href="#route-reference" class="sidebar-link">Route &amp; alias reference</a>
+                    <a href="#faq" class="sidebar-link">FAQ</a>
+                </div>
+            </div>
+        </nav>
+        <main id="documentation" aria-live="polite"></main>
+    </div>
+    <script src="/docs/docs.js"></script>
 </body>
