@@ -1,4 +1,5 @@
 import Typewriter from "typewriter-effect/dist/core";
+import DOMPurify from "dompurify";
 
 const terminal = document.getElementById('terminal-output');
 const terminalQuiet = document.getElementById('terminal-output-quiet');
@@ -74,5 +75,41 @@ typewriterQuiet
     .pauseFor(4000)
     .deleteAll(30)
     .start()
+
+const commands = {
+    "curl": "curl -fsSL https://denev.pages.dev/install.sh | bash",
+    "irm": "irm https://denev.pages.dev/install.ps1 | iex",
+}
+
+const installPrompt = document.getElementById("hero-install-command").lastElementChild;
     
-    
+document.getElementById('hero-install-bar').childNodes.forEach(child => {
+    child.addEventListener('click', () => {
+        const currentSelect = document.querySelector('.selected');
+        if (currentSelect == child) return;
+        child.classList.add('selected');
+        installPrompt.textContent = '';
+        installPrompt.textContent = commands[child.id];
+        currentSelect.classList.remove('selected');
+        
+        
+    });
+});
+
+const copyIconPath = "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><g transform='translate(24 0) scale(-1 1)'><rect x='9' y='9' width='11' height='11' rx='2' ry='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></g></svg>";
+const validIconPath =  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='18' height='18'><circle cx='32' cy='32' r='30' fill='#22C55E'></circle><path d='M18 33L28 43L46 22' fill='none' stroke='#FFFFFF' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'></path></svg>";
+
+document.getElementById('hero-install-command').addEventListener('click', async (event) => {
+    const container = event.currentTarget;
+
+    const commandText = container.querySelector('p').innerText;
+    const icon = container.querySelector('svg');
+
+    await navigator.clipboard.writeText(commandText);
+
+    icon.outerHTML = validIconPath;
+
+    setTimeout(() => {
+        container.querySelector('svg').outerHTML = copyIconPath;
+    }, 1000);
+});
