@@ -2,6 +2,12 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy';
+import { JSDOM } from 'jsdom';
+import MarkdownIt from 'markdown-it';
+import markdownItAttrs from 'markdown-it-attrs';
+import fs from 'fs';
+import path from "path";
+import { fileURLToPath } from 'url';
 
 /* ── Helper: async string.replace ───────────────────── */
 async function replaceAsync(str, regex, asyncFn) {
@@ -55,6 +61,17 @@ async function updateHtml(cont, file) {
     return content;
 }
 
+async function markdownToHtml(cont, file) {
+    cont = await updateHtml(cont, file)
+    const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true }).use(markdownItAttrs);
+
+    const content = fs.readFileSync(path.join(path.dirname(file), 'docs', 'documentation.md'), 'utf-8');
+
+    const tempDom = new JSDOM(cont);
+    tempDom.window.document.getElementById("documentation").innerHTML += (markdown.render(content));
+    return tempDom.serialize();
+}
+
 /* ── Copy targets ──────────────────────────────────── */
 const targets = [
     {
@@ -69,7 +86,7 @@ const targets = [
         src: 'docs/*.html',
         dest: 'min/docs/',
         rename: 'index.html',
-        transform: async (contents, filename) => await updateHtml(contents, filename),
+        transform: async (contents, filename) => await markdownToHtml(contents, filename),
     },
     {
         src: 'docs/*.css',
@@ -100,7 +117,8 @@ const targets = [
 /* ── Rollup config ─────────────────────────────────── */
 export default {
     input: {
-        landing: 'landing/terminal.js',
+        terminal: 'landing/terminal.js',
+        docs: 'docs/docs.js'
     },
 
     output: {
@@ -128,7 +146,6 @@ export default {
         copy({ targets: [
             { src: 'docs/index.html', dest: 'min/docs/' },
             { src: 'docs/docs.css', dest: 'min/docs/' },
-            { src: 'docs/**/*.md', dest: 'min/docs/' },
         ], flatten: false }),
     ],
 };

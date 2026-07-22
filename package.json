@@ -7,7 +7,7 @@
     "scripts": {
         "build": "rollup -c",
         "dev": "rollup -c -w",
-        "preview": "pnpm build && pkill -9 workerd || true && wrangler pages dev min ./ --ip 127.0.0.1"
+        "preview": "pnpm build && pkill -9 workerd || true && wrangler pages dev min --ip 127.0.0.1 --compatibility-date 2026-07-21"
     },
     "engines": {
         "node": ">=22"
@@ -27,8 +27,9 @@
         "eslint": "^10.7.0",
         "express": "^5.2.1",
         "globals": "^17.7.0",
+        "jsdom": "^29.1.1",
         "rollup": "^4.62.2",
         "rollup-plugin-copy": "^3.5.0",
-        "wrangler": "^4.112.0"
+        "wrangler": "^4.113.0"
     }
 }
