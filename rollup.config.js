@@ -112,6 +112,11 @@ const targets = [
         dest: 'min/images/',
         onlyFiles: true,
     },
+    {
+        src: 'install.sh',
+        dest: 'min/',
+        onlyFiles: true,
+    },
 ];
 
 /* ── Rollup config ─────────────────────────────────── */
@@ -143,9 +148,5 @@ export default {
         resolve({ preferBuiltins: true }),
         terser(),
         copy({ targets, flatten: false }),
-        copy({ targets: [
-            { src: 'docs/index.html', dest: 'min/docs/' },
-            { src: 'docs/docs.css', dest: 'min/docs/' },
-        ], flatten: false }),
     ],
 };
