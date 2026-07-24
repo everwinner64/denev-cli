@@ -25,9 +25,9 @@ async function replaceAsync(str, regex, asyncFn) {
 async function updateHtml(cont, file) {
     let content = cont.toString();
 
-    // 1. CSS: /landing/foo.css  ou  /css/foo.css  →  /css/foo.css
+    // 1. CSS : tout <link href="/quelconque/chemin.css"> → /css/nom.css
     content = content.replace(
-        /(<link[^>]*href\s*=\s*["'])\/(?:landing\/|css\/)([^"']+\.css)(["'])/gi,
+        /(<link[^>]*href\s*=\s*["'])(\/[^"']+\.css)(["'])/gi,
         (match, prefix, cssPath, quote) => {
             const filename = cssPath.split('/').pop(); // juste le nom, ignore le dossier
             return `${prefix}/css/${filename}${quote}`;
@@ -83,19 +83,38 @@ const targets = [
         transform: async (contents, filename) => await updateHtml(contents, filename),
     },
     {
+        src: 'download/*.html',
+        dest: 'min/download/',
+        rename: 'index.html',
+        transform: async (contents, filename) => await updateHtml(contents, filename),
+    },
+    {
         src: 'docs/*.html',
         dest: 'min/docs/',
         rename: 'index.html',
         transform: async (contents, filename) => await markdownToHtml(contents, filename),
     },
     {
+        src: '404.html',
+        dest: 'min/',
+        transform: async (contents, filename) => await updateHtml(contents, filename),
+    },
+    {
         src: 'docs/*.css',
+        dest: 'min/css/',
+    },
+    {
+        src: 'download/*.css',
         dest: 'min/css/',
     },
     {
         // CSS : regroupé dans min/css/
         // landing/home.css → min/css/home.css
         src: 'landing/*.css',
+        dest: 'min/css/',
+    },
+    {
+        src: '404.css',
         dest: 'min/css/',
     },
     {
@@ -123,7 +142,9 @@ const targets = [
 export default {
     input: {
         terminal: 'landing/terminal.js',
-        docs: 'docs/docs.js'
+        docs: 'docs/docs.js',
+        download: 'download/download.js',
+        404: '404.js'
     },
 
     output: {
