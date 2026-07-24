@@ -1,0 +1,256 @@
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 64px;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #040C25;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* ===== Navbar ===== */
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    background: rgba(4, 12, 37, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 40px;
+}
+
+/* Left side — logo + brand name */
+#navbar-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+#navbar-logo {
+    height: 32px;
+    width: auto;
+}
+
+#navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    background-image: linear-gradient(135deg, #5f86f2, #7464d8);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* Middle side — Links */
+
+#navbar-middle {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+#navbar-middle a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+#navbar-middle a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+
+/* Right side — CTA */
+#navbar-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+}
+
+/* CTA button */
+#navbar-cta {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 8px;
+    background-image: linear-gradient(135deg, #5f86f2, #7464d8);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#navbar-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* =========== Install =========== */
+
+#main-container {
+    flex: 1;
+    width: min(100% - 80px, 800px);
+    margin: 0 auto;
+    padding: 56px 0 120px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    color: #fff;
+    line-height: 1.25;
+    scroll-margin-top: 90px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 2.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 3rem 0 1rem;
+    color: #fff;
+}
+
+h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+p {
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.7;
+    margin: 0 0 1rem;
+}
+
+code {
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+    background: rgba(116,100,216,0.2);
+    color: #d9e1ff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+pre {
+    overflow-x: auto;
+    padding: 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 10px;
+    background: #07112f;
+    margin: 0.25rem 0 1.5rem;
+}
+
+pre code {
+    padding: 0;
+    background: none;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e8eeff;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 1.5rem;
+}
+
+ul li {
+    color: rgba(255, 255, 255, 0.65);
+    padding: 6px 0;
+    line-height: 1.6;
+}
+
+ul li::before {
+    content: "•";
+    color: #7464d8;
+    font-weight: bold;
+    display: inline-block;
+    width: 1.2em;
+}
+
+ul li strong {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+#manual-install button {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 8px;
+    background-image: linear-gradient(135deg, #5f86f2, #7464d8);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: none;
+    margin-left: auto;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#manual-install button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.download-file {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 600px) {
+    .navbar-inner {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 580px) {
+    .navbar-inner {
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 580px) {
+    .download-file {
+        margin-top: 20px;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #manual-install button {
+        margin-left: 0;
+    }
+}
