@@ -3,7 +3,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    padding-top: 64px;          /* hauteur navbar fixe */
+    padding-top: 64px; /* hauteur navbar fixe */
     min-height: 100vh;
     overflow-y: auto;
     display: flex;
@@ -526,7 +526,7 @@ body {
     }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 580px) {
     .navbar-inner {
         flex-wrap: nowrap;
         flex-direction: column;

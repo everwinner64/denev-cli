@@ -1,5 +1,4 @@
 import Typewriter from "typewriter-effect/dist/core";
-import DOMPurify from "dompurify";
 
 const terminal = document.getElementById('terminal-output');
 const terminalQuiet = document.getElementById('terminal-output-quiet');
