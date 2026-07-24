@@ -404,7 +404,7 @@ body {
     }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 580px) {
     .navbar-inner {
         flex-wrap: nowrap;
         flex-direction: column;

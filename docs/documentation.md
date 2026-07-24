@@ -1,6 +1,6 @@
 # Denev CLI {#introduction}
 
-Denev is a command-line toolbox that spares you from juggling half a dozen different utilities for recurring developer tasks. Whether you need to inspect and transform data, generate identifiers or random values, work with certificates and tokens, or diagnose HTTP endpoints, you get the same syntax across Windows, Linux, and macOS — because switching operating systems should not force you to switch tools as well. The executable is named `dnv`.
+Denev (a portmanteau of Deneb — a star — and "dev" for developer) is a command-line toolkit. that spares you from juggling half a dozen different utilities for recurring developer tasks. Whether you need to inspect and transform data, generate identifiers or random values, work with certificates and tokens, or diagnose HTTP endpoints, you get the same syntax across Windows, Linux, and macOS — because switching operating systems should not force you to switch tools as well. The executable is named `dnv`.
 
 One of the main ideas behind Denev is that you should be able to use the same commands and the same syntax regardless of whether you are working on Windows, Linux, or macOS. Instead of having to remember half a dozen different tools with completely different interfaces for basically the same kinds of tasks, you have one consistent set of commands that works everywhere. That is really the core value proposition: less context switching, fewer things to remember, and a uniform experience across operating systems, with a syntax and ouputs thought for humans (while the outputs can adapt to machines!).
 
@@ -8,7 +8,7 @@ One of the main ideas behind Denev is that you should be able to use the same co
 
 ## Installation {#install}
 
-Denev is designed to run on Windows 10 and 11, Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can dowload Denev by using downloading files in the [public repository](https://github.com/everwinner64/denev-cli-website/releases){target="_blank" rel="noopener noreferrer"}, or much easier, by choosing one of the following methods:
+Denev is designed to run on Windows 10 and 11, Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can dowload Denev by using downloading files in the [download page](/download/#manual-install){target="_blank" rel="noopener noreferrer"}, or much easier, by choosing one of the following methods:
 
 Linux and macOS
 
