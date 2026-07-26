@@ -104,9 +104,11 @@ case "$ARCHIVE_NAME" in
 esac
 
 # ── Install ───────────────────────────────────────────────
-INSTALL_DIR="${HOME}/.local/bin"
-mkdir -p "$INSTALL_DIR"
+INSTALL_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/denev"
+BIN_DIR="${HOME}/.local/bin"
+mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 
+# ── Copier dans le dossier dédié ──────────────────────────
 cp -r "$TMP_DIR"/* "$INSTALL_DIR"/ || die "Failed to copy files to ${INSTALL_DIR}"
 
 # Ensure the main binary is executable
@@ -118,7 +120,10 @@ else
     die "Binary 'dnv' not found in the archive"
 fi
 
-success "Installed to ${INSTALL_DIR}/dnv"
+# ── Symlink dans ~/.local/bin/ ────────────────────────────
+ln -sf "$INSTALL_DIR/dnv" "${BIN_DIR}/dnv"
+
+success "Installed to ${INSTALL_DIR}/dnv (symlink in ${BIN_DIR}/dnv)"
 
 # ── PATH setup ──────────────────────────────────────────
 info "Configuring PATH..."

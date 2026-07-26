@@ -66,16 +66,21 @@ catch { die "Download failed: $_" }
 Expand-Archive -Path $archivePath -DestinationPath $script:tmpDir -Force
 
 # ── Install ──────────────────────────────────────────────────
-$installDir = Join-Path $env:LOCALAPPDATA "Programs\dnv"
+$installDir = Join-Path $env:LOCALAPPDATA "denev\bin"
 New-Item -ItemType Directory -Force -Path $installDir | Out-Null
 
-$binary = Get-ChildItem -Recurse -Path $script:tmpDir -File |
-    Where-Object { $_.Name -match '^dnv(\.exe)?$' } | Select-Object -First 1
+Get-ChildItem -Recurse -Path $script:tmpDir -File | ForEach-Object {
+    $name = $_.Name
+    # Copier dnv.exe et les éventuelles DLL natives (PCRE.NET.Native, etc.)
+    if ($name -match '^dnv(\.exe)?$' -or $name -match '\.dll$') {
+        Copy-Item -Path $_.FullName -Destination (Join-Path $installDir $name) -Force
+    }
+}
 
+$binary = Get-ChildItem -Path $installDir -Filter "dnv*" | Select-Object -First 1
 if (-not $binary) { die "Binary 'dnv' not found in archive" }
 
-Copy-Item -Path $binary.FullName -Destination (Join-Path $installDir $binary.Name) -Force
-success "Installed to $installDir\$($binary.Name)"
+success "Installed to $installDir"
 
 # ── PATH (user-level, persistant) ────────────────────────────
 # On lit la valeur actuelle du PATH utilisateur seulement (pas le système)
