@@ -207,7 +207,7 @@ body {
     cursor: pointer;
     padding: 4px 10px;
     border-radius: 6px; 
-    transition: all 0.2 ease;
+    transition: all 0.2s ease;
 }
 
 #curl:hover:not(.selected), #irm:hover:not(.selected) {
@@ -476,15 +476,18 @@ body {
     }
 }
 
+@media (max-width: 730px) {
+    .navbar-inner {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 20px;
+    }
+}
+
 @media (max-width: 600px) {
     #features-grid, #hero {
         grid-template-columns: 1fr;
-    }
-
-    .navbar-inner {
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 12px 20px;
     }
 
     #hero-title {
@@ -526,9 +529,14 @@ body {
     }
 }
 
-@media (max-width: 580px) {
-    .navbar-inner {
-        flex-wrap: nowrap;
+@media (max-width: 420px) {
+    #main-container {
+        margin-top: 120px;
+    }
+
+    #navbar-middle {
         flex-direction: column;
+        text-align: center;
+        gap: 8px;
     }
 }
