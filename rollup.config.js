@@ -2,12 +2,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy';
-import { JSDOM } from 'jsdom';
-import MarkdownIt from 'markdown-it';
-import markdownItAttrs from 'markdown-it-attrs';
-import fs from 'fs';
-import path from "path";
-import { fileURLToPath } from 'url';
 
 /* ── Helper: async string.replace ───────────────────── */
 async function replaceAsync(str, regex, asyncFn) {
@@ -36,7 +30,7 @@ async function updateHtml(cont, file) {
 
     // 2. JS <script src="..."> : /landing/truc.js  →  /js/truc.min.js
     const scriptRegex = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
-    content = await replaceAsync(content, scriptRegex, async (match, attrs, cde) => {
+    content = await replaceAsync(content, scriptRegex, async (match, attrs) => {
         const srcMatch = attrs.match(/src\s*=\s*["']([^"']+)["']/i);
         if (srcMatch) {
             const src = srcMatch[1];
@@ -61,17 +55,6 @@ async function updateHtml(cont, file) {
     return content;
 }
 
-async function markdownToHtml(cont, file) {
-    cont = await updateHtml(cont, file)
-    const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true }).use(markdownItAttrs);
-
-    const content = fs.readFileSync(path.join(path.dirname(file), 'docs', 'documentation.md'), 'utf-8');
-
-    const tempDom = new JSDOM(cont);
-    tempDom.window.document.getElementById("documentation").innerHTML += (markdown.render(content));
-    return tempDom.serialize();
-}
-
 /* ── Copy targets ──────────────────────────────────── */
 const targets = [
     {
@@ -87,12 +70,6 @@ const targets = [
         dest: 'min/download/',
         rename: 'index.html',
         transform: async (contents, filename) => await updateHtml(contents, filename),
-    },
-    {
-        src: 'docs/*.html',
-        dest: 'min/docs/',
-        rename: 'index.html',
-        transform: async (contents, filename) => await markdownToHtml(contents, filename),
     },
     {
         src: '404.html',

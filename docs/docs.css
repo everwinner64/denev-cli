@@ -38,7 +38,7 @@ body {
     padding: 12px 40px;
 }
 
-/* Left side — logo + brand name */
+/* Left side — logo + brand name + version select */
 #navbar-left {
     display: flex;
     flex-direction: row;
@@ -58,6 +58,15 @@ body {
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
+}
+
+#version {
+    border: none;
+    padding: 8px 20px;
+    background: none;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 /* Middle side — Links */
@@ -282,8 +291,18 @@ body {
     transition: color 0.2s ease;
 }
 
+#documentation .tip a {
+    color: #c6fcc1;
+    text-decoration: underline;
+}
+
 #documentation a:hover {
     color: #c1cefc;
+    text-decoration: underline;
+}
+
+#documentation .tip a:hover {
+    color: #d0fcc1;
     text-decoration: underline;
 }
 
@@ -301,6 +320,31 @@ body {
     border: 1px solid rgba(255,255,255,0.09); 
     border-radius: 10px;
     background: #07112f; 
+    margin: 0;
+}
+
+.code-wrapper {
+    position: relative;
+}
+
+.copy-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 38px; /* 10px (right gap) + 18px (icon) + 10px (left gap) */
+    height: 38px; /* 10px (top gap) + 18px (icon) + 10px (bottom gap) */
+    background: #07112F;
+    border-top: 1px solid rgba(255,255,255,0.09); 
+    border-right: 1px solid rgba(255,255,255,0.09); 
+    border-radius: 0 10px;
+    z-index: 1;
+}
+
+.copy-button .copy-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 
 #documentation pre code { 
@@ -352,10 +396,13 @@ body {
     background: rgba(46, 235, 21, 0.2); 
 }
 
-@media (max-width: 800px) { 
-    .navbar-inner { 
-        padding: 12px 20px; 
-    } 
+@media (max-width: 830px) { 
+    .navbar-inner {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 20px;
+    }
 
     #burger-menu {
         display: block;
@@ -391,22 +438,20 @@ body {
     }
 
     #documentation { 
+        margin-top: 50px;
         padding: 36px 20px 80px;
         max-width: 100%;
     } 
 }
 
-@media (max-width: 600px) {
-    .navbar-inner {
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 12px 20px;
+@media (max-width: 420px) {
+    #documentation {
+        margin-top: 150px;
     }
-}
 
-@media (max-width: 580px) {
-    .navbar-inner {
-        flex-wrap: nowrap;
+    #navbar-middle {
         flex-direction: column;
+        text-align: center;
+        gap: 8px;
     }
 }

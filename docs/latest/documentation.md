@@ -22,8 +22,6 @@ Windows (Powershell)
 irm https://denev.pages.dev/install.ps1 | iex
 ```
 
-The repository does not currently publish a package name, download URL, or installer command, so this page does not assume any particular installation method.
-
 After obtaining an installed `dnv` binary through your distribution channel, verify that the command is on your `PATH`:
 
 ```bash
@@ -31,13 +29,46 @@ dnv --version
 dnv --help
 ```
 
-The source contains an update implementation, but no `update` command is registered in the command application. There is consequently no documented in-place update or uninstall command at this time; use the mechanism that installed the binary.
+### Updating {#updating}
+
+Denev includes a self-update command. When you need to get the latest version, you can run the following command:
+
+```bash
+dnv update
+```
+
+> Tip: The update command accepts options. Check the [detailled section](#update) for futher details.
+{.tip}
+
+### Uninstalling {#uninstall}
+
+To uninstall Denev, you can run the following commands:
+
+Linux:
+
+```bash
+rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/.cache/denev-cli && rm -rf ~/.local/share/denev-cli
+```
+
+macOS:
+
+```bash
+rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/Library/Caches/denev-cli && rm -rf ~/Library/Application\ Support/denev-cli
+```
+
+Windows:
+```powershell
+Remove-Item "$env:LOCALAPPDATA\denev" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\denev-cli" -Recurse -Force -ErrorAction SilentlyContinue
+```
+
+After running the commands for your OS, remove denev from your shell config (~/.bashrc, ~/.zshrc, ~/.profile, etc.).
 
 ## Getting started {#get-started}
 
 Denev mostly follows this shape:
 
-```text
+```bash
 dnv <module> <command> [arguments] [options]
 ```
 
@@ -96,6 +127,7 @@ When a command writes a file, it infers the format from the extension you provid
 
 | Module | Use it for |
 | --- | --- |
+| `update` | CLI self-update |
 | `stats` | Source-file language statistics |
 | `crypto` | Hashes and HMACs |
 | `jwt` | Generating and inspecting JWTs |
@@ -113,6 +145,39 @@ When a command writes a file, it infers the format from the extension you provid
 
 Every command card below follows the same reading order — description, syntax, arguments and options, then examples and notes — so once you have read one, you can find your way around any of them. Aliases invoke the same implementation, which means `dnv cert gen` behaves exactly like `dnv cert generate`.
 
+### `dnv update` {#update}
+
+#### Description {.desc}
+
+Autonomously updates the CLI to the latest version or the targeted one.
+
+#### Syntax {.syntax}
+
+```bash
+dnv update [options]
+```
+
+#### Arguments and options {.args}
+
+| Item | Meaning |
+| --- | --- |
+| `--target` | Version to target using x.y.z format |
+| `--nc, --no-confirm` | Skip all confirmation prompts |
+
+#### Examples and notes {.examples}
+
+Use it to easily get up to date; the first example below updates the CLI to the latest version, while the second is targeting a specific version:
+
+```bash
+dnv update
+dnv update --target 1.2.0
+```
+
+> Note: If no specific target is given, the latest update will be downloaded.
+
+> Warning: When using `--target` to access an older version, note that only the four most recent documentation versions (including the latest one) are available. Versions containing only bug fixes are not counted. Example: If the latest release is v2.0.3, the available documentation versions would correspond to the four latest patch release of each supported minor version, v2.0.3, v1.9.8, v1.8.12, and v1.7.15 (assuming these versions exist).
+{.warning}
+
 ### `dnv stats` {#stats}
 
 #### Description {.desc}
@@ -124,7 +189,7 @@ Analyzes a file or directory and produces language statistics, which is useful w
 
 #### Syntax {.syntax}
 
-```text
+```bash
 dnv stats [path] [options]
 ```
 
@@ -1231,6 +1296,7 @@ dnv json diff a.json b.json --file --ignore-array-order -q
 
 | Route | Aliases |
 | --- | --- |
+| `update` | — |
 | `stats` | — |
 | `crypto hash`, `crypto hmac` | — |
 | `jwt generate`, `jwt inspect` | `jwt gen` |
@@ -1244,9 +1310,9 @@ dnv json diff a.json b.json --file --ignore-array-order -q
 | `url inspect`, `url encode`, `url decode` | — |
 | `json get`, `json pick`, `json omit`, `json diff` | — |
 
-> Note: Hidden commands such as `license` are intentionally excluded from this public command reference.
-
 ## FAQ {#faq}
+
+### How can I find the license of Denev and 
 
 ### Why does a command reject both an argument and piped input? {#faq-ambiguous-input}
 

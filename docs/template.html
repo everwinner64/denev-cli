@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denev CLI — Documentation</title>
+    <meta name="description" content="The user documentation for the Denev command-line utility.">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon/favicon-48x48.png">
+    <link rel="shortcut icon" type="image/png" sizes="128x128" href="/favicon/favicon-128x128.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/docs.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="navbar-inner">
+            <div id="navbar-left">
+                <img src="/images/logo/denev.png" alt="denev logo" id="navbar-logo" inert="">
+                <span id="navbar-brand" inert>denev</span>
+                <select name="version" id="version">
+                    {{VERSION_SELECT}}
+                </select>
+            </div>
+            <div id="navbar-middle">
+                <a href="/index.html">Home</a>
+                <a href="/docs/latest/">Docs</a>
+                <a href="https://github.com/everwinner64/denev-cli-website/issues/new/choose" target="_blank">Feedback</a>
+                <a href="https://ko-fi.com/everwinner64" target="_blank">Donate</a>
+                <a href="https://github.com/everwinner64/denev-cli-website" target="_blank">GitHub</a>
+            </div>
+            <div id="navbar-right">
+                <a href="/download" id="navbar-cta">Download</a>
+                <svg id="burger-menu" class="closed" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http:/www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228
+                    3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7
+                    11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20
+                    13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21
+                    17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z" fill="#7464d8"></path>
+                </svg>
+            </div>
+        </div>
+    </nav>
+    <div class="doc-layout">
+        <nav id="sections">
+            {{SIDEBAR}}
+        </nav>
+        <main id="documentation" aria-live="polite">
+            {{CONTENT}}
+        </main>
+    </div>
+    <script src="/js/docs.min.js"></script>
+</body>
+</html>
