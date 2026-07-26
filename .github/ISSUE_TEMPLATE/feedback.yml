@@ -1,0 +1,28 @@
+name: Feedback
+description: Share your thoughts on the CLI or website — usability, design, overall experience
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your feedback! Please fill below.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where?
+      options:
+        - CLI
+        - Website / documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feedback
+      description: Your feedback
+    validations:
+      required: true

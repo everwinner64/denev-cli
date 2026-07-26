@@ -1,0 +1,12 @@
+name: General
+description: Anything that does not fit the other categories — suggestions, questions, feedback
+title: "[General] "
+labels: ["general"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What's on your mind?
+      description: Share your thoughts, ideas, or anything else
+    validations:
+      required: true

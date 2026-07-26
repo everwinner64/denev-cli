@@ -1,0 +1,32 @@
+name: Feature Request
+description: Propose a specific new command, option, or improvement with concrete details
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: Which module?
+      options:
+        - crypto
+        - jwt
+        - regex
+        - uuid
+        - cert
+        - random
+        - time
+        - http
+        - url
+        - json
+        - port
+        - New module
+        - Website / docs
+        - Other
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the suggestion?
+      description: A clear description of what you're suggesting (feel free to give examples). Don't forget to precise the command/module it should aim.
+    validations:
+      required: true
