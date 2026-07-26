@@ -1,0 +1,42 @@
+name: Bug Report
+description: Report a problem with the CLI or the website
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please fill in the details below.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where?
+      options:
+        - CLI command
+        - Website / documentation
+        - Install script
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: CLI version (if applicable)
+      placeholder: "dnv --version output"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Steps to reproduce, expected vs actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, terminal, shell
+      placeholder: "macOS 14.5, iTerm2, zsh"
