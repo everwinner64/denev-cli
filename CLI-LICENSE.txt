@@ -1,0 +1,99 @@
+Copyright (c) 2026, everwinner64. All rights reserved.
+
+For the purposes of this License:
+
+- "Author" means everwinner64.
+- "Software" means the Denev CLI executable, its accompanying files, 
+documentation, updates, and any official distributions provided by the Author.
+- "Official Distribution" means any release made available through channels 
+designated by the Author.
+
+This is a proprietary, closed-source software license. By installing, copying 
+(for the purpose of installation), or otherwise using the Software, you agree 
+to be bound by the terms below.
+
+You are permitted to use this Software in its compiled/distributed form for
+any lawful purpose, including personal, educational, commercial, and automated
+use (such as scripts, build systems, and CI/CD pipelines), subject to the
+following terms:
+
+1. Use it.
+   You may install and use the Software for any lawful purpose, on any
+   number of machines, unless otherwise stated in a separate agreement
+   with the Author.
+
+2. Don't redistribute it.
+   You may not redistribute, mirror, rehost, or otherwise make the
+   Software available to third parties without the Author's prior written
+   permission. This restriction does not apply to official distribution
+   channels designated by the Author (e.g. the Author's own package
+   registry, website, or repository release pages).
+
+3. Don't modify it.
+   You may not modify, patch, adapt, translate, or create derivative
+   works based on the Software, including but not limited to bypassing,
+   disabling, or altering license checks, update mechanisms, or usage
+   restrictions.
+
+4. Don't reverse engineer it.
+   You may not reverse engineer, decompile, disassemble, or otherwise
+   attempt to derive the source code or underlying proprietary
+   implementation of the Software, except to the extent such restriction
+   is expressly prohibited by applicable law notwithstanding this
+   limitation.
+
+5. Don't remove ownership notices.
+   You may not remove, obscure, or alter any copyright, trademark,
+   license, or other proprietary notices included with the Software.
+
+6. Don't break the law.
+   You may not use the Software for any unlawful purpose, nor in any
+   manner that intentionally causes harm to others or to third-party
+   systems.
+
+7. Network use and updates.
+   The Software connects to the internet only in the following cases:
+   (a) to retrieve files and check for or apply updates from the
+   Author's official GitHub repository, and (b) to make requests to
+   third-party endpoints explicitly designated and configured by you
+   (the user), such as APIs or services you choose to connect to. The
+   Author does not collect, transmit, or have access to any usage data,
+   telemetry, or personal information through the Software. The Author
+   does not guarantee that any specific network-dependent feature will
+   remain available or unchanged over time. The auto-update mechanism
+   may modify locally installed files of the Software; it will not be
+   used to alter files outside of the Software's own installation
+   without your action.
+
+8. Term and termination.
+   This license is effective until terminated. It will terminate
+   automatically and without notice if you fail to comply with any of
+   its terms. Upon termination, you must immediately cease all use of
+   the Software and destroy all copies in your possession or control.
+   Sections 4, 5, 9, and 10 shall survive termination of this license.
+
+9. Governing law and jurisdiction.
+   This license shall be governed by and construed in accordance with the
+   laws of France, without regard to its conflict of law provisions. Any 
+   dispute arising out of or relating to this license or the Software 
+   shall be subject to the exclusive jurisdiction of the courts of France.
+
+10. No warranty; limitation of liability.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+    NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE
+    LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN
+    CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION
+    WITH THE SOFTWARE OR ITS USE, EVEN IF ADVISED OF THE POSSIBILITY OF
+    SUCH DAMAGE.
+
+11. Changes to this license.
+    The Author may release future versions of this license for later
+    releases of the Software. A specific copy of the Software is governed
+    by the license version distributed with it at the time of your
+    acquisition, unless you choose to accept a later version made
+    available by the Author.
+
+Third-party components distributed with the Software remain subject to their
+own respective licenses, which can be found running "dnv license" after install.
