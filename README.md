@@ -1,9 +1,13 @@
+<div align="center">
+
 [![denev logo](/images/readme/logo-large.png)](https://denev.pages.dev/)
 
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue)
 ![GitHub Release](https://img.shields.io/github/v/release/everwinner64/denev-cli-website)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://denev.pages.dev/docs/latest/)
 [![License](https://img.shields.io/badge/license-Custom-blue)](#license)
+
+</div>
 
 ---
 
