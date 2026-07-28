@@ -13,7 +13,6 @@
         "node": ">=22"
     },
     "dependencies": {
-        "dompurify": "^3.4.12",
         "typewriter-effect": "^2.22.0"
     },
     "devDependencies": {
@@ -23,13 +22,11 @@
         "@rollup/plugin-terser": "^1.0.0",
         "cssnano": "^8.0.2",
         "eslint": "^10.8.0",
-        "express": "^5.2.1",
-        "globals": "^17.7.0",
-        "jsdom": "^29.1.1",
-        "rollup": "^4.62.2",
-        "rollup-plugin-copy": "^3.5.0",
+        "globals": "^17.8.0",
         "markdown-it": "^14.3.0",
-        "markdown-it-attrs": "^5.0.0",
+        "markdown-it-attrs": "^5.0.1",
+        "rollup": "^4.62.3",
+        "rollup-plugin-copy": "^3.5.0",
         "wrangler": "^4.114.0"
     }
 }

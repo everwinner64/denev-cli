@@ -1,6 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
+import postcss from 'cssnano';
+import cssnano from 'cssnano'
 import copy from 'rollup-plugin-copy';
 
 /* ── Helper: async string.replace ───────────────────── */
@@ -19,7 +21,7 @@ async function replaceAsync(str, regex, asyncFn) {
 async function updateHtml(cont, file) {
     let content = cont.toString();
 
-    // 1. CSS : tout <link href="/quelconque/chemin.css"> → /css/nom.css
+    // tout <link href="/quelconque/chemin.css"> → /css/nom.css
     content = content.replace(
         /(<link[^>]*href\s*=\s*["'])(\/[^"']+\.css)(["'])/gi,
         (match, prefix, cssPath, quote) => {
@@ -28,7 +30,7 @@ async function updateHtml(cont, file) {
         }
     );
 
-    // 2. JS <script src="..."> : /landing/truc.js  →  /js/truc.min.js
+    // <script src="..."> : /landing/truc.js  →  /js/truc.min.js
     const scriptRegex = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
     content = await replaceAsync(content, scriptRegex, async (match, attrs) => {
         const srcMatch = attrs.match(/src\s*=\s*["']([^"']+)["']/i);
@@ -43,7 +45,7 @@ async function updateHtml(cont, file) {
         return match; // laisser les scripts inline tels quels
     });
 
-    // 3. Références JS dans les attributs onclick, etc.
+    // Références JS dans les attributs onclick, etc.
     content = content.replace(/(['"])(?!https?:|\/\/)([^'"]*?)(?<!\.min)\.js\1/g,
         (m, q, p) => {
             const name = p.split('/').pop().replace(/\.js$/i, '');
@@ -53,6 +55,13 @@ async function updateHtml(cont, file) {
 
     console.log('\x1b[32m[HTML_Path_Update:info]\x1b[0m Updated HTML:', file);
     return content;
+}
+
+async function updateCss(cont) {
+    let content = cont.toString();
+    const result = await postcss([cssnano]).process(content, { from: undefined });
+    console.log('\x1b[32m[CSS_Update:info]\x1b[0m Minified a CSS file.');
+    return result.css;
 }
 
 /* ── Copy targets ──────────────────────────────────── */
@@ -79,32 +88,30 @@ const targets = [
     {
         src: 'docs/*.css',
         dest: 'min/css/',
+        transform: async (contents) => await updateCss(contents),
     },
     {
         src: 'download/*.css',
         dest: 'min/css/',
+        transform: async (contents) => await updateCss(contents),
     },
     {
-        // CSS : regroupé dans min/css/
-        // landing/home.css → min/css/home.css
         src: 'landing/*.css',
         dest: 'min/css/',
+        transform: async (contents) => await updateCss(contents),
     },
     {
         src: '404.css',
         dest: 'min/css/',
+        transform: async (contents) => await updateCss(contents),
     },
     {
-        // Favicon : copié à l'identique sous min/
-        // favicon/favicon-16x16.png → min/favicon/favicon-16x16.png
         src: 'favicon/*',
         dest: 'min/favicon/',
         onlyFiles: true,
     },
     {
-        // Images : préserve l'arborescence
-        // images/logo/denev.png → min/images/logo/denev.png
-        src: 'images/**',
+        src: 'images/logo/*',
         dest: 'min/images/',
         onlyFiles: true,
     },
