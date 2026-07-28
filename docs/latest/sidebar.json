@@ -1,5 +1,19 @@
 [
     {
+        "label": "Introduction",
+        "items": [
+            {
+                "label": "Denev CLI",
+                "id": "introduction",
+                "children": [
+                    { "label": "The solution", "id": "philosophy-part1" },
+                    { "label": "Design philosophy", "id": "philosophy-part2" },
+                    { "label": "About this documentation", "id": "about-doc" }
+                ]
+            }
+        ]
+    },
+    {
         "label": "First steps",
         "items": [
             {

@@ -1,10 +1,46 @@
 # Denev CLI {#introduction}
 
-Denev (a portmanteau of Deneb — a star — and "dev" for developer) is a command-line toolkit. that spares you from juggling half a dozen different utilities for recurring developer tasks. Whether you need to inspect and transform data, generate identifiers or random values, work with certificates and tokens, or diagnose HTTP endpoints, you get the same syntax across Windows, Linux, and macOS — because switching operating systems should not force you to switch tools as well. The executable is named `dnv`.
+Denev (a portmanteau of Deneb, a star, and "dev" for developer) is a cross-platform command-line toolkit that brings together the kinds of utilities developers reach for every day. Instead of switching between operating-system-specific commands, standalone utilities, online tools, and one-off scripts, Denev provides a single, consistent interface for recurring development tasks.
 
-One of the main ideas behind Denev is that you should be able to use the same commands and the same syntax regardless of whether you are working on Windows, Linux, or macOS. Instead of having to remember half a dozen different tools with completely different interfaces for basically the same kinds of tasks, you have one consistent set of commands that works everywhere. That is really the core value proposition: less context switching, fewer things to remember, and a uniform experience across operating systems, with a syntax and ouputs thought for humans (while the outputs can adapt to machines!).
+Whether you need to inspect JSON, generate UUIDs or random values, compute hashes, inspect certificates or JWTs, diagnose HTTP endpoints, or manipulate URLs and timestamps, the commands follow the same conventions across Windows, Linux, and macOS. The executable is named `dnv`.
 
-> Note: This documentation describes commands registered by the current CLI source. Source files for experimental or unregistered commands are deliberately not documented as available commands.
+### A consistent way to solve everyday problems {#philosophy-part1}
+
+Denev is built around a simple idea: developer utilities should not interrupt your workflow.
+
+Many everyday tasks are individually simple, but they often require switching tools, remembering different command syntaxes, or leaving the terminal entirely. One task uses a tool, another relies on a browser-based JWT decoder, another requires a platform-specific utility, and yet another depends on a small script you wrote months ago.
+
+Denev focuses on the common operations developers perform repeatedly and gives them a unified interface. Once you become familiar with one command, the others should feel immediately recognizable.
+
+The goal is to provide one coherent command-line experience.
+
+### Design philosophy {#philosophy-part2}
+
+Every command in Denev follows the same design principles.
+
+**Consistency first.** Most commands share the same structure, option naming, exit codes, and output conventions whenever possible.
+
+**Human-friendly by default.** Output is designed to be easy to read by humans.
+
+**Automation-ready.** When you need to script or integrate Denev into CI pipelines, commands expose machine-friendly output through options such as `--quiet`.
+
+**Good defaults.** The most common operation should require the fewest arguments while still remaining explicit when needed.
+
+**Guardrails instead of restrictions.** Potentially unsafe operations are explained with warnings rather than unnecessarily prohibited, leaving the final decision to the user.
+
+These principles apply consistently throughout the CLI so that learning one module makes the next one feel familiar.
+
+### About this documentation {#about-doc}
+
+This documentation follows the same philosophy as the CLI itself. Every command is documented using the same structure:
+
+a short description explaining its purpose;
+the command syntax;
+available arguments and options;
+practical examples;
+notes, tips, and warnings where appropriate.
+
+Shared concepts, such as standard input, quiet output, file handling, and exit codes, are explained once before the module reference to avoid repeating the same information throughout the documentation.
 
 ## Installation {#install}
 
@@ -56,13 +92,15 @@ macOS:
 rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/Library/Caches/denev-cli && rm -rf ~/Library/Application\ Support/denev-cli
 ```
 
-Windows:
+Windows (PowerShell):
 ```powershell
 Remove-Item "$env:LOCALAPPDATA\denev" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item "$env:LOCALAPPDATA\denev-cli" -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-After running the commands for your OS, remove denev from your shell config (~/.bashrc, ~/.zshrc, ~/.profile, etc.).
+After running the commands for your OS, you may need to remove denev from your shell config (~/.bashrc, ~/.zshrc, ~/.profile, etc.).
+
+> Note: Changes will be fully applied after starting a new terminal.
 
 ## Getting started {#get-started}
 
@@ -1311,8 +1349,6 @@ dnv json diff a.json b.json --file --ignore-array-order -q
 | `json get`, `json pick`, `json omit`, `json diff` | — |
 
 ## FAQ {#faq}
-
-### How can I find the license of Denev and 
 
 ### Why does a command reject both an argument and piped input? {#faq-ambiguous-input}
 
