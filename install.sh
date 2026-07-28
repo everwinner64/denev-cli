@@ -109,6 +109,7 @@ BIN_DIR="${HOME}/.local/bin"
 mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 
 # ── Copier dans le dossier dédié ──────────────────────────
+rm -rf "$ARCHIVE_PATH" 
 cp -r "$TMP_DIR"/* "$INSTALL_DIR"/ || die "Failed to copy files to ${INSTALL_DIR}"
 
 # Ensure the main binary is executable
