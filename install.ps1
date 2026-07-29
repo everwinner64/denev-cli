@@ -3,6 +3,9 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 $GREEN = [ConsoleColor]::Green
 $YELLOW = [ConsoleColor]::Yellow
 $RED = [ConsoleColor]::Red
