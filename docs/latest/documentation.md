@@ -258,6 +258,8 @@ dnv stats . --no-comments -o statistics.csv
 > Tip: You should exclude generated folders explicitly if they matter to your repository, otherwise they may inflate the counts. If you pass an invalid path, the command returns a file I/O error (exit code 5).
 {.tip}
 
+> Note: Supported extensions are `.cs`, `.js`, `.ts`, `.jsx`, `.tsx`, `.html`, `.css`, `.scss`, `.sass`, `.py`, `.java`, `.kt`, `.kts`, `.c`, `.cpp`, `.go`, `.rs`, `.php`, `.rb`, `.swift`, `.dart`, `.lua`, `.sh`, `.ps1`, `.sql`, `.json`, `.jsonc`, `.xml`, `.yml`, `.yaml`, `.fs`, `.r`, and `.scala`. Any extensions not mentioned here are neither analyzed nor counted.
+
 ### `dnv crypto` {#crypto}
 
 Use the crypto module whenever you need a digest or a keyed digest — from text, standard input, a file, or an entire directory — because it centralises what would otherwise require several different OS tools.
@@ -312,6 +314,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 
 | Item | Meaning |
 | --- | --- |
+| `[input]` | Text, stdin when omitted, or file/directory paths with `--file` |
 | `-k, --key` | Prompt for a hidden HMAC key |
 | `--key-env <var>` | Read the key from an environment variable |
 | `-f, --file` | Treat input as comma-separated file or directory paths |
@@ -1352,7 +1355,7 @@ dnv json diff a.json b.json --file --ignore-array-order -q
 
 ### Why does a command reject both an argument and piped input? {#faq-ambiguous-input}
 
-Where this is validated, Denev requires a single input source to avoid ambiguity. Pass the value either as an argument or through stdin.
+Pipeable arguments requires a single input source to avoid ambiguity. Pass the value either as an argument or through stdin.
 
 ### Why did `--copy` fail with `--quiet` or `--repeat`? {#faq-copy-quiet}
 
@@ -1360,7 +1363,7 @@ Commands that copy a result require exactly one interactive result. Generate one
 
 ### Why did my output path gain an extension? {#faq-output-extension}
 
-Several commands add their documented default extension when the supplied output path has none. They reject unsupported extensions rather than silently changing the format.
+Several commands add their documented default extension when the supplied output path has none. They reject unsupported extensions rather than silently changing the format. However, the extension may change if the output contains several elements.
 
 ### Can I use MD5 or SHA-1? {#faq-weak-algos}
 
