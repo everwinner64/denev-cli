@@ -1,6 +1,4 @@
 node_modules
 .wrangler
 min
-pnpm-lock.yaml
 pnpm-workspace.yaml
-eslint.config.js
