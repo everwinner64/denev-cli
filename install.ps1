@@ -20,7 +20,6 @@ function cleanup {
     }
 }
 trap { cleanup ; exit } 
-[System.Console]::CancelKeyPress += { exit 2 }
 
 # ── Detect OS / Arch ─────────────────────────────────────────
 $OS = "windows"
