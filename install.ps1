@@ -27,7 +27,7 @@ $OS = "windows"
 $ARCH = "x86_64"
 
 # ── Fetch release ────────────────────────────────────────────
-$repo = "everwinner64/denev-cli-website"
+$repo = "everwinner64/denev-cli"
 $apiUrl = "https://api.github.com/repos/$repo/releases/latest"
 
 info "Fetching latest release..."
