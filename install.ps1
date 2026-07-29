@@ -19,7 +19,7 @@ function cleanup {
         Remove-Item -Recurse -Force -Path $script:tmpDir -ErrorAction SilentlyContinue
     }
 }
-trap { cleanup } EXIT
+trap { cleanup ; exit } 
 [System.Console]::CancelKeyPress += { exit 2 }
 
 # ── Detect OS / Arch ─────────────────────────────────────────
