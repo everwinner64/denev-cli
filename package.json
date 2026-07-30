@@ -27,6 +27,6 @@
         "markdown-it-attrs": "^5.0.1",
         "rollup": "^4.62.3",
         "rollup-plugin-copy": "^3.5.0",
-        "wrangler": "^4.114.0"
+        "wrangler": "^4.116.0"
     }
 }

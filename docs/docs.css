@@ -138,6 +138,20 @@ body {
     overflow-y: auto;
     padding: 32px 16px 32px 32px;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) #040c25;
+    transition: scrollbar-color 0.2s ease;
+    transition-delay: 0.3s;
+}
+
+#sections:not(:hover) {
+    scrollbar-color: rgba(255, 255, 255, 0) #040c25;;
+}
+
+@supports (-moz-appearance: none) {
+    #sections {
+        scrollbar-width: auto;
+    }
 }
 
 .sidebar-group {
@@ -373,9 +387,17 @@ body {
 #documentation blockquote {
     border-radius: 10px;
     margin: 1.25rem 0; 
-    padding: 0.1rem 1rem;
-    border-left: 3px solid #7464d8; 
-    background: rgba(116,100,216,0.12); 
+    padding: 0.5rem 1rem;
+    border-left: 3px solid #7464d8;
+    background: rgba(116,100,216,0.12);
+}
+
+#documentation blockquote p img {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    vertical-align: center;
+    margin-right: 0.4rem;
 }
 
 #documentation .warning { 
