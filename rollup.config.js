@@ -116,6 +116,11 @@ const targets = [
         onlyFiles: true,
     },
     {
+        src: 'images/icons/*',
+        dest: 'min/images/',
+        onlyFiles: true,
+    },
+    {
         src: 'install.sh',
         dest: 'min/',
         onlyFiles: true,
