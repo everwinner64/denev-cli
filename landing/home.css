@@ -345,6 +345,68 @@ body {
 
 /* ===== Demo Section ===== */
 
+.c-green {
+    color: #008000;
+}
+
+.c-yellow {
+    color: #FFFF00;
+}
+
+.c-blue {
+    color: #0000FF;
+}
+
+.c-purple {
+    color: #800080;
+}
+
+.c-cyan {
+    color: #00FFFF;
+}
+
+.c-gray {
+    color: #444444;
+}
+
+.c-lavender {
+    color: #BB86FC;
+}
+
+.c-hash {
+    color: #00D700;
+}
+
+.Typewriter__cursor {
+  -webkit-animation: Typewriter-cursor 1s infinite;
+  animation: Typewriter-cursor 1s infinite;
+  margin-left: 1px
+}
+
+@-webkit-keyframes Typewriter-cursor {
+  0% {
+    opacity:0
+  }
+  50% {
+    opacity:1
+  }
+  100% {
+    opacity:0
+  }
+}
+
+@keyframes Typewriter-cursor {
+  0% {
+    opacity:0
+  }
+  50% {
+    opacity:1
+  }
+  100% {
+    opacity:0
+  }
+}
+
 #demo {
     padding: 80px 40px 120px;
     text-align: center;
