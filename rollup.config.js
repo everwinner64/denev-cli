@@ -125,6 +125,16 @@ const targets = [
         dest: 'min/',
         onlyFiles: true,
     },
+    {
+        src: '_headers',
+        dest: 'min/',
+        onlyFiles: true,
+    },
+    {
+        src: 'robots.txt',
+        dest: 'min/',
+        onlyFiles: true,
+    },
 ];
 
 /* ── Rollup config ─────────────────────────────────── */
