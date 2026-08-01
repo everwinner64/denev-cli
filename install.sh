@@ -86,9 +86,35 @@ ARCHIVE_PATH="${TMP_DIR}/archive"
 
 curl -fsSL -L -o "$ARCHIVE_PATH" "$DOWNLOAD_URL" || die "Download failed"
 
+# ── Validate archive before extraction (allowlist) ─────────
+# Seuls le binaire et la lib sont attendus.
+ARCHIVE_NAME=$(echo "$DOWNLOAD_URL" | sed 's/.*\///')
+
+case "$ARCHIVE_NAME" in
+    *.tar.gz)
+        if tar -tvzf "$ARCHIVE_PATH" 2>/dev/null \
+            | awk '{print $1, $NF}' \
+            | grep -Ev '^-[rwx-]{9} (dnv|dnv\.exe|PCRE\.NET\.Native\.(so|dylib|dll))$'; then
+            die "Archive contains unexpected files"
+        fi
+        count=$(tar -tzf "$ARCHIVE_PATH" 2>/dev/null | wc -l)
+        [ "$count" -eq 2 ] || die "Archive does not contain the expected files"
+        ;;
+    *.zip)
+        if unzip -Z1 "$ARCHIVE_PATH" 2>/dev/null \
+            | grep -Ev '^(dnv|dnv\.exe|PCRE\.NET\.Native\.(so|dylib|dll))/?$'; then
+            die "Archive contains unexpected files"
+        fi
+        count=$(unzip -Z1 "$ARCHIVE_PATH" 2>/dev/null | wc -l)
+        [ "$count" -eq 2 ] || die "Archive does not contain the expected files"
+        ;;
+    *)
+        die "Unknown archive format: ${ARCHIVE_NAME}"
+        ;;
+esac
+
 # ── Extract ───────────────────────────────────────────────
 info "Extracting..."
-ARCHIVE_NAME=$(echo "$DOWNLOAD_URL" | sed 's/.*\///')
 
 case "$ARCHIVE_NAME" in
     *.tar.gz|*.tgz)
@@ -97,9 +123,6 @@ case "$ARCHIVE_NAME" in
     *.zip)
         command -v unzip &>/dev/null || die "unzip is required to extract .zip archives"
         unzip -q "$ARCHIVE_PATH" -d "$TMP_DIR" || die "Archive extraction failed"
-        ;;
-    *)
-        die "Unknown archive format: ${ARCHIVE_NAME}"
         ;;
 esac
 
@@ -133,8 +156,15 @@ LINE='export PATH="$HOME/.local/bin:$PATH"'
 if [[ ":$PATH:" == *":$HOME/.local/bin:"* ]]; then
     success "$HOME/.local/bin is already in PATH"
 else
-    for rc in ~/.bashrc ~/.zshrc ~/.zprofile; do
-        [ -f "$rc" ] || continue           # skip if file doesn't exist
+    for rc in ~/.bashrc ~/.zshrc ~/.zprofile ~/.bash_profile; do
+        case "$(basename "$rc")" in
+            .bash_profile)
+                [ -f "$rc" ] || : > "$rc"   # create
+                ;;
+            *)
+                [ -f "$rc" ] || continue # skip if file doesn't exist
+                ;;
+        esac       
         [ -w "$rc" ] || { info "Cannot write to ${rc}, skipping."; continue; }
 
         grep -qsF "$LINE" "$rc" && { info "PATH entry already in $(basename "$rc")"; continue; }

@@ -64,6 +64,26 @@ try {
 }
 catch { die "Download failed: $_" }
 
+# ── Validate archive before extraction (allowlist) ─────────
+
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zip = [System.IO.Compression.ZipFile]::OpenRead($archivePath)
+try {
+    $entries = @($zip.Entries)
+    $files = @($entries | Where-Object { -not $_.FullName.EndsWith("/") })
+    if ($files.Count -ne 2) {
+        die "Archive does not contain the expected files (found $($files.Count))"
+    }
+    $allowed = '^(dnv\.exe|PCRE\.NET\.Native\.dll)$'
+    $bad = @($files | Where-Object { $_.FullName -notmatch $allowed })
+    if ($bad.Count -gt 0) {
+        die "Archive contains unexpected files: $($bad.FullName -join ', ')"
+    }
+}
+finally {
+    $zip.Dispose()
+}
+
 # ── Extract (Expand-Archive = natif Windows) ─────────────────
 Expand-Archive -Path $archivePath -DestinationPath $script:tmpDir -Force
 
