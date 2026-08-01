@@ -23,10 +23,10 @@
         "cssnano": "^8.0.2",
         "eslint": "^10.8.0",
         "globals": "^17.8.0",
-        "markdown-it": "^14.3.0",
+        "markdown-it": "^15.0.0",
         "markdown-it-attrs": "^5.0.1",
-        "rollup": "^4.62.3",
+        "rollup": "^4.62.4",
         "rollup-plugin-copy": "^3.5.0",
-        "wrangler": "^4.116.0"
+        "wrangler": "^4.118.0"
     }
 }

@@ -8,14 +8,14 @@ let hasError = false;
 
 async function getFile(fileName, commonName) {
     try {
-        const res = await fetch("https://api.github.com/repos/everwinner64/denev-cli-website/releases/latest");
+        const res = await fetch("https://api.github.com/repos/everwinner64/denev-cli/releases/latest");
 
         if (!res.ok) {
             throw new Error(`HTTP ${res.status}`);
         }
 
         const release = await res.json();
-        const url = `https://github.com/everwinner64/denev-cli-website/releases/download/${release.tag_name}/${fileName.replace('denev-', `denev-${release.tag_name}-`)}`;
+        const url = `https://github.com/everwinner64/denev-cli/releases/download/${release.tag_name}/${fileName.replace('denev-', `denev-${release.tag_name}-`)}`;
 
         window.location.href = url;
     } catch (err) {
