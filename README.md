@@ -1,6 +1,11 @@
 <div align="center">
 
-[![denev logo](/images/readme/logo-large.png)](https://denev.pages.dev/)
+<a href="https://denev.pages.dev/">
+    <picture>
+    <source srcset="/images/readme/logo-large.svg" media="(prefers-color-scheme: dark)">
+    <img src="/images/readme/logo-large-light.svg" alt="denev"/>
+    </picture>
+</a>
 
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-5f86f2?style=for-the-badge&logo=shell&labelColor=040C25&logoColor=white)
 ![GitHub Release](https://img.shields.io/github/v/release/everwinner64/denev-cli-website?style=for-the-badge&logo=github&labelColor=040C25&color=5f86f2&logoColor=white)
