@@ -12,6 +12,10 @@ body {
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+:root {
+    color-scheme: dark;
+}
+
 /* ===== Navbar ===== */
 
 #navbar {
@@ -44,6 +48,18 @@ body {
     flex-direction: row;
     align-items: center;
     gap: 12px;
+}
+
+#navbar-left a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+#navbar-left select {
+    cursor: pointer;
 }
 
 #navbar-logo {

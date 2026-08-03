@@ -2,6 +2,14 @@ body {
     overflow: hidden;
 }
 
+:root {
+    color-scheme: dark;
+}
+
+.c-blue {
+    color: #0000FF;
+}
+
 #container {
     flex: 1;
     display: flex;
