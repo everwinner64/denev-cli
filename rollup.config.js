@@ -135,6 +135,11 @@ const targets = [
         dest: 'min/',
         onlyFiles: true,
     },
+    {
+        src: 'fonts/*',
+        dest: 'min/fonts/',
+        onlyFiles: true,
+    },
 ];
 
 /* ── Rollup config ─────────────────────────────────── */
