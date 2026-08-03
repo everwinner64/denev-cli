@@ -3,7 +3,7 @@ import Typewriter from "typewriter-effect/dist/core";
 const terminal = document.getElementById('terminal-output');
 const terminalQuiet = document.getElementById('terminal-output-quiet');
 
-const typewriter = new Typewriter(terminal, { loop: true, delay: 75 });
+const typewriter = new Typewriter(terminal, { loop: true, delay: 75, skipAddStyles: true });
 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 function toRFC3339(date = new Date()) {
@@ -63,7 +63,7 @@ typewriter
     .changeDelay(5)
     .start();
 
-const typewriterQuiet = new Typewriter(terminalQuiet, { loop: true, delay: 75 });
+const typewriterQuiet = new Typewriter(terminalQuiet, { loop: true, delay: 75, skipAddStyles: true });
 typewriterQuiet
     .pauseFor(1000)
     .typeString('dnv random password --length 10')
