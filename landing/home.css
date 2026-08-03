@@ -605,7 +605,7 @@ body {
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 370px) {
     #main-container {
         margin-top: 120px;
     }

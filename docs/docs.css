@@ -491,7 +491,7 @@ body {
     } 
 }
 
-@media (max-width: 420px) {
+@media (max-width: 370px) {
     #documentation {
         margin-top: 150px;
     }
