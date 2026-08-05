@@ -1,4 +1,7 @@
+import { initAnalytics, trackCommandCopied } from '../analytics.js';
 import Typewriter from "typewriter-effect/dist/core";
+
+initAnalytics();
 
 const terminal = document.getElementById('terminal-output');
 const terminalQuiet = document.getElementById('terminal-output-quiet');
@@ -21,6 +24,16 @@ function toRFC3339(date = new Date()) {
     );
 }
 
+const exp = Math.floor(Date.now() / 1000);
+
+const payload = {
+  sub: "dev-42",
+  role: "admin",
+  exp: exp,
+};
+
+const payload64 = btoa(JSON.stringify(payload)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+
 typewriter
     .pauseFor(1000)
     .typeString('dnv http timing api.example.com')
@@ -34,7 +47,7 @@ typewriter
     .deleteAll(30)
     .typeString('dnv jwt inspect ')
     .changeDelay(5)
-    .typeString('eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJkZXYtNDIiLCJyb2xlIjoi\nYWRtaW4iLCJleHAiOjE3ODQ1NjMyMDB9.')
+    .typeString(`eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.${payload64.slice(0, 32)}\n${payload64.slice(32)}.`)
     .changeDelay(75)
     .pasteString("<br><strong><span class='c-blue'>Headers:</span></strong>")
     .pasteString("<br>alg = none")
@@ -42,16 +55,16 @@ typewriter
     .pasteString("<br><strong><span class='c-blue'>Payload (Claims):</span></strong>")
     .pasteString("<br>sub = dev-42<span class='c-gray'>(string type)</span>")
     .pasteString("<br>role = admin<span class='c-gray'>(string type)</span>")
-    .pasteString("<br>exp = 1784563200")
+    .pasteString(`<br>exp = ${exp}`)
     .pasteString("<br><span class='c-yellow'>Warning! This token isn't signed, making it unsecure. It shouldn't be used since it could be falsified.</span>")
     .pauseFor(4000)
     .deleteAll(30)
     .typeString('dnv json get exp token-payload.json --file -q')
-    .pasteString("<br><span class='c-lavender'>1784563200</span>")
+    .pasteString(`<br><span class='c-lavender'>${exp}</span>`)
     .pauseFor(4000)
     .deleteAll(30)
-    .typeString(`dnv time convert 1784563200 --to rfc3339 --tz ${tz}`)
-    .pasteString("<br><span class='c-blue'>Input:</span> 1784563200 (Unix seconds)")
+    .typeString(`dnv time convert ${exp} --to rfc3339 --tz ${tz}`)
+    .pasteString(`<br><span class='c-blue'>Input:</span> ${exp} (Unix seconds)`)
     .pasteString(`<br><span class='c-blue'>Timezone:</span> ${tz}`)
     .pasteString(`<br><span class='c-blue'>Result:</span> ${toRFC3339()} (rfc3339)`)
     .pauseFor(4000)
@@ -111,4 +124,5 @@ document.getElementById('hero-install-command').addEventListener('click', async 
     setTimeout(() => {
         container.querySelector('svg').outerHTML = copyIconPath;
     }, 1000);
+    trackCommandCopied(commandText);
 });
