@@ -1,5 +1,9 @@
+import { initAnalytics, trackCommandCopied } from '../analytics.js';
+
 const sections = document.getElementById('sections');
 const burger = document.getElementById('burger-menu');
+
+initAnalytics();
 
 // ── Toggle sidebar sur mobile ─────────────────────
 
@@ -85,5 +89,6 @@ codeSnippets.forEach(snippet => {
         setTimeout(() => {
             wrapper.querySelector('.copy-icon').outerHTML = copyIcon;
         }, 1000);
+        trackCommandCopied(commandText);
     });
 });

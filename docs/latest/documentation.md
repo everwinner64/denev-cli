@@ -44,7 +44,7 @@ Shared concepts, such as standard input, quiet output, file handling, and exit c
 
 ## Installation {#install}
 
-Denev is designed to run on Windows 10 and 11, Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can dowload Denev by using downloading files in the [download page](/download/#manual-install){target="_blank" rel="noopener noreferrer"}, or much easier, by choosing one of the following methods:
+Denev is designed to run on Windows 10 and 11, Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can download Denev directly from the [download page](/download/#manual-install){target="_blank" rel="noopener noreferrer"}, or, even easier, use one of the following methods:
 
 Linux and macOS
 
@@ -58,7 +58,7 @@ Windows (Powershell)
 irm https://denev.pages.dev/install.ps1 | iex
 ```
 
-After obtaining an installed `dnv` binary through your distribution channel, verify that the command is on your `PATH`:
+Once `dnv` is installed, verify that it is on your `PATH`:
 
 ```bash
 dnv --version
@@ -73,7 +73,7 @@ Denev includes a self-update command. When you need to get the latest version, y
 dnv update
 ```
 
-> ![tip](/images/icons/tip.svg) Tip: The update command accepts options. Check the [detailled section](#update) for futher details.
+> ![tip](/images/icons/tip.svg) Tip: The update command accepts options — see the [update section](#update) for details.
 {.tip}
 
 ### Uninstalling {#uninstall}
@@ -139,13 +139,15 @@ printf '%s' 'hello world' | dnv base64 encode -q
 
 ### Input {#concepts-conventions-input}
 
-Many commands accept a positional value directly, but when you omit it they read from standard input instead — which means you can pipe data without creating a temporary file. Some commands use `--file` to treat that positional value as a file or directory path, so check the reference card of each command before you assume both forms work, because not every command supports both.
+Many commands accept a positional value directly, but when you omit it they read from standard input instead — which means you can pipe data without creating a temporary file. Some commands use `--file` to treat that positional value as a file or directory path, so check each command's card before assuming both forms work: not every command supports both.
 
-> ![note](/images/icons/note.svg) Note: Commands accepting several positional values and being compatible with piping data will always receive it in the last position.
+> ![note](/images/icons/note.svg) Note: When a command accepts several positional values and supports piping, piped input always occupies the last position.
 
 ### Output, files, and clipboard {#concepts-conventions-output}
 
-Normal output is formatted for a terminal so you can read it at a glance, but that is not always what you want in a script. `--quiet` strips prompts and formatting, though what you get back — raw text, JSON, or simply an exit code — depends on the command, so check the reference card rather than assuming. `-c, --copy` places a result on your clipboard wherever the command supports it, but you cannot combine it with `--quiet` on commands that explicitly validate this conflict.
+Normal output is formatted for a terminal so you can read it at a glance, but that is not always what you want in a script. `--quiet` strips prompts and formatting, though what you get back — raw text, JSON, or simply an exit code — depends on the command, so check the command card rather than assuming. `-c, --copy` places a result on your clipboard wherever the command supports it. Copying requires exactly one result, so `--copy` cannot be combined with `--quiet` or multi-value output such as `--repeat`; individual cards only repeat this rule when a command-specific nuance exists.
+
+Diagnostics never pollute your data: warnings and errors are written to stderr, so stdout carries only the command's output — even when piped. `--quiet` strips formatting and prompts from stdout but never hides warnings since they are on stderr.
 
 When a command writes a file, it infers the format from the extension you provide. If the file already exists, you may be asked for confirmation; if you decline, the command exits with code 4.
 
@@ -155,7 +157,7 @@ When a command writes a file, it infers the format from the extension you provid
 | --- | --- |
 | 0 | Success |
 | 1 | Generic error or a command-specific negative result |
-| 2 | Invalid input or incompatible options |
+| 2 | Invalid input, incompatible options, or parsing errors |
 | 3 | Timeout |
 | 4 | User declined a confirmation |
 | 5 | File I/O error |
@@ -213,7 +215,7 @@ dnv update --target 1.2.0
 
 > ![note](/images/icons/note.svg) Note: If no specific target is given, the latest update will be downloaded.
 
-> ![warning](/images/icons/warning.svg) Warning: When using `--target` to access an older version, note that only the four most recent documentation versions (including the latest one) are available. Versions containing only bug fixes are not counted. Example: If the latest release is v2.0.3, the available documentation versions would correspond to the four latest patch release of each supported minor version, v2.0.3, v1.9.8, v1.8.12, and v1.7.15 (assuming these versions exist).
+> ![warning](/images/icons/warning.svg) Warning: When using `--target` to access an older version, note that only the four most recent documentation versions are available. Versions containing only bug fixes are not counted. Example: if the latest release is v2.0.3, the available documentation versions would be the latest patch release of each of the four most recent minor versions — v2.0.3, v1.9.8, v1.8.12, and v1.7.15 (assuming these versions exist).
 {.warning}
 
 ### `dnv stats` {#stats}
@@ -222,7 +224,7 @@ dnv update --target 1.2.0
 
 Analyzes a file or directory and produces language statistics, which is useful when you want a quick inventory of a codebase. If you do not supply a path, it analyzes the current directory by default.
 
-> ![warning](/images/icons/warning.svg) Warning: Every each field requiring a path is resolved with the command current working directory as reference. 
+> ![warning](/images/icons/warning.svg) Warning: All path arguments are resolved relative to the current working directory.
 {.warning}
 
 #### Syntax {.syntax}
@@ -255,7 +257,7 @@ dnv stats ./src --default-exclude --top 8
 dnv stats . --no-comments -o statistics.csv
 ```
 
-> ![tip](/images/icons/tip.svg) Tip: You should exclude generated folders explicitly if they matter to your repository, otherwise they may inflate the counts. If you pass an invalid path, the command returns a file I/O error (exit code 5).
+> ![tip](/images/icons/tip.svg) Tip: You should exclude generated folders explicitly if they matter to your repository, otherwise they may inflate the counts. A nonexistent positional path is a file I/O error (exit code 5), but an exclusion entry that matches nothing simply produces a warning on stderr — the command still succeeds.
 {.tip}
 
 > ![note](/images/icons/note.svg) Note: Supported extensions are `.cs`, `.js`, `.ts`, `.jsx`, `.tsx`, `.html`, `.css`, `.scss`, `.sass`, `.py`, `.java`, `.kt`, `.kts`, `.c`, `.cpp`, `.go`, `.rs`, `.php`, `.rb`, `.swift`, `.dart`, `.lua`, `.sh`, `.ps1`, `.sql`, `.json`, `.jsonc`, `.xml`, `.yml`, `.yaml`, `.fs`, `.r`, and `.scala`. Any extensions not mentioned here are neither analyzed nor counted.
@@ -297,7 +299,7 @@ dnv crypto hash ./artifact.zip --file --algo SHA512
 dnv crypto hash 'hello' --check 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 -q
 ```
 
-> ![warning](/images/icons/warning.svg) Warning: Prefer SHA-256 or stronger. `--quiet` and `--copy` conflict; `--check` cannot be used with `--copy` and is restricted for multi-file or directory input.
+> ![warning](/images/icons/warning.svg) Warning: Prefer SHA-256 or stronger. `--check` cannot be used with `--copy` and is restricted to a single input.
 {.warning}
 
 #### `dnv crypto hmac` {#crypto-hmac}
@@ -333,7 +335,7 @@ dnv crypto hmac 'payload' --key-env API_HMAC_KEY --algo SHA512
 dnv crypto hmac ./payload.json --file --key-env API_HMAC_KEY -q
 ```
 
-> ![warning](/images/icons/warning.svg) Warning: The same single-result restrictions that apply to `crypto hash` also apply here for copy and check modes, so you cannot combine them when multiple inputs are involved. Because secret keys should never appear in your shell history, prefer `--key` (which prompts interactively) or `--key-env` (which reads from an environment variable) over passing secrets as arguments.
+> ![warning](/images/icons/warning.svg) Warning: As with `crypto hash`, copy and check modes are restricted to a single input.
 {.warning}
 
 ### `dnv jwt` {#jwt}
@@ -447,7 +449,7 @@ dnv base64 encode 'Hello world' -q
 dnv b64 enc ./avatar.png --file -o avatar.b64
 ```
 
-> ![note](/images/icons/note.svg) Note: `--copy` cannot be used for a folder or multiple paths, and it conflicts with quiet mode.
+> ![note](/images/icons/note.svg) Note: `--copy` cannot be used for a folder or multiple paths.
 
 #### `dnv base64 decode` (aliases: `dec`, `b64 decode`, `b64 dec`) {#base64-decode}
 
@@ -463,7 +465,7 @@ Decodes classic Base64 or Base64URL input back into text or bytes, which is the 
 
 | Item | Meaning |
 | --- | --- |
-| `[input]` | Plain text or file path, both Base64 encoded, or stdin when omitted |
+| `[input]` | Plain text, or a file path whose contents are Base64 encoded; stdin when omitted |
 | `-f, --file` | Treat input as comma-separated file/directory paths |
 | `-u, --url` | Use Base64URL |
 | `-e, --exclude <path>` | Exclusions in file mode |
@@ -521,7 +523,7 @@ printf 'cat\ndog\n' | dnv regex test '/^d/' --all
 
 > ![note](/images/icons/note.svg) Note: `--engine` accepts aliases and is not case-sensitive. Aliases are `ES` for `ECMAScript`, `py` for `Python`, `pcre` for `Pcre2`, and `Java` for `JavaPattern`.
 
-> ![warning](/images/icons/warning.svg) Warning: `--quiet` always limits the output to solely the return code if the command is piped. Else, it will return a JSON string or the return code depending on if the pattern detected several matches in the input.
+> ![warning](/images/icons/warning.svg) Warning: When stdout is piped, `--quiet` outputs only the exit code (0 for a match, 1 for no match). Otherwise, it returns a JSON string or just the exit code, depending on how many matches the pattern detects in the input.
 {.warning}
 
 #### `dnv regex explain` {#regex-explain}
@@ -605,7 +607,7 @@ Generates UUIDs according to your chosen version — V4 (random), V5 (name-based
 | --- | --- |
 | `[V5_Name]` | Name for V5 UUID generation, or stdin when omitted |
 | `--type <type>` | `V4` (default), `V5`, or `V7` |
-| `--ns, --namespace <dns\|url\|oid\|x500\|uuid>` | V5 namespace |
+| `--ns, --namespace <dns\|url\|oid\|x500\|yourcustomUUID>` | V5 namespace |
 | `-r, --repeat <n>` | Number to generate |
 | `--upper`, `--uppercase` | Uppercase output |
 | `--nd, --no-dashes` | Compact output |
@@ -621,7 +623,7 @@ dnv uuid gen 'customer-42' --type V5 --namespace dns
 dnv uuid generate -r 5 -o ids.urn
 ```
 
-> ![note](/images/icons/note.svg) Note: V5 requires a name (as an argument or via stdin), while V4 and V7 reject supplied input — so you cannot pass a value to them. A namespace is only valid with V5. Copy mode is limited to one result, as with most other commands.
+> ![note](/images/icons/note.svg) Note: V5 requires a name (as an argument or via stdin), while V4 and V7 reject supplied input — so you cannot pass a value to them. A namespace is only valid with V5.
 
 #### `dnv uuid validate` {#uuid-validate}
 
@@ -649,9 +651,7 @@ dnv uuid validate 550e8400-e29b-41d4-a716-446655440000 --type V4
 dnv uuid validate ids.txt --file --type V4,V7 -q
 ```
 
-> ![note](/images/icons/note.svg) Note: Invalid UUIDs and unknown type syntax are input errors; a missing file is error 5.
-
-> ![note](/images/icons/note.svg) Note: `--type` accepts comma-separated expected versions, and is not restricted to v4, v5, or v7 UUIDs
+> ![note](/images/icons/note.svg) Note: Invalid UUIDs and unknown type syntax are input errors (exit code 2); a missing file is exit code 5. `--type` accepts comma-separated expected versions and is not restricted to V4, V5, or V7.
 
 #### `dnv uuid inspect` {#uuid-inspect}
 
@@ -760,7 +760,7 @@ dnv cert inspect example.com --domain --warn-days 30 -q
 
 > ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP without `--port`.
 
-> ![note](/images/icons/note.svg) Note: PFX inspection in quiet mode requires `--pw-env` for the same reason — no terminal available to enter a password. Remote connection and TLS failures return exit code 6, while connection or handshake timeouts return exit code 3.
+> ![note](/images/icons/note.svg) Note: PFX inspection in quiet mode requires `--pw-env` since no terminal is available to enter a password.
 
 ### `dnv random` {#random}
 
@@ -795,9 +795,7 @@ dnv random str --length 20 --charset upper
 dnv random string --charset custom:ABC123 --seed 7 -r 3 -q
 ```
 
-> ![note](/images/icons/note.svg) Note: Custom charsets must contain characters after `custom:`, or the charset is invalid. Copy mode is limited to one result and conflicts with quiet mode, as with most other commands.
-> ![warning](/images/icons/warning.svg) Warning: Outputs are not cryptographically secure.
-{.warning}
+> ![note](/images/icons/note.svg) Note: Custom charsets must contain characters after `custom:`, or the charset is invalid.
 
 #### `dnv random int` {#random-int}
 
@@ -827,10 +825,7 @@ dnv random int --limit 1:100
 dnv random int --limit 0:255 -r 10 -o samples.json
 ```
 
-> ![note](/images/icons/note.svg) Note: The minimum value cannot exceed the maximum in `--limit <min:max>`. Output files must use the `.json` extension.
-> ![note](/images/icons/note.svg) Note: The default limit range starts from -9223372036854775808 to 9223372036854775807.
-> ![warning](/images/icons/warning.svg) Warning: Outputs are not cryptographically secure.
-{.warning}
+> ![note](/images/icons/note.svg) Note: The minimum value cannot exceed the maximum in `--limit <min:max>`; the default range is -9223372036854775808 to 9223372036854775807. Output files must use the `.json` extension.
 
 #### `dnv random bytes` {#random-bytes}
 
@@ -846,8 +841,8 @@ Generates a specified number of random bytes, output as hex by default. Use `--s
 
 | Item | Meaning |
 | --- | --- |
-| `[bytesCount]` | Number of bytes to generate |
-| `--format <format>` | `hexa` (default), `upper`, or `bin` |
+| `[bytesCount]` | Number of bytes to generate; stdin when omitted |
+| `--format <format>` | `hex` (default), `upper`, or `bin` |
 | `-r, --repeat <n>` | Number of byte sequences to generate |
 | `--secure` | Use cryptographically secure random output |
 | `--seed <n>` | Seed for reproducible non-cryptographic output |
@@ -864,6 +859,7 @@ dnv random bytes 16 --format bin -o nonce.bin
 
 > ![warning](/images/icons/warning.svg) Warning: Use `--secure` for keys, salts, or nonces — the default generator is not cryptographically secure. The output extension must match the format (`.hex` for hex, `.bin` for binary). `--secure` and `--seed` cannot be combined.
 {.warning}
+
 #### `dnv random password` (alias: `pw`) {#random-password}
 
 #### Description {.desc}
@@ -893,7 +889,7 @@ dnv random pw --length 24 --copy
 dnv random password --no-symbols --length 20 -r 5 -o passwords.json
 ```
 
-> ![warning](/images/icons/warning.svg) Warning: Avoid printing a production password to a shared terminal where it could be visible to others. Quiet mode and copy mode conflict, so choose one output method per invocation.
+> ![warning](/images/icons/warning.svg) Warning: Avoid printing a production password to a shared terminal where it could be visible to others.
 {.warning}
 
 #### `dnv random pick` {#random-pick}
@@ -910,7 +906,7 @@ Chooses one item at random from a comma-separated list you provide, which is han
 
 | Item | Meaning |
 | --- | --- |
-| `[choices]` | Comma-separated list of items to pick from |
+| `[choices]` | Comma-separated list of items to pick from; stdin when omitted |
 | `-r, --repeat <n>` | Number of picks to perform |
 | `--seed <n>` | Seed for reproducible non-cryptographic output |
 | `-c, --copy` | Copy one result |
@@ -923,12 +919,11 @@ dnv random pick red,green,blue
 dnv random pick a,b,c,d --repeat 3 --seed 11 -q
 ```
 
-> ![warning](/images/icons/warning.svg) Warning: An empty list is invalid. Use `--seed` only for deterministic selection — never for secrets, because seeded generators are not cryptographically secure.
-{.warning}
+> ![note](/images/icons/note.svg) Note: An empty list is invalid. Use `--seed` only for deterministic selection — never for secrets.
 
 ### `dnv time` {#time}
 
-The time module works with the three formats you are most likely to encounter — Unix timestamps, ISO 8601 strings, and the shorthand `now` — so you can convert, compare, or adjust time values without worrying about the format mismatch between different data sources.
+The time module works with the three formats you are most likely to encounter — Unix timestamps, ISO 8601 strings, and the shorthand `now` — so you can convert, compare, or adjust time values without worrying about the format mismatch between different data sources. The `--utc` and `--timezone` options only apply when the input is `now`.
 
 #### `dnv time convert` {#time-convert}
 
@@ -1026,9 +1021,6 @@ dnv time add 2024-06-21T12:00:00Z --duration 1mo2d
 
 > ![note](/images/icons/note.svg) Note: At least one unit is required — you cannot call the command with no time adjustment. Also, `--duration` cannot be mixed with individual unit options like `--days` or `--hours` because they represent two alternative ways to specify the same thing.
 
-> ![tip](/images/icons/tip.svg) Tip: `--timezone` is not case-sensitive.
-{.tip}
-
 ### `dnv http` {#http}
 
 The HTTP module gives you quick access to status codes, response headers, and endpoint timing — everything you need to diagnose a remote service without leaving the terminal. Network failures return exit code 6, while timeouts return exit code 3.
@@ -1060,9 +1052,7 @@ dnv http status 4xx
 dnv http status example.com --domain --port 8443 -q
 ```
 
-> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP without `--port`.
-
-> ![note](/images/icons/note.svg) Note: `--port` can only be used together with `--domain`, because a port is only meaningful when you are connecting to a remote server. The input can be a numeric status code, a category such as `4xx`, or a domain name.
+> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP. `--port` can only be used together with `--domain`.
 
 #### `dnv http headers` {#http-headers}
 
@@ -1078,7 +1068,7 @@ Fetches the response headers a domain sends back, which helps you inspect cachin
 
 | Item | Meaning |
 | --- | --- |
-| `[domainName]` | Domain to fetch headers from |
+| `[domainName]` | Domain to fetch headers from; stdin when omitted |
 | `--port <n>` | Remote port (1–65535) |
 | `--follow` | Follow redirects |
 | `--redirects <n>` | Maximum redirects to follow; default 50 |
@@ -1092,7 +1082,7 @@ dnv http headers example.com --follow
 dnv http headers example.com --header content-type -q
 ```
 
-> ![note](/images/icons/note.svg) Note: Use `--follow` when a redirect response is not the final result you need — the command will follow the chain until it reaches a non-redirect status. Supply the domain as an argument or through stdin.
+> ![Tip](/images/icons/tip.svg) Tip: Use `--follow` when a redirect response is not the final result you need — the command will follow the chain until it reaches a non-redirect status.
 
 #### `dnv http timing` {#http-timing}
 
@@ -1102,7 +1092,7 @@ Measures each phase of the connection — DNS resolution, TCP handshake, TLS neg
 
 #### Syntax {.syntax}
 
-`dnv http timing [domainName] [--port <n>] [-r <n>] [-q]`
+`dnv http timing [domainName] [options]`
 
 #### Arguments and options {.args}
 
@@ -1167,7 +1157,7 @@ Encodes a string so it can be safely included in a URL, replacing characters tha
 
 | Item | Meaning |
 | --- | --- |
-| `[value]` | String to URL-encode |
+| `[value]` | String to URL-encode; stdin when omitted |
 | `--comp, --component <mode>` | `full` (default) or `query` encoding mode |
 | `-c, --copy` | Copy the result |
 | `-q, --quiet` | Raw output to stdout |
@@ -1179,7 +1169,7 @@ dnv url encode 'hello world&x=1' -q
 dnv url encode 'q=hello world&lang=en' --component query
 ```
 
-> ![note](/images/icons/note.svg) Note: `full` is the default component mode and encodes all characters that are not permitted in a URL. `query` mode is intended for encoding query string representations. Empty input is rejected, and quiet mode conflicts with copy mode as elsewhere.
+> ![note](/images/icons/note.svg) Note: `full` is the default component mode and encodes all characters that are not permitted in a URL. `query` mode is intended for encoding query string representations. Empty input is rejected.
 
 #### `dnv url decode` {#url-decode}
 
@@ -1195,7 +1185,7 @@ Decodes URL-encoded text back to its original form, which is the counterpart to 
 
 | Item | Meaning |
 | --- | --- |
-| `[value]` | URL-encoded string to decode |
+| `[value]` | URL-encoded string to decode; stdin when omitted |
 | `--comp, --component <mode>` | `full` or `query` decoding mode |
 | `--strict` | Reject malformed percent sequences |
 | `-c, --copy` | Copy the result |
@@ -1206,8 +1196,6 @@ Decodes URL-encoded text back to its original form, which is the counterpart to 
 ```bash
 dnv url decode 'hello%20world%26x%3D1' --strict -q
 ```
-
-> ![note](/images/icons/note.svg) Note: Strict mode rejects malformed percent sequences instead of silently fixing them, which is useful when you want to validate input. As with encode, choose either copy or quiet mode, not both.
 
 ### `dnv json` {#json}
 
@@ -1330,8 +1318,7 @@ dnv json diff before.json after.json --file
 dnv json diff a.json b.json --file --ignore-array-order -q
 ```
 
-> ![note](/images/icons/note.svg) Note: Object key order and whitespace formatting do not affect the comparison — only the actual values matter. Array order is significant unless you set `--ignore-array-order`. If you omit the second input, it can be read from stdin.
-> ![note](/images/icons/note.svg) Note: The first JSON document is always used as the reference.
+> ![note](/images/icons/note.svg) Note: Object key order and whitespace formatting do not affect the comparison — only the actual values matter. Array order is significant unless you set `--ignore-array-order`. The first JSON document is always used as the reference.
 
 ## Complete route and alias reference {#route-reference}
 
