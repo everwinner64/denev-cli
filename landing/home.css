@@ -25,6 +25,28 @@ body {
     color-scheme: dark;
 }
 
+footer {
+    display: flex;
+    justify-content: center;
+    border-top: 3px solid rgba(255, 255, 255, 0.06);
+    width: min(100% - 80px, 1180px);
+    padding-top: 20px;
+    margin: 0 auto 100px;
+    gap: 3%;
+    font-size: 0.75rem;
+}
+
+footer a, #opt-out {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+footer a:hover, #opt-out:hover {
+    text-decoration: underline;
+}
+
 /* ===== Navbar ===== */
 
 #navbar {
