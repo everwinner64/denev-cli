@@ -1,6 +1,7 @@
 overrides:
   brace-expansion: 5.0.9
 allowBuilds:
+  core-js: true
   esbuild: true
   sharp: true
   workerd: true
