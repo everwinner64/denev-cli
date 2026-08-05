@@ -1,3 +1,7 @@
+import { initAnalytics, trackCommandCopied, trackDownload } from '../analytics.js';
+
+initAnalytics();
+
 document.getElementById("linux-x64").addEventListener('click', () => getFile("denev-linux-x86_64.tar.gz", "Linux-x86_64"));
 document.getElementById("linux-arm64").addEventListener('click', () => getFile("denev-linux-arm64.tar.gz", "Linux-arm64"));
 document.getElementById("mac-x64").addEventListener('click', () => getFile("denev-macos-x86_64.tar.gz", "macOS-x86_64 (Intel)"));
@@ -15,7 +19,9 @@ async function getFile(fileName, commonName) {
         }
 
         const release = await res.json();
-        const url = `https://github.com/everwinner64/denev-cli/releases/download/${release.tag_name}/${fileName.replace('denev-', `denev-${release.tag_name}-`)}`;
+        const tag = release.tag_name.replace('v', '');
+        const url = `https://github.com/everwinner64/denev-cli/releases/download/${tag}/${fileName.replace('denev-', `denev-${tag}-`)}`;
+        trackDownload(commonName, release.tag_name);
 
         window.location.href = url;
     } catch (err) {
@@ -65,5 +71,6 @@ codeSnippets.forEach(snippet => {
         setTimeout(() => {
             wrapper.querySelector('.copy-icon').outerHTML = copyIcon;
         }, 1000);
+        trackCommandCopied(commandText);
     });
 });
