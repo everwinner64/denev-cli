@@ -60,7 +60,7 @@ $archivePath = Join-Path $script:tmpDir $archiveName
 
 # ── Download (Invoke-WebRequest = natif) ─────────────────────
 try {
-    Invoke-WebRequest -Uri $downloadUrl -OutFile $archivePath -UseBasicParsing
+    Invoke-WebRequest -Uri $downloadUrl -OutFile $archivePath
 }
 catch { die "Download failed: $_" }
 
@@ -125,7 +125,7 @@ else {
 # ── Verify ───────────────────────────────────────────────────
 if (Get-Command dnv -ErrorAction SilentlyContinue) {
     Write-Host ""; Write-Host "  🎉 Denev CLI installed successfully!" -Fore $GREEN; Write-Host ""
-    dnv --help 2>$null
+    dnv --help 2>$null && dnv completion powershell 2>$null
 }
 else {
     Write-Host ""; Write-Host "  ⚠️  Installed but not in current PATH." -Fore $YELLOW

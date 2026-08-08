@@ -19,8 +19,7 @@ async function getFile(fileName, commonName) {
         }
 
         const release = await res.json();
-        const tag = release.tag_name.replace('v', '');
-        const url = `https://github.com/everwinner64/denev-cli/releases/download/${tag}/${fileName.replace('denev-', `denev-${tag}-`)}`;
+        const url = `https://github.com/everwinner64/denev-cli/releases/download/${release.tag_name}/${fileName.replace('denev-', `denev-${release.tag_name.replace('v', '')}-`)}`;
         trackDownload(commonName, release.tag_name);
 
         window.location.href = url;

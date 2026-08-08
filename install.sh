@@ -135,19 +135,18 @@ mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 rm -rf "$ARCHIVE_PATH" 
 cp -r "$TMP_DIR"/* "$INSTALL_DIR"/ || die "Failed to copy files to ${INSTALL_DIR}"
 
-# Ensure the main binary is executable
-if [ -f "$INSTALL_DIR/dnv" ]; then
-    chmod +x "$INSTALL_DIR/dnv"
-elif [ -f "$INSTALL_DIR/dnv.exe" ]; then
-    chmod +x "$INSTALL_DIR/dnv.exe"
-else
+# ── Binaire + symlink (gère dnv et dnv.exe) ───────────────
+BINARY_NAME="dnv"
+if [ -f "$INSTALL_DIR/dnv.exe" ]; then
+    BINARY_NAME="dnv.exe"
+elif [ ! -f "$INSTALL_DIR/dnv" ]; then
     die "Binary 'dnv' not found in the archive"
 fi
 
-# ── Symlink dans ~/.local/bin/ ────────────────────────────
-ln -sf "$INSTALL_DIR/dnv" "${BIN_DIR}/dnv"
+chmod +x "$INSTALL_DIR/$BINARY_NAME"
+ln -sf "$INSTALL_DIR/$BINARY_NAME" "${BIN_DIR}/$BINARY_NAME"
 
-success "Installed to ${INSTALL_DIR}/dnv (symlink in ${BIN_DIR}/dnv)"
+success "Installed to ${INSTALL_DIR}/${BINARY_NAME} (symlink in ${BIN_DIR}/${BINARY_NAME})"
 
 # ── PATH setup ──────────────────────────────────────────
 info "Configuring PATH..."
@@ -179,7 +178,7 @@ fi
 # ── Verify ──────────────────────────────────────────────
 if command -v dnv &>/dev/null; then
     printf '\n  %s🎉 Denev CLI installed successfully!\n\n' "${GREEN}"
-    dnv --help 2>/dev/null || printf '  Run "dnv --help" to get started.\n'
+    dnv --help 2>/dev/null && dnv completion "$(ps -p $$ -o comm=)" 2>/dev/null || printf '  Run "dnv --help" to get started.\n'
 else
     printf '\n  %s⚠️  Denev CLI installed, but not in current PATH.\n' "${YELLOW}"
     printf '  You should restart your shell\n\n'

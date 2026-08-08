@@ -2,8 +2,8 @@
 
 <a href="https://denev.pages.dev/">
     <picture>
-    <source srcset="/images/readme/logo-large.svg" media="(prefers-color-scheme: dark)">
-    <img src="/images/readme/logo-large-light.svg" alt="denev"/>
+        <source srcset="/images/readme/logo-large.svg" media="(prefers-color-scheme: dark)">
+        <img src="/images/readme/logo-large-light.svg" alt="denev"/>
     </picture>
 </a>
 
@@ -140,10 +140,10 @@ If you know what you're doing, `--no-confirm` lets you proceed.
 ## Install
 
 ```bash
-# Linux / macOS
+# Linux, macOS, and Windows (Git Bash, WSL)
 curl -fsSL https://denev.pages.dev/install.sh | bash
 
-# Windows (PowerShell)
+# Windows x86_64 (PowerShell 5.1+)
 irm https://denev.pages.dev/install.ps1 | iex
 ```
 
