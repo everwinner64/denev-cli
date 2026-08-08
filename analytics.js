@@ -13,16 +13,49 @@ const INIT_CONFIG = {
     defaults: '2026-05-30',
 };
 
+function block() {
+    document.querySelectorAll("a, button").forEach(el => {
+        if (el.id !== "analytics-alert-hide") {
+            el.inert = true;
+        }
+    });
+
+    document.body.style.overflow = "hidden";
+    document.body.style.backgroundColor = "#030719";
+}
+
+function unblock() {
+    document.querySelectorAll("[inert]").forEach(el => {
+        el.inert = false;
+    });
+
+    document.body.style.overflow = "";
+    document.body.style.backgroundColor = "#040C25";
+}
+
 const optOut = document.getElementById("opt-out");
+const alert = document.getElementById("analytics-alert");
 if (optOut) {
     optOut.addEventListener('click', () => {
         if (localStorage.getItem("hasOptedOut") != "true") {
             posthog.opt_out_capturing();
             localStorage.setItem("hasOptedOut", "true");
-            alert("Successfuly opted out from analytics.");
-            window.location.reload();
+            block();
+
+            alert.classList.remove("hidden");
+            document.getElementById("analytics-alert-msg").textContent = "Successfuly opted out from analytics.";
+            document.getElementById("analytics-alert-hide").addEventListener('click', () => {
+                alert.classList.add("hidden");
+                window.location.reload();
+            }, { once: true });
         } else {
-            alert("You already opted out from analytics.");
+            block()
+            alert.classList.remove("hidden");
+            document.getElementById("analytics-alert-msg").textContent = "You already opted out from analytics.";
+            document.getElementById("analytics-alert-hide").addEventListener('click', () => {
+                alert.classList.add("hidden"); 
+                unblock();
+            }, { once: true });
         }
     });
 }
