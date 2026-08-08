@@ -46,13 +46,13 @@ Shared concepts, such as standard input, quiet output, file handling, and exit c
 
 Denev is designed to run on Windows 10 and 11, Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can download Denev directly from the [download page](/download/#manual-install){target="_blank" rel="noopener noreferrer"}, or, even easier, use one of the following methods:
 
-Linux and macOS
+Linux, macOS, and Windows (Git Bash, WSL)
 
 ```bash
 curl -fsSL https://denev.pages.dev/install.sh | bash
 ```
 
-Windows (Powershell)
+Windows x86_64 (PowerShell 5.1+)
 
 ```powershell
 irm https://denev.pages.dev/install.ps1 | iex
@@ -64,6 +64,8 @@ Once `dnv` is installed, verify that it is on your `PATH`:
 dnv --version
 dnv --help
 ```
+
+>![tip](/images/icons/tip.svg) Tip: If you didn't used one of the install script, or if PATH update failed during install, run `dnv completion <yourShellName>` to enable auto-completion. Bash, Zsh, and PowerShell 5.1+ are supported.
 
 ### Updating {#updating}
 
@@ -83,25 +85,29 @@ To uninstall Denev, you can run the following commands:
 Linux:
 
 ```bash
-rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/.cache/denev-cli && rm -rf ~/.local/share/denev-cli
+rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/.cache/denev-cli && rm -rf ~/.local/share/denev-cli && rm -rf ~/.config/denev-cli
 ```
 
 macOS:
 
 ```bash
-rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/Library/Caches/denev-cli && rm -rf ~/Library/Application\ Support/denev-cli
+rm -f ~/.local/bin/dnv && rm -rf ~/.local/share/denev && rm -rf ~/Library/Caches/denev-cli && rm -rf ~/Library/Application\ Support/denev-cli && rm -rf ~/.config/denev-cli
+
 ```
 
 Windows (PowerShell):
 ```powershell
 Remove-Item "$env:LOCALAPPDATA\denev" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item "$env:LOCALAPPDATA\denev-cli" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:USERPROFILE\.config\denev-cli" -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-After running the commands for your OS, you may need to remove denev from your shell config (~/.bashrc, ~/.zshrc, ~/.profile, etc.).
+After running the commands for your OS, you may need to remove Denev from your shell config (~/.bashrc, ~/.zshrc, ~/.profile, etc.).
 
 > ![note](/images/icons/note.svg) Note: Changes will be fully applied after starting a new terminal.
 
+> ![warning](/images/icons/warning.svg) Warning: On Linux and macOS, paths depend on `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_CACHE_HOME` when set. Check the actual locations with `echo "$XDG_CONFIG_HOME"` etc. before running the commands above.
+{.warning}
 ## Getting started {#get-started}
 
 Denev mostly follows this shape:
