@@ -106,6 +106,11 @@ const targets = [
         transform: async (contents) => await updateCss(contents),
     },
     {
+        src: 'cookbook/*.css',
+        dest: 'min/css/',
+        transform: async (contents) => await updateCss(contents),
+    },
+    {
         src: 'favicon/*',
         dest: 'min/favicon/',
         onlyFiles: true,
@@ -148,6 +153,7 @@ export default {
         terminal: 'landing/terminal.js',
         docs: 'docs/docs.js',
         download: 'download/download.js',
+        cookbook: 'cookbook/cookbook.js',
         404: '404.js'
     },
 

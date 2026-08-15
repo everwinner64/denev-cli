@@ -5,15 +5,15 @@
     "type": "module",
     "main": "min/index.html",
     "scripts": {
-        "build": "node scripts/build-docs.js && rollup -c",
-        "dev": "node scripts/build-docs.js && rollup -c -w",
+        "build": "node scripts/build-docs.js && node scripts/build-cookbook.js && rollup -c",
+        "dev": "node scripts/build-docs.js && node scripts/build-cookbook.js && rollup -c -w",
         "preview": "pnpm build && pkill -9 workerd || true && wrangler pages dev min --ip 127.0.0.1 --compatibility-date 2026-07-21"
     },
     "engines": {
         "node": ">=22"
     },
     "dependencies": {
-        "posthog-js": "^1.414.0",
+        "posthog-js": "^1.417.1",
         "typewriter-effect": "^2.22.0"
     },
     "devDependencies": {
@@ -21,13 +21,13 @@
         "@rollup/plugin-commonjs": "^29.0.3",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@rollup/plugin-terser": "^1.0.0",
-        "cssnano": "^8.0.4",
+        "cssnano": "^8.0.5",
         "eslint": "^10.8.1",
-        "globals": "^17.9.0",
+        "globals": "^17.11.0",
         "markdown-it": "^15.0.0",
         "markdown-it-attrs": "^5.0.1",
         "rollup": "^4.62.4",
         "rollup-plugin-copy": "^3.5.0",
-        "wrangler": "^4.120.0"
+        "wrangler": "^4.123.0"
     }
 }

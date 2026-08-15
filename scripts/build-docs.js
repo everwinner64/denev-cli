@@ -57,15 +57,15 @@ function renderSidebar(config) {
         for (const item of category.items) {
             if (item.children && item.children.length > 0) {
                 html += '<div class="sidebar-group-toggle">\n';
-                html += `<a href="#${item.id}" class="sidebar-link parent">${escapeHtml(item.label)}<span class="chevron"></span></a>\n`;
+                html += `<a href="${item.id}" class="sidebar-link parent">${escapeHtml(item.label)}<span class="chevron"></span></a>\n`;
                 html += '<div class="sidebar-subs">\n';
                 for (const child of item.children) {
-                    html += `<a href="#${child.id}" class="sidebar-link sub">${escapeHtml(child.label)}</a>\n`;
+                    html += `<a href="${child.id}" class="sidebar-link sub">${escapeHtml(child.label)}</a>\n`;
                 }
                 html += '</div>\n';
                 html += '</div>\n';
             } else {
-                html += `<a href="#${item.id}" class="sidebar-link">${escapeHtml(item.label)}</a>\n`;
+                html += `<a href="${item.id}" class="sidebar-link">${escapeHtml(item.label)}</a>\n`;
             }
         }
 
