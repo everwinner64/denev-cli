@@ -66,6 +66,7 @@ dnv --help
 ```
 
 >![tip](/images/icons/tip.svg) Tip: If you didn't used one of the install script, or if PATH update failed during install, run `dnv completion <yourShellName>` to enable auto-completion. Bash, Zsh, and PowerShell 5.1+ are supported.
+{.tip}
 
 ### Updating {#updating}
 
@@ -390,6 +391,9 @@ dnv jwt gen '{"role":"user"}' --secret-env JWT_SECRET --sub user-42 --aud dashbo
 
 > ![warning](/images/icons/warning.svg) Warning: Use environment variables for non-interactive secrets. A missing or empty variable, invalid duration, unsupported algorithm, or incompatible signing inputs is an input error (2).
 {.warning}
+
+> ![tip](/images/icons/tip.svg) Tip: Claims can contain placeholders. Available placeholders are {{n}}, {{uuid}}, {{timestamp}}, and {{rand}}. {{n}} represents the current iteration number. {{uuid}} generate a new random at every iteration. {{timestamp}} uses the UTC Unix timestamp. {{rand}} uses a cryptographically secure 4 bytes string.
+{.tip}
 
 #### `dnv jwt inspect` {#jwt-inspect}
 
@@ -749,8 +753,7 @@ Parses a local PEM, DER, or PFX certificate so you can examine its fields, or ob
 | Item | Meaning |
 | --- | --- |
 | `[certPath\|domainName]` | .crt, .pem, .der, or .pfx certificate or domain name to inspect. Read from stdin if omitted |
-| `--domain` | Treat input as a domain and retrieve its certificate |
-| `--port <n>` | Remote port; requires `--domain` |
+| `--domain` | Treat input as a domain and retrieve its certificate
 | `-w, --warn-days <n>` | Check expiry within N days |
 | `--field <expiry\|issuer\|serialNumber\|algo>` | Return selected comma-separated fields |
 | `--pw-env <var>` | PFX password variable |
@@ -764,7 +767,7 @@ dnv cert inspect ./server.pem --field expiry,issuer
 dnv cert inspect example.com --domain --warn-days 30 -q
 ```
 
-> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP without `--port`.
+> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP. HTTP scheme must be explicit if not using HTTPS.
 
 > ![note](/images/icons/note.svg) Note: PFX inspection in quiet mode requires `--pw-env` since no terminal is available to enter a password.
 
@@ -1047,7 +1050,6 @@ Looks up what a status code or category means — useful when you encounter an u
 | --- | --- |
 | `[code\|domainName]` | Status code, category (e.g.`4xx`), or domain name |
 | `--domain` | Treat input as a domain and connect to it |
-| `--port <n>` | Remote port; requires `--domain` |
 | `-q, --quiet` | JSON output to stdout |
 
 #### Examples and notes {.examples}
@@ -1055,10 +1057,10 @@ Looks up what a status code or category means — useful when you encounter an u
 ```bash
 dnv http status 429
 dnv http status 4xx
-dnv http status example.com --domain --port 8443 -q
+dnv http status example.com:8443 --domain -q
 ```
 
-> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP. `--port` can only be used together with `--domain`.
+> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP. HTTP scheme must be explicit if not using HTTPS.
 
 #### `dnv http headers` {#http-headers}
 
@@ -1075,7 +1077,6 @@ Fetches the response headers a domain sends back, which helps you inspect cachin
 | Item | Meaning |
 | --- | --- |
 | `[domainName]` | Domain to fetch headers from; stdin when omitted |
-| `--port <n>` | Remote port (1–65535) |
 | `--follow` | Follow redirects |
 | `--redirects <n>` | Maximum redirects to follow; default 50 |
 | `--header <name>` | Return only the specified header |
@@ -1087,6 +1088,8 @@ Fetches the response headers a domain sends back, which helps you inspect cachin
 dnv http headers example.com --follow
 dnv http headers example.com --header content-type -q
 ```
+
+> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP. HTTP scheme must be explicit if not using HTTPS.
 
 > ![Tip](/images/icons/tip.svg) Tip: Use `--follow` when a redirect response is not the final result you need — the command will follow the chain until it reaches a non-redirect status.
 
@@ -1105,7 +1108,6 @@ Measures each phase of the connection — DNS resolution, TCP handshake, TLS neg
 | Item | Meaning |
 | --- | --- |
 | `[domainName]` | Domain to time the connection to |
-| `--port <n>` | Remote port |
 | `-r, --repeat <n>` | Number of requests; default 1 |
 | `-q, --quiet` | JSON output to stdout |
 
@@ -1113,8 +1115,10 @@ Measures each phase of the connection — DNS resolution, TCP handshake, TLS neg
 
 ```bash
 dnv http timing example.com
-dnv http timing example.com --repeat 3 --port 8443 -q
+dnv http timing example.com:8443 --repeat 3 -q
 ```
+
+> ![note](/images/icons/note.svg) Note: By default, the target port is 443 on HTTPS or 80 on HTTP. HTTP scheme must be explicit if not using HTTPS.
 
 > ![tip](/images/icons/tip.svg) Tip: Use the quiet JSON output when you need to compare successive measurements in a script — it is easier to parse than the human-readable table.
 {.tip}
