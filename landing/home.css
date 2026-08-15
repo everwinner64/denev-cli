@@ -66,7 +66,7 @@ footer a:hover, #opt-out:hover {
     background: rgba(4, 12, 37, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 3px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     text-align: center;
 }

@@ -4,11 +4,11 @@
         "items": [
             {
                 "label": "Denev CLI",
-                "id": "introduction",
+                "id": "#introduction",
                 "children": [
-                    { "label": "The solution", "id": "philosophy-part1" },
-                    { "label": "Design philosophy", "id": "philosophy-part2" },
-                    { "label": "About this documentation", "id": "about-doc" }
+                    { "label": "The solution", "id": "#philosophy-part1" },
+                    { "label": "Design philosophy", "id": "#philosophy-part2" },
+                    { "label": "About this documentation", "id": "#about-doc" }
                 ]
             }
         ]
@@ -18,17 +18,17 @@
         "items": [
             {
                 "label": "Installation",
-                "id": "install",
+                "id": "#install",
                 "children": [
-                    { "label": "Updating", "id": "updating" },
-                    { "label": "Uninstall", "id": "uninstall" }
+                    { "label": "Updating", "id": "#updating" },
+                    { "label": "Uninstall", "id": "#uninstall" }
                 ]
             },
             {
                 "label": "Getting started",
-                "id": "get-started",
+                "id": "#get-started",
                 "children": [
-                    { "label": "A typical workflow", "id": "typical-workflow" }
+                    { "label": "A typical workflow", "id": "#typical-workflow" }
                 ]
             }
         ]
@@ -38,11 +38,11 @@
         "items": [
             {
                 "label": "Concepts & conventions",
-                "id": "concepts-conventions",
+                "id": "#concepts-conventions",
                 "children": [
-                    { "label": "Input", "id": "concepts-conventions-input" },
-                    { "label": "Output & clipboard", "id": "concepts-conventions-output" },
-                    { "label": "Exit codes", "id": "exit-codes" }
+                    { "label": "Input", "id": "#concepts-conventions-input" },
+                    { "label": "Output & clipboard", "id": "#concepts-conventions-output" },
+                    { "label": "Exit codes", "id": "#exit-codes" }
                 ]
             }
         ]
@@ -50,110 +50,110 @@
     {
         "label": "Modules list",
         "items": [
-            { "label": "Modules", "id": "modules" }
+            { "label": "Modules", "id": "#modules" }
         ]
     },
     {
         "label": "Commands",
         "items": [
-            { "label": "update", "id": "update" },
-            { "label": "stats", "id": "stats" },
+            { "label": "update", "id": "#update" },
+            { "label": "stats", "id": "#stats" },
             {
                 "label": "crypto",
-                "id": "crypto",
+                "id": "#crypto",
                 "children": [
-                    { "label": "hash", "id": "crypto-hash" },
-                    { "label": "hmac", "id": "crypto-hmac" }
+                    { "label": "hash", "id": "#crypto-hash" },
+                    { "label": "hmac", "id": "#crypto-hmac" }
                 ]
             },
             {
                 "label": "jwt",
-                "id": "jwt",
+                "id": "#jwt",
                 "children": [
-                    { "label": "generate", "id": "jwt-generate" },
-                    { "label": "inspect", "id": "jwt-inspect" }
+                    { "label": "generate", "id": "#jwt-generate" },
+                    { "label": "inspect", "id": "#jwt-inspect" }
                 ]
             },
             {
                 "label": "base64",
-                "id": "base64",
+                "id": "#base64",
                 "children": [
-                    { "label": "encode", "id": "base64-encode" },
-                    { "label": "decode", "id": "base64-decode" }
+                    { "label": "encode", "id": "#base64-encode" },
+                    { "label": "decode", "id": "#base64-decode" }
                 ]
             },
             {
                 "label": "regex",
-                "id": "regex",
+                "id": "#regex",
                 "children": [
-                    { "label": "test", "id": "regex-test" },
-                    { "label": "explain", "id": "regex-explain" },
-                    { "label": "pattern", "id": "regex-pattern" }
+                    { "label": "test", "id": "#regex-test" },
+                    { "label": "explain", "id": "#regex-explain" },
+                    { "label": "pattern", "id": "#regex-pattern" }
                 ]
             },
             {
                 "label": "uuid",
-                "id": "uuid",
+                "id": "#uuid",
                 "children": [
-                    { "label": "generate", "id": "uuid-generate" },
-                    { "label": "validate", "id": "uuid-validate" },
-                    { "label": "inspect", "id": "uuid-inspect" }
+                    { "label": "generate", "id": "#uuid-generate" },
+                    { "label": "validate", "id": "#uuid-validate" },
+                    { "label": "inspect", "id": "#uuid-inspect" }
                 ]
             },
             {
                 "label": "cert",
-                "id": "cert",
+                "id": "#cert",
                 "children": [
-                    { "label": "generate", "id": "cert-generate" },
-                    { "label": "inspect", "id": "cert-inspect" }
+                    { "label": "generate", "id": "#cert-generate" },
+                    { "label": "inspect", "id": "#cert-inspect" }
                 ]
             },
             {
                 "label": "random",
-                "id": "random",
+                "id": "#random",
                 "children": [
-                    { "label": "string", "id": "random-string" },
-                    { "label": "int", "id": "random-int" },
-                    { "label": "bytes", "id": "random-bytes" },
-                    { "label": "password", "id": "random-password" },
-                    { "label": "pick", "id": "random-pick" }
+                    { "label": "string", "id": "#random-string" },
+                    { "label": "int", "id": "#random-int" },
+                    { "label": "bytes", "id": "#random-bytes" },
+                    { "label": "password", "id": "#random-password" },
+                    { "label": "pick", "id": "#random-pick" }
                 ]
             },
             {
                 "label": "time",
-                "id": "time",
+                "id": "#time",
                 "children": [
-                    { "label": "convert", "id": "time-convert" },
-                    { "label": "diff", "id": "time-diff" },
-                    { "label": "add", "id": "time-add" }
+                    { "label": "convert", "id": "#time-convert" },
+                    { "label": "diff", "id": "#time-diff" },
+                    { "label": "add", "id": "#time-add" }
                 ]
             },
             {
                 "label": "http",
-                "id": "http",
+                "id": "#http",
                 "children": [
-                    { "label": "status", "id": "http-status" },
-                    { "label": "headers", "id": "http-headers" },
-                    { "label": "timing", "id": "http-timing" }
+                    { "label": "status", "id": "#http-status" },
+                    { "label": "headers", "id": "#http-headers" },
+                    { "label": "timing", "id": "#http-timing" }
                 ]
             },
             {
                 "label": "url",
-                "id": "url",
+                "id": "#url",
                 "children": [
-                    { "label": "inspect", "id": "url-inspect" },
-                    { "label": "encode", "id": "url-encode" },
-                    { "label": "decode", "id": "url-decode" }
+                    { "label": "inspect", "id": "#url-inspect" },
+                    { "label": "encode", "id": "#url-encode" },
+                    { "label": "decode", "id": "#url-decode" }
                 ]
             },
             {
                 "label": "json",
-                "id": "json",
+                "id": "#json",
                 "children": [
-                    { "label": "get", "id": "json-get" },
-                    { "label": "pick", "id": "json-pick" },
-                    { "label": "omit", "id": "json-omit" },
-                    { "label": "diff", "id": "json-diff" }
+                    { "label": "get", "id": "#json-get" },
+                    { "label": "pick", "id": "#json-pick" },
+                    { "label": "omit", "id": "#json-omit" },
+                    { "label": "diff", "id": "#json-diff" }
                 ]
             }
         ]
@@ -161,18 +161,19 @@
     {
         "label": "Reference",
         "items": [
-            { "label": "Route & alias reference", "id": "route-reference" },
+            { "label": "Cookbook", "id": "/cookbook/" },
+            { "label": "Route & alias reference", "id": "#route-reference" },
             {
                 "label": "FAQ",
-                "id": "faq",
+                "id": "#faq",
                 "children": [
-                    { "label": "How can I find the license", "id": "faq-license" },
-                    { "label": "Why does a command reject both an argument and piped input?", "id": "faq-ambiguous-input" },
-                    { "label": "Why did --copy fail with --quiet or --repeat?", "id": "faq-copy-quiet" },
-                    { "label": "Why did my output path gain an extension?", "id": "faq-output-extension" },
-                    { "label": "Can I use MD5 or SHA-1?", "id": "faq-weak-algos" },
-                    { "label": "Does jwt inspect verify every token?", "id": "faq-jwt-verify" },
-                    { "label": "How do I diagnose an endpoint that fails?", "id": "faq-diagnose-endpoint" }
+                    { "label": "How can I find the license", "id": "#faq-license" },
+                    { "label": "Why does a command reject both an argument and piped input?", "id": "#faq-ambiguous-input" },
+                    { "label": "Why did --copy fail with --quiet or --repeat?", "id": "#faq-copy-quiet" },
+                    { "label": "Why did my output path gain an extension?", "id": "#faq-output-extension" },
+                    { "label": "Can I use MD5 or SHA-1?", "id": "#faq-weak-algos" },
+                    { "label": "Does jwt inspect verify every token?", "id": "#faq-jwt-verify" },
+                    { "label": "How do I diagnose an endpoint that fails?", "id": "#faq-diagnose-endpoint" }
                 ]
             }
         ]
