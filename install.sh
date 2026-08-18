@@ -25,7 +25,7 @@ trap cleanup EXIT
 trap 'exit 2' INT TERM
 
 # ── Dependency check ────────────────────────────────────
-for cmd in curl tar mktemp install; do
+for cmd in curl tar mktemp; do
     command -v "$cmd" &>/dev/null || die "Required command not found: ${cmd}"
 done
 
@@ -81,7 +81,7 @@ DOWNLOAD_URL=$(echo "$RELEASE_JSON" \
 
 # ── Download ─────────────────────────────────────────────
 info "Downloading archive..."
-TMP_DIR=$(mktemp -d denev-install.XXXXXXXXXX)
+TMP_DIR=$(mktemp -d "${TMPDIR:-/tmp}/denev-install.XXXXXX")
 ARCHIVE_PATH="${TMP_DIR}/archive"
 
 curl -fsSL -L -o "$ARCHIVE_PATH" "$DOWNLOAD_URL" || die "Download failed"
@@ -122,7 +122,7 @@ case "$ARCHIVE_NAME" in
         ;;
     *.zip)
         command -v unzip &>/dev/null || die "unzip is required to extract .zip archives"
-        unzip -q "$ARCHIVE_PATH" -d "$TMP_DIR" || die "Archive extraction failed"
+        unzip -q "$ARCHIVE_PATH" -d "$TMP_DIR" || die "Archive extraction failed."
         ;;
 esac
 
@@ -131,9 +131,10 @@ INSTALL_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/denev"
 BIN_DIR="${HOME}/.local/bin"
 mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 
-# ── Copier dans le dossier dédié ──────────────────────────
-rm -rf "$ARCHIVE_PATH" 
+rm -rf "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 cp -r "$TMP_DIR"/* "$INSTALL_DIR"/ || die "Failed to copy files to ${INSTALL_DIR}"
+rm -rf "$ARCHIVE_PATH" 
 
 # ── Binaire + symlink (gère dnv et dnv.exe) ───────────────
 BINARY_NAME="dnv"
@@ -144,7 +145,11 @@ elif [ ! -f "$INSTALL_DIR/dnv" ]; then
 fi
 
 chmod +x "$INSTALL_DIR/$BINARY_NAME"
-ln -sf "$INSTALL_DIR/$BINARY_NAME" "${BIN_DIR}/$BINARY_NAME"
+if [ "$OS" = "windows" ]; then
+    cp -f "$INSTALL_DIR/$BINARY_NAME" "$BIN_DIR/$BINARY_NAME"
+else
+    ln -sf "$INSTALL_DIR/$BINARY_NAME" "$BIN_DIR/$BINARY_NAME"
+fi
 
 success "Installed to ${INSTALL_DIR}/${BINARY_NAME} (symlink in ${BIN_DIR}/${BINARY_NAME})"
 
@@ -152,34 +157,69 @@ success "Installed to ${INSTALL_DIR}/${BINARY_NAME} (symlink in ${BIN_DIR}/${BIN
 info "Configuring PATH..."
 LINE='export PATH="$HOME/.local/bin:$PATH"'
 
-if [[ ":$PATH:" == *":$HOME/.local/bin:"* ]]; then
-    success "$HOME/.local/bin is already in PATH"
+# The installer runs through bash even when launched from zsh. Use the
+# user's login shell so this works on macOS/zsh and Git Bash on Windows.
+USER_SHELL="${SHELL:-}"
+USER_SHELL="${USER_SHELL##*/}"
+case "$USER_SHELL" in
+    zsh)
+        RC_FILE="$HOME/.zshrc"
+        ;;
+    bash)
+        RC_FILE="$HOME/.bashrc"
+        ;;
+    *)
+        # SHELL may be unset in some environments. The installer itself is
+        # bash, so this is the most useful fallback for Git Bash.
+        if [ -n "${BASH_VERSION:-}" ]; then
+            USER_SHELL="bash"
+            RC_FILE="$HOME/.bashrc"
+        else
+            RC_FILE="$HOME/.profile"
+        fi
+        ;;
+esac
+
+touch "$RC_FILE" || die "Cannot create shell configuration file: ${RC_FILE}"
+[ -w "$RC_FILE" ] || die "Cannot write to shell configuration file: ${RC_FILE}"
+
+# Persist the PATH independently from the current environment. The current
+# shell may already contain ~/.local/bin temporarily, while a new shell still
+# needs this line in its configuration file.
+if grep -qsF "$LINE" "$RC_FILE"; then
+    info "PATH entry already in ${RC_FILE}"
 else
-    for rc in ~/.bashrc ~/.zshrc ~/.zprofile ~/.bash_profile; do
-        case "$(basename "$rc")" in
-            .bash_profile)
-                [ -f "$rc" ] || : > "$rc"   # create
-                ;;
-            *)
-                [ -f "$rc" ] || continue # skip if file doesn't exist
-                ;;
-        esac       
-        [ -w "$rc" ] || { info "Cannot write to ${rc}, skipping."; continue; }
+    printf '%s\n' "" "# Denev CLI" "$LINE" >> "$RC_FILE"
+    info "Added PATH entry to ${RC_FILE}"
+fi
 
-        grep -qsF "$LINE" "$rc" && { info "PATH entry already in $(basename "$rc")"; continue; }
-
-        printf '%s\n' "" "# Denev CLI" "$LINE" >> "$rc"
-        info "Added PATH entry to $(basename "$rc")"
-    done
+if [[ ":$PATH:" == *":$HOME/.local/bin:"* ]]; then
+    success "$HOME/.local/bin is already in the current PATH"
+else
+    # This affects only the installer subprocess; a child process cannot
+    # modify the environment of the parent shell running `curl | bash`.
     export PATH="$HOME/.local/bin:$PATH"
-    success "PATH updated for current session"
+    success "PATH configured in ${RC_FILE} and enabled for the installer"
 fi
 
 # ── Verify ──────────────────────────────────────────────
 if command -v dnv &>/dev/null; then
     printf '\n  %s🎉 Denev CLI installed successfully!\n\n' "${GREEN}"
-    dnv --help 2>/dev/null && dnv completion "$(ps -p $$ -o comm=)" 2>/dev/null || printf '  Run "dnv --help" to get started.\n'
+    dnv --help 2>/dev/null || true
+
+    case "$USER_SHELL" in
+        bash|zsh)
+            if ! dnv completion "$USER_SHELL"; then
+                info "Denev was installed, but auto-completion could not be configured for ${USER_SHELL}."
+            fi
+            ;;
+        *)
+            info "Auto-completion is not configured for shell: ${USER_SHELL}"
+            ;;
+    esac
+    
+    info "Restart your shell or run: source ${RC_FILE}"
 else
     printf '\n  %s⚠️  Denev CLI installed, but not in current PATH.\n' "${YELLOW}"
-    printf '  You should restart your shell\n\n'
+    printf '  Restart your shell or run: source %s\n\n' "$RC_FILE"
 fi
