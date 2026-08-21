@@ -64,6 +64,13 @@ try {
 }
 catch { die "Download failed: $_" }
 
+try {
+    $sumsFile = Join-Path $script:tmpDir "SHA256SUMS"
+    Invoke-WebRequest -Uri $sumsUrl -OutFile $sumsFile
+    $expected = (Select-String -Path $sumsFile -SimpleMatch " $archiveName").Line.Split(' ')[0]
+}
+catch { die "Failed to download or parse SHA256SUMS: $_" }
+
 # ── Validate archive before extraction (allowlist) ─────────
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem

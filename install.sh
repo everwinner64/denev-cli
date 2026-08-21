@@ -86,9 +86,27 @@ ARCHIVE_PATH="${TMP_DIR}/archive"
 
 curl -fsSL -L -o "$ARCHIVE_PATH" "$DOWNLOAD_URL" || die "Download failed"
 
+ARCHIVE_NAME=$(echo "$DOWNLOAD_URL" | sed 's/.*\///')
+
+# ── Verify checksum before touching anything ──────────────
+SUMS_URL="${DOWNLOAD_URL%/*}/SHA256SUMS"
+SUMS=$(curl -fsSL "$SUMS_URL") || die "Failed to download SHA256SUMS"
+
+EXPECTED_HASH=$(printf '%s\n' "$SUMS" | grep " ${ARCHIVE_NAME}\$" | awk '{print $1}')
+[ -z "$EXPECTED_HASH" ] && die "No checksum found for ${ARCHIVE_NAME} in SHA256SUMS"
+
+ACTUAL_HASH=$(sha256sum "$ARCHIVE_PATH" | awk '{print $1}')
+if [ "$ACTUAL_HASH" != "$EXPECTED_HASH" ]; then
+    die "Checksum mismatch!
+  Expected: $EXPECTED_HASH
+  Actual:   $ACTUAL_HASH
+The download may be corrupted or tampered. Nothing was installed."
+fi
+
+success "Checksum verified"
+
 # ── Validate archive before extraction (allowlist) ─────────
 # Seuls le binaire et la lib sont attendus.
-ARCHIVE_NAME=$(echo "$DOWNLOAD_URL" | sed 's/.*\///')
 
 case "$ARCHIVE_NAME" in
     *.tar.gz)
