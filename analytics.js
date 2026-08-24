@@ -43,7 +43,7 @@ if (optOut) {
             block();
 
             alert.classList.remove("hidden");
-            document.getElementById("analytics-alert-msg").textContent = "Successfuly opted out from analytics.";
+            document.getElementById("analytics-alert-msg").textContent = "Successfully opted out from analytics.";
             document.getElementById("analytics-alert-hide").addEventListener('click', () => {
                 alert.classList.add("hidden");
                 window.location.reload();

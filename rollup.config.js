@@ -126,6 +126,11 @@ const targets = [
         onlyFiles: true,
     },
     {
+        src: 'images/og/*',
+        dest: 'min/images/',
+        onlyFiles: true,
+    },
+    {
         src: 'install.sh',
         dest: 'min/',
         onlyFiles: true,
