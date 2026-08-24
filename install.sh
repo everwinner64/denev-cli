@@ -95,7 +95,12 @@ SUMS=$(curl -fsSL "$SUMS_URL") || die "Failed to download SHA256SUMS"
 EXPECTED_HASH=$(printf '%s\n' "$SUMS" | grep " ${ARCHIVE_NAME}\$" | awk '{print $1}')
 [ -z "$EXPECTED_HASH" ] && die "No checksum found for ${ARCHIVE_NAME} in SHA256SUMS"
 
-ACTUAL_HASH=$(sha256sum "$ARCHIVE_PATH" | awk '{print $1}')
+if command -v sha256sum &>/dev/null; then
+    ACTUAL_HASH=$(sha256sum "$ARCHIVE_PATH" | awk '{print $1}')
+else
+    ACTUAL_HASH=$(shasum -a 256 "$ARCHIVE_PATH" | awk '{print $1}')
+fi
+
 if [ "$ACTUAL_HASH" != "$EXPECTED_HASH" ]; then
     die "Checksum mismatch!
   Expected: $EXPECTED_HASH
