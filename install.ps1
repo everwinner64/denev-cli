@@ -65,6 +65,8 @@ try {
 catch { die "Download failed: $_" }
 
 try {
+    # SHA256SUMS vit à côté de l'archive dans la release
+    $sumsUrl = $downloadUrl.Substring(0, $downloadUrl.LastIndexOf("/") + 1) + "SHA256SUMS"
     $sumsFile = Join-Path $script:tmpDir "SHA256SUMS"
     Invoke-WebRequest -Uri $sumsUrl -OutFile $sumsFile
     $expected = (Select-String -Path $sumsFile -SimpleMatch " $archiveName").Line.Split(' ')[0]

@@ -136,6 +136,11 @@ const targets = [
         onlyFiles: true,
     },
     {
+        src: 'install.ps1',
+        dest: 'min/',
+        onlyFiles: true,
+    },
+    {
         src: '_headers',
         dest: 'min/',
         onlyFiles: true,
