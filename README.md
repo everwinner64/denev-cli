@@ -8,7 +8,7 @@
 </a>
 
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-5f86f2?style=for-the-badge&logo=shell&labelColor=040C25&logoColor=white)
-![GitHub Release](https://img.shields.io/github/v/release/everwinner64/denev-cli-website?style=for-the-badge&logo=github&labelColor=040C25&color=5f86f2&logoColor=white)
+![GitHub Release](https://img.shields.io/github/v/release/everwinner64/denev-cli?style=for-the-badge&logo=github&labelColor=040C25&color=5f86f2&logoColor=white)
 [![Docs](https://img.shields.io/badge/docs-latest-5f86f2?style=for-the-badge&logo=readthedocs&labelColor=040C25&logoColor=white)](https://denev.pages.dev/docs/latest/)
 [![License](https://img.shields.io/badge/license-Custom-5f86f2?style=for-the-badge&logo=readme&labelColor=040C25&logoColor=white)](#license)
 [![Support](https://img.shields.io/badge/support-Ko--fi-5f86f2?style=for-the-badge&logo=kofi&labelColor=040C25&logoColor=white)](https://ko-fi.com/everwinner64)

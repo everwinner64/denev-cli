@@ -28,7 +28,7 @@ must display a clear and visible attribution to the original
 author and project, including:
 
   - The name "everwinner64"
-  - A link to the original repository: https://github.com/everwinner64/denev-cli-website
+  - A link to the original repository: https://github.com/everwinner64/denev-cli
   - A link to the author's profile: https://github.com/everwinner64
 
 This attribution must be reasonably visible to end users of the derivative

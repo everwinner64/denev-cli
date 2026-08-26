@@ -850,13 +850,13 @@ Generates a specified number of random bytes, output as hex by default. Use `--s
 
 | Item | Meaning |
 | --- | --- |
-| `[bytesCount]` | Number of bytes to generate; stdin when omitted |
+| `[bytesCount]` | Number of bytes to generate. Read from stdin if omitted. (default: 16) |
 | `--format <format>` | `hex` (default), `upper`, or `bin` |
 | `-r, --repeat <n>` | Number of byte sequences to generate |
 | `--secure` | Use cryptographically secure random output |
 | `--seed <n>` | Seed for reproducible non-cryptographic output |
 | `-c, --copy` | Copy one result |
-| `-o, --output <path>` | `.hex`, `.bin`, or `.json`; default `.json` |
+| `-o, --output <path>` | `.hex`, `.bin`, or `.json`; default `.hex` |
 | `-q, --quiet` | Raw output to stdout |
 
 #### Examples and notes {.examples}
@@ -1139,6 +1139,7 @@ Parses a URL into its components — scheme, host, port, path, query, and fragme
 
 | Item | Meaning |
 | --- | --- |
+| `[URL]` | URL to inspect; reads from stdin when omitted |
 | `-b, --base <url>` | Resolve a relative URL against a base |
 | `--field <field>` | Return one available field |
 | `-o, --output <path>` | JSON file output only |

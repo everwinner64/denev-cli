@@ -7,7 +7,7 @@
     "scripts": {
         "build": "node scripts/build-docs.js && node scripts/build-cookbook.js && rollup -c",
         "dev": "node scripts/build-docs.js && node scripts/build-cookbook.js && rollup -c -w",
-        "preview": "pnpm build && pkill -9 workerd || true && wrangler pages dev min --ip 127.0.0.1 --compatibility-date 2026-07-21"
+        "preview": "pnpm build && (pkill -9 workerd || true) && wrangler pages dev min --ip 127.0.0.1 --compatibility-date 2026-07-21"
     },
     "engines": {
         "node": ">=22"
