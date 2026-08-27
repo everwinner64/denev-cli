@@ -156,7 +156,7 @@ Normal output is formatted for a terminal so you can read it at a glance, but th
 
 Diagnostics never pollute your data: warnings and errors are written to stderr, so stdout carries only the command's output — even when piped. `--quiet` strips formatting and prompts from stdout but never hides warnings since they are on stderr.
 
-When a command writes a file, it infers the format from the extension you provide. If the file already exists, you may be asked for confirmation; if you decline, the command exits with code 4.
+When a command writes a file, it infers the format from the extension you provide. If the file already exists, you are asked for confirmation unless you pass `--force`; if you decline, the command exits with code 4. When piping input, `--force` is required to overwrite an existing file because there is no terminal to prompt.
 
 ### Exit codes {#exit-codes}
 
@@ -209,7 +209,7 @@ dnv update [options]
 | Item | Meaning |
 | --- | --- |
 | `--target` | Version to target using x.y.z format |
-| `--nc, --no-confirm` | Skip all confirmation prompts |
+| `--force` | Skip all confirmation prompts |
 
 #### Examples and notes {.examples}
 
@@ -254,6 +254,7 @@ dnv stats [path] [options]
 | `-n, --name [n]` | Show per-file details, optionally limited to N files per language |
 | `-o, --output <path>` | `.json`, `.csv`, `.md`, or `.table`; defaults to `.json` when extensionless |
 | `-q, --quiet` | Plain JSON to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -292,7 +293,7 @@ Creates a cryptographic hash of your input. SHA-256 is the default because it st
 | `-a, --algo <algo>` | `SHA256`, `SHA384`, `SHA512`, `SHA1`, `SHA3_256`, `SHA3_384`, `SHA3_512`, or `MD5` |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `--check <hash>` | Compare the calculated digest with a supplied hash |
-| `--nc, --no-confirm` | Bypass warnings for weak algorithms |
+| `--nw, --no-warn` | Bypass warnings for weak algorithms |
 | `-c, --copy` | Copy one result |
 | `-q, --quiet` | Raw hash output |
 
@@ -330,7 +331,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 `-e, --exclude <path>` | Exclusions in file mode |
 | `-a, --algo <algo>` | Hash algorithm for the HMAC |
 | `--check <hmac>` | Compare an HMAC |
-| `--nc, --no-confirm` | Bypass weak-algorithm warnings |
+| `--nw, --no-warn` | Bypass weak-algorithm warnings |
 | `-c, --copy`, `-q, --quiet` | Copy one result / raw output |
 
 #### Examples and notes {.examples}
@@ -379,6 +380,7 @@ Generates signed JWTs that include whatever JSON claims you need plus standard r
 | `-c, --copy` | Copy one token |
 | `-o, --output <path>` | `.json` or `.txt`; defaults to `.json` |
 | `-q, --quiet` | JSON output to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -451,6 +453,7 @@ Encodes your text, stdin, or file or directory contents as classic Base64 or Bas
 | `-c, --copy` | Copy a single result |
 | `-o, --output <path>` | `.b64`, `.hex`, `.bin`, or `.json`; extensionless output becomes `.bin` |
 | `-q, --quiet` | Raw output |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -482,6 +485,7 @@ Decodes classic Base64 or Base64URL input back into text or bytes, which is the 
 | `-c, --copy` | Copy a single result |
 | `-o, --output <path>` | `.b64`, `.hex`, `.bin`, or `.json`; extensionless output becomes `.bin` |
 | `-q, --quiet` | Raw output |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -581,7 +585,7 @@ Lets you save, list, retrieve, import, edit, and delete named regular expression
 | `-s, --save <name>` | Save the positional pattern |
 | `-i, --import <name>` | Import a saved pattern by name |
 | `--del, --delete <name\|all>` | Delete one saved pattern or all patterns |
-| `--nc, --no-confirm` | Skip delete confirmation |
+| `--force` | Skip delete confirmation |
 | `--edit <name>` | Edit and overwrite a saved pattern |
 | `--list` | List saved patterns |
 | `-c, --copy` | Copy a selected/imported pattern |
@@ -624,6 +628,7 @@ Generates UUIDs according to your chosen version — V4 (random), V5 (name-based
 | `-c, --copy` | Copy one UUID |
 | `-o, --output <path>` | `.json`, `.urn`, `.sql`, `.txt`, or `.hex`; defaults to `.json` |
 | `-q, --quiet` | JSON stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -681,6 +686,7 @@ Decodes and displays detailed information about a UUID — or about multiple UUI
 | `-o, --output <PATH>` | Write inspection results to the specified file. Format is always .json |
 | `-f, --file` | Treat input a file path containing UUIDs |
 | `-q, --quiet` | JSON stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -728,6 +734,7 @@ Generates a self-signed certificate along with its private key material, which i
 | `--ao, --aia-ocsp <URL>` | OCSP responder URL for Authority Information Access (AIA) extension |
 | `--cdp <URL>` | CRL Distribution Point (CDP) URL |
 | `-q, --quiet` | Exit code without prompts |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -759,6 +766,7 @@ Parses a local PEM, DER, or PFX certificate so you can examine its fields, or ob
 | `--pw-env <var>` | PFX password variable |
 | `-o, --output <json>` | JSON file output only |
 | `-q, --quiet` | JSON stdout only |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -796,6 +804,7 @@ Generates random strings with a default length of 30 characters and an alphanume
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | `.json` or `.hex` (hex charset only); default `.json` |
 | `-q, --quiet` | Raw output to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -826,6 +835,7 @@ Generates a random 64-bit integer, optionally constrained to a range — so you 
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | Raw JSON to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -858,6 +868,7 @@ Generates a specified number of random bytes, output as hex by default. Use `--s
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | `.hex`, `.bin`, or `.json`; default `.hex` |
 | `-q, --quiet` | Raw output to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -890,6 +901,7 @@ Generates cryptographically secure passwords using a strong random source, which
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | Raw JSON to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -1144,6 +1156,7 @@ Parses a URL into its components — scheme, host, port, path, query, and fragme
 | `--field <field>` | Return one available field |
 | `-o, --output <path>` | JSON file output only |
 | `-q, --quiet` | JSON stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -1232,6 +1245,7 @@ Extracts values from a JSON document using a simple field name, a `::`-separated
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file only |
 | `-q, --quiet` | JSON stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -1262,6 +1276,7 @@ Keeps only the fields you name, recursively, throughout the entire JSON document
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | JSON output to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -1291,6 +1306,7 @@ Removes the fields you name, recursively, throughout the entire JSON document �
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | JSON output to stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -1321,6 +1337,7 @@ Compares two JSON documents semantically — ignoring key order and formatting �
 | `--iao, --ignore-array-order` | Ignore array element order |
 | `-o, --output <path>` | JSON output file only |
 | `-q, --quiet` | JSON stdout |
+| `--force` | Overwrite existing output file without prompting |
 
 #### Examples and notes {.examples}
 
@@ -1365,7 +1382,7 @@ Several commands add their documented default extension when the supplied output
 
 ### Can I use MD5 or SHA-1? {#faq-weak-algos}
 
-`crypto hash` and `crypto hmac` support them, but the CLI identifies them as weak. Prefer SHA-256 or stronger; use `--no-confirm` only when compatibility requires the older algorithm.
+`crypto hash` and `crypto hmac` support them, but the CLI identifies them as weak. Prefer SHA-256 or stronger; use `--no-warn` only when compatibility requires the older algorithm.
 
 ### Does `jwt inspect` verify every token? {#faq-jwt-verify}
 

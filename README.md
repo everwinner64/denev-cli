@@ -133,7 +133,7 @@ Unsafe choices aren't forbidden, they're explained.
 - Unsigned JWTs are highlighted.
 - Potential ReDoS patterns are detected.
 
-If you know what you're doing, `--no-confirm` lets you proceed.
+If you know what you're doing, `--no-warn` lets you proceed.
 
 ---
 
