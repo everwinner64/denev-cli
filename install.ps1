@@ -138,11 +138,25 @@ if (Get-Command dnv -ErrorAction SilentlyContinue) {
     Write-Host ""; Write-Host "  🎉 Denev CLI installed successfully!" -Fore $GREEN; Write-Host ""
     dnv --help 2>$null
     dnv completion powershell 2>$null
-    $policy = Get-ExecutionPolicy -Scope CurrentUser
-    if ($policy -eq 'Restricted' -or $policy -eq 'Undefined') {
-        info "The current execution policy is set to $policy. This may cause features such as auto-completion not working. Run 'Set-ExecutionPolicy -Scope CurrentUser RemoteSigned' if you want to fix this."
-    }
+    $policies = Get-ExecutionPolicy -List
+    $effectivePolicy = Get-ExecutionPolicy
 
+    if ($effectivePolicy -eq 'Restricted') {
+        $isPolicyLocked = (
+            $policies.MachinePolicy -ne 'Undefined' -or
+            $policies.UserPolicy -ne 'Undefined'
+        )
+
+        if ($isPolicyLocked) {
+            info "PowerShell completion may not work because a system or user policy enforces a Restricted execution policy."
+            info "Please contact your system administrator to allow the completion script."
+        }
+        else {
+            info "PowerShell completion may not work because the effective execution policy is Restricted."
+            info "To enable it for your user, run:"
+            info "  Set-ExecutionPolicy -Scope CurrentUser RemoteSigned"
+        }
+    }
 }
 else {
     Write-Host ""; Write-Host "  ⚠️  Installed but not in current PATH." -Fore $YELLOW
