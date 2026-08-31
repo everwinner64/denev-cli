@@ -62,7 +62,7 @@ esac
 # ── Fetch release ───────────────────────────────────────
 info "Fetching latest release (${OS}-${ARCH})..."
 
-RELEASE_JSON=$(curl -fsSL "https://api.github.com/repos/everwinner64/denev-cli/releases/latest") \
+RELEASE_JSON=$(curl -fsSL -H "User-Agent: denev-installer" "https://api.github.com/repos/everwinner64/denev-cli/releases/latest") \
     || die "Failed to fetch latest release info"
 
 # Extract all browser_download_url values, then pick the one matching our OS/ARCH

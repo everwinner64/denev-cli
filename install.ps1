@@ -136,7 +136,8 @@ else {
 # ── Verify ───────────────────────────────────────────────────
 if (Get-Command dnv -ErrorAction SilentlyContinue) {
     Write-Host ""; Write-Host "  🎉 Denev CLI installed successfully!" -Fore $GREEN; Write-Host ""
-    dnv --help 2>$null && dnv completion powershell 2>$null
+    dnv --help 2>$null
+    dnv completion powershell 2>$null
 }
 else {
     Write-Host ""; Write-Host "  ⚠️  Installed but not in current PATH." -Fore $YELLOW
