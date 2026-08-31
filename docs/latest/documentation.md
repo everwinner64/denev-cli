@@ -65,7 +65,7 @@ dnv --version
 dnv --help
 ```
 
->![tip](/images/icons/tip.svg) Tip: If you didn't used one of the install script, or if PATH update failed during install, run `dnv completion <yourShellName>` to enable auto-completion. Bash, Zsh, and PowerShell 5.1+ are supported.
+>![tip](/images/icons/tip.svg) Tip: If you didn't use one of the install scripts, or if PATH update failed during install, run `dnv completion <yourShellName>` to enable auto-completion. Bash, Zsh, and PowerShell 5.1+ are supported.
 {.tip}
 
 ### Updating {#updating}
@@ -254,7 +254,7 @@ dnv stats [path] [options]
 | `-n, --name [n]` | Show per-file details, optionally limited to N files per language |
 | `-o, --output <path>` | `.json`, `.csv`, `.md`, or `.table`; defaults to `.json` when extensionless |
 | `-q, --quiet` | Plain JSON to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -328,7 +328,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 | `-k, --key` | Prompt for a hidden HMAC key |
 | `--key-env <var>` | Read the key from an environment variable |
 | `-f, --file` | Treat input as comma-separated file or directory paths |
-`-e, --exclude <path>` | Exclusions in file mode |
+| `-e, --exclude <path>` | Exclusions in file mode |
 | `-a, --algo <algo>` | Hash algorithm for the HMAC |
 | `--check <hmac>` | Compare an HMAC |
 | `--nw, --no-warn` | Bypass weak-algorithm warnings |
@@ -380,7 +380,7 @@ Generates signed JWTs that include whatever JSON claims you need plus standard r
 | `-c, --copy` | Copy one token |
 | `-o, --output <path>` | `.json` or `.txt`; defaults to `.json` |
 | `-q, --quiet` | JSON output to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -453,7 +453,7 @@ Encodes your text, stdin, or file or directory contents as classic Base64 or Bas
 | `-c, --copy` | Copy a single result |
 | `-o, --output <path>` | `.b64`, `.hex`, `.bin`, or `.json`; extensionless output becomes `.bin` |
 | `-q, --quiet` | Raw output |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -483,9 +483,9 @@ Decodes classic Base64 or Base64URL input back into text or bytes, which is the 
 | `-u, --url` | Use Base64URL |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `-c, --copy` | Copy a single result |
-| `-o, --output <path>` | `.b64`, `.hex`, `.bin`, or `.json`; extensionless output becomes `.bin` |
+| `-o, --output <path>` | `.txt`, `.hex`, `.bin`, or `.json`; extensionless output becomes `.bin` |
 | `-q, --quiet` | Raw output |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -628,7 +628,7 @@ Generates UUIDs according to your chosen version — V4 (random), V5 (name-based
 | `-c, --copy` | Copy one UUID |
 | `-o, --output <path>` | `.json`, `.urn`, `.sql`, `.txt`, or `.hex`; defaults to `.json` |
 | `-q, --quiet` | JSON stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -683,10 +683,10 @@ Decodes and displays detailed information about a UUID — or about multiple UUI
 | Item | Meaning |
 | --- | --- |
 | `[uuid\|filePath]` | UUID to inspect, or a file path containing UUIDs, or stdin if omitted |
-| `-o, --output <PATH>` | Write inspection results to the specified file. Format is always .json |
+| `-o, --output <path>` | Write inspection results to the specified file. Format is always .json |
 | `-f, --file` | Treat input a file path containing UUIDs |
 | `-q, --quiet` | JSON stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -734,7 +734,7 @@ Generates a self-signed certificate along with its private key material, which i
 | `--ao, --aia-ocsp <URL>` | OCSP responder URL for Authority Information Access (AIA) extension |
 | `--cdp <URL>` | CRL Distribution Point (CDP) URL |
 | `-q, --quiet` | Exit code without prompts |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -766,7 +766,7 @@ Parses a local PEM, DER, or PFX certificate so you can examine its fields, or ob
 | `--pw-env <var>` | PFX password variable |
 | `-o, --output <json>` | JSON file output only |
 | `-q, --quiet` | JSON stdout only |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -804,7 +804,7 @@ Generates random strings with a default length of 30 characters and an alphanume
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | `.json` or `.hex` (hex charset only); default `.json` |
 | `-q, --quiet` | Raw output to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -835,7 +835,7 @@ Generates a random 64-bit integer, optionally constrained to a range — so you 
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | Raw JSON to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -868,7 +868,7 @@ Generates a specified number of random bytes, output as hex by default. Use `--s
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | `.hex`, `.bin`, or `.json`; default `.hex` |
 | `-q, --quiet` | Raw output to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -877,7 +877,7 @@ dnv random bytes 32 --secure -q
 dnv random bytes 16 --format bin -o nonce.bin
 ```
 
-> ![warning](/images/icons/warning.svg) Warning: Use `--secure` for keys, salts, or nonces — the default generator is not cryptographically secure. The output extension must match the format (`.hex` for hex, `.bin` for binary). `--secure` and `--seed` cannot be combined.
+> ![warning](/images/icons/warning.svg) Warning: Use `--secure` for keys, salts, or nonces — the default generator is not cryptographically secure. If using `-o, --output` to output a `.hex` file, the format must also be `hex`. `--secure` and `--seed` cannot be combined.
 {.warning}
 
 #### `dnv random password` (alias: `pw`) {#random-password}
@@ -901,7 +901,7 @@ Generates cryptographically secure passwords using a strong random source, which
 | `-c, --copy` | Copy one result |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | Raw JSON to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -1156,7 +1156,7 @@ Parses a URL into its components — scheme, host, port, path, query, and fragme
 | `--field <field>` | Return one available field |
 | `-o, --output <path>` | JSON file output only |
 | `-q, --quiet` | JSON stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -1245,7 +1245,7 @@ Extracts values from a JSON document using a simple field name, a `::`-separated
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file only |
 | `-q, --quiet` | JSON stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -1276,7 +1276,7 @@ Keeps only the fields you name, recursively, throughout the entire JSON document
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | JSON output to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -1306,7 +1306,7 @@ Removes the fields you name, recursively, throughout the entire JSON document �
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file |
 | `-q, --quiet` | JSON output to stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 
@@ -1337,7 +1337,7 @@ Compares two JSON documents semantically — ignoring key order and formatting �
 | `--iao, --ignore-array-order` | Ignore array element order |
 | `-o, --output <path>` | JSON output file only |
 | `-q, --quiet` | JSON stdout |
-| `--force` | Overwrite existing output file without prompting |
+| `--force` | Force overwrite without confirmation |
 
 #### Examples and notes {.examples}
 

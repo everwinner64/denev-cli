@@ -167,7 +167,6 @@
                 "label": "FAQ",
                 "id": "#faq",
                 "children": [
-                    { "label": "How can I find the license", "id": "#faq-license" },
                     { "label": "Why does a command reject both an argument and piped input?", "id": "#faq-ambiguous-input" },
                     { "label": "Why did --copy fail with --quiet or --repeat?", "id": "#faq-copy-quiet" },
                     { "label": "Why did my output path gain an extension?", "id": "#faq-output-extension" },

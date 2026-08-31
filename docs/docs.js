@@ -5,7 +5,7 @@ const burger = document.getElementById('burger-menu');
 
 initAnalytics();
 
-// ── Toggle sidebar sur mobile ─────────────────────
+// ── Toggle sidebar on mobile ─────────────────────
 
 function updateSectionsTop() {
     const navHeight = document.getElementById('navbar').clientHeight;
@@ -26,7 +26,7 @@ burger.addEventListener('click', () => {
     updateSectionsTop();
 });
 
-// ── Fermer la sidebar au clic sur un lien ─────────
+// ── Close sidebar when clicking a link ─────────
 
 sections.addEventListener('click', (e) => {
     const link = e.target.closest('.sidebar-link');
@@ -39,7 +39,7 @@ sections.addEventListener('click', (e) => {
     burger.classList.remove('oppened');
 });
 
-// ── Toggle sous-sections (chevrons) ────────────────
+// ── Toggle sub-sections (chevrons) ────────────────
 
 sections.addEventListener('click', (e) => {
     const parent = e.target.closest('.sidebar-link.parent');
@@ -47,7 +47,7 @@ sections.addEventListener('click', (e) => {
 
     const subs = parent.nextElementSibling;
 
-    // Si clic sur le chevron, ne pas suivre le lien
+    // If chevron is clicked, don't follow the link
     if (e.target.classList.contains('chevron')) {
         e.preventDefault();
         const isOpen = subs.classList.toggle('open');
@@ -75,7 +75,7 @@ codeSnippets.forEach(snippet => {
     snippet.parentNode.insertBefore(wrapper, snippet);
     wrapper.appendChild(snippet);
 
-    // L'icône est placée DANS le wrapper mais À CÔTÉ du <pre> (hors scroll)
+    // Icon is placed INSIDE the wrapper but NEXT TO the <pre> (outside scroll)
     wrapper.insertAdjacentHTML('beforeend', `<div class="copy-button">${copyIcon}</div>`);
 
     wrapper.addEventListener('click', async () => {
