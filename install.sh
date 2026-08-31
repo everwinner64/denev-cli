@@ -111,7 +111,7 @@ fi
 success "Checksum verified"
 
 # ── Validate archive before extraction (allowlist) ─────────
-# Seuls le binaire et la lib sont attendus.
+# Only the binary and the lib are expected.
 
 case "$ARCHIVE_NAME" in
     *.tar.gz)
@@ -159,7 +159,7 @@ mkdir -p "$INSTALL_DIR" "$BIN_DIR"
 cp -r "$TMP_DIR"/* "$INSTALL_DIR"/ || die "Failed to copy files to ${INSTALL_DIR}"
 rm -rf "$ARCHIVE_PATH" 
 
-# ── Binaire + symlink (gère dnv et dnv.exe) ───────────────
+# ── Binary + symlink (handles dnv and dnv.exe) ───────────────
 BINARY_NAME="dnv"
 if [ -f "$INSTALL_DIR/dnv.exe" ]; then
     BINARY_NAME="dnv.exe"

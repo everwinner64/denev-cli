@@ -14,7 +14,7 @@ codeSnippets.forEach(snippet => {
     snippet.parentNode.insertBefore(wrapper, snippet);
     wrapper.appendChild(snippet);
 
-    // L'icône est placée DANS le wrapper mais À CÔTÉ du <pre> (hors scroll)
+    // Icon is placed INSIDE the wrapper but NEXT TO the <pre> (outside scroll)
     wrapper.insertAdjacentHTML('beforeend', `<div class="copy-button">${copyIcon}</div>`);
 
     wrapper.addEventListener('click', async () => {

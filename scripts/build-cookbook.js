@@ -12,12 +12,12 @@ const minCbDir = path.join(root, 'min', 'cookbook');
 
 const md = new MarkdownIt({ html: true, linkify: true, typographer: true }).use(markdownItAttrs);
 
-// ─── Lecture des sources ───────────────────────────────────────
+// ─── Read sources ───────────────────────────────────────
 
 
 let template = fs.readFileSync(path.join(cbDir, 'cbTemplate.html'), 'utf-8');
 
-// ─── Génération ────────────────────────────────────
+// ─── Generation ────────────────────────────────────
 
 console.log(`[build-cookbook] Generating cookbook…`);
 

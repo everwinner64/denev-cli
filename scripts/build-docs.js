@@ -1,17 +1,16 @@
 /**
  * build-docs.js
  *
- * Génère les pages de documentation à partir de :
- *   - docs/template.html           (layout unique)
- *   - docs/versions.json           (liste des versions)
- *   - docs/sidebar.json            (structure de la sidebar)
- *   - docs/<version>/documentation.md  (contenu Markdown par version)
+ * Generates documentation pages from:
+ *   - docs/template.html               (single layout)
+ *   - docs/versions.json               (version list)
+ *   - docs/sidebar.json                (sidebar structure)
+ *   - docs/<version>/documentation.md (Markdown content per version)
  *
- * La sidebar est construite depuis sidebar.json : chaque entrée référence
- * un {#id} de heading. Si ce heading n'existe pas dans la version courante,
- * l'entrée est ignorée. Une catégorie vide est supprimée.
+ * The sidebar is built from sidebar.json: each entry references
+ * a heading {#id}.
  *
- * Sortie : min/docs/<version>/index.html
+ * Output: min/docs/<version>/index.html
  */
 
 import fs from 'fs';
@@ -28,7 +27,7 @@ const minDocsDir = path.join(root, 'min', 'docs');
 
 const md = new MarkdownIt({ html: false, linkify: true, typographer: true }).use(markdownItAttrs);
 
-// ─── Lecture des sources ───────────────────────────────────────
+// ─── Read sources ───────────────────────────────────────
 const versions = JSON.parse(fs.readFileSync(path.join(docsDir, 'versions.json'), 'utf-8'));
 
 let template = fs.readFileSync(path.join(docsDir, 'template.html'), 'utf-8');
@@ -44,7 +43,7 @@ function escapeHtml(text) {
 }
 
 /**
- * Génère le HTML de la sidebar.
+ * Generates the sidebar HTML.
  */
 function renderSidebar(config) {
     let html = '';
@@ -77,8 +76,8 @@ function renderSidebar(config) {
 }
 
 /**
- * Génère les <option> du sélecteur de version.
- * La version courante est marquée selected.
+ * Generates the <option> elements for the version selector.
+ * The current version is marked as selected.
  */
 function buildVersionSelect(versions, currentId) {
     return versions
@@ -89,7 +88,7 @@ function buildVersionSelect(versions, currentId) {
         .join('\n                    ');
 }
 
-// ─── Génération par version ────────────────────────────────────
+// ─── Generate per version ────────────────────────────────────
 let idx = 0;
 for (const version of versions) {
     const versionDir = path.join(docsDir, version.id);

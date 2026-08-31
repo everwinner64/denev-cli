@@ -1,8 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
-import postcss from 'cssnano';
-import cssnano from 'cssnano'
+import postcss from 'postcss';
+import cssnano from 'cssnano';
 import copy from 'rollup-plugin-copy';
 
 /* ── Helper: async string.replace ───────────────────── */
@@ -21,31 +21,31 @@ async function replaceAsync(str, regex, asyncFn) {
 async function updateHtml(cont, file) {
     let content = cont.toString();
 
-    // tout <link href="/quelconque/chemin.css"> → /css/nom.css
+    // any <link href="/any/path.css"> → /css/name.css
     content = content.replace(
         /(<link[^>]*href\s*=\s*["'])(\/[^"']+\.css)(["'])/gi,
         (match, prefix, cssPath, quote) => {
-            const filename = cssPath.split('/').pop(); // juste le nom, ignore le dossier
+            const filename = cssPath.split('/').pop(); // just the filename, ignore the folder
             return `${prefix}/css/${filename}${quote}`;
         }
     );
 
-    // <script src="..."> : /landing/truc.js  →  /js/truc.min.js
+    // <script src="...">: /landing/foo.js → /js/foo.min.js
     const scriptRegex = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
     content = await replaceAsync(content, scriptRegex, async (match, attrs) => {
         const srcMatch = attrs.match(/src\s*=\s*["']([^"']+)["']/i);
         if (srcMatch) {
             const src = srcMatch[1];
-            if (/^(https?:)?\/\//i.test(src)) return match; // laisser les URL externes
+            if (/^(https?:)?\/\//i.test(src)) return match; // keep external URLs as-is
 
             const name = src.split('/').pop().replace(/\.js$/i, '');
             const newSrc = `/js/${name}.min.js`;
             return match.replace(srcMatch[1], newSrc);
         }
-        return match; // laisser les scripts inline tels quels
+        return match; // keep inline scripts as-is
     });
 
-    // Références JS dans les attributs onclick, etc.
+    // JS references in onclick attributes, etc.
     content = content.replace(/(['"])(?!https?:|\/\/)([^'"]*?)(?<!\.min)\.js\1/g,
         (m, q, p) => {
             const name = p.split('/').pop().replace(/\.js$/i, '');
@@ -67,7 +67,7 @@ async function updateCss(cont) {
 /* ── Copy targets ──────────────────────────────────── */
 const targets = [
     {
-        // HTML : garde son dossier d'origine sous min/
+        // HTML: preserve original folder under min/
         // landing/home.html → min/index.html
         src: 'landing/*.html',
         dest: 'min/',
@@ -172,11 +172,11 @@ export default {
         format: 'es',
         sourcemap: false,
 
-        // Tous les .js dans un dossier js/ avec extension .min.js
+        // All .js files into js/ folder with .min.js extension
         entryFileNames: 'js/[name].min.js',
         chunkFileNames: 'js/[name].min.js',
 
-        // Sépare le code vendor (node_modules) du code applicatif
+        // Split vendor code (node_modules) from app code
         manualChunks(id) {
             if (id.includes('node_modules')) {
                 return 'vendor';

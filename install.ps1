@@ -58,18 +58,20 @@ $script:tmpDir = Join-Path $env:TEMP ("denev-install-" + [Guid]::NewGuid().ToStr
 New-Item -ItemType Directory -Path $script:tmpDir | Out-Null
 $archivePath = Join-Path $script:tmpDir $archiveName
 
-# ── Download (Invoke-WebRequest = natif) ─────────────────────
+# ── Download (Invoke-WebRequest = built-in) ─────────────────────
 try {
     Invoke-WebRequest -Uri $downloadUrl -OutFile $archivePath
 }
 catch { die "Download failed: $_" }
 
 try {
-    # SHA256SUMS vit à côté de l'archive dans la release
+    # SHA256SUMS lives next to the archive in the release
     $sumsUrl = $downloadUrl.Substring(0, $downloadUrl.LastIndexOf("/") + 1) + "SHA256SUMS"
     $sumsFile = Join-Path $script:tmpDir "SHA256SUMS"
     Invoke-WebRequest -Uri $sumsUrl -OutFile $sumsFile
     $expected = (Select-String -Path $sumsFile -SimpleMatch " $archiveName").Line.Split(' ')[0]
+    $actual = (Get-FileHash -Path $archivePath -Algorithm SHA256).Hash
+    if ($actual -ne $expected.ToUpper()) { die "Checksum mismatch" }
 }
 catch { die "Failed to download or parse SHA256SUMS: $_" }
 
@@ -93,7 +95,7 @@ finally {
     $zip.Dispose()
 }
 
-# ── Extract (Expand-Archive = natif Windows) ─────────────────
+# ── Extract (Expand-Archive = Windows built-in) ─────────────────
 Expand-Archive -Path $archivePath -DestinationPath $script:tmpDir -Force
 
 # ── Install ──────────────────────────────────────────────────
@@ -102,7 +104,7 @@ New-Item -ItemType Directory -Force -Path $installDir | Out-Null
 
 Get-ChildItem -Recurse -Path $script:tmpDir -File | ForEach-Object {
     $name = $_.Name
-    # Copier dnv.exe et les éventuelles DLL natives (PCRE.NET.Native, etc.)
+    # Copy dnv.exe and any native DLLs (PCRE.NET.Native, etc.)
     if ($name -match '^dnv(\.exe)?$' -or $name -match '\.dll$') {
         Copy-Item -Path $_.FullName -Destination (Join-Path $installDir $name) -Force
     }
@@ -113,16 +115,16 @@ if (-not $binary) { die "Binary 'dnv' not found in archive" }
 
 success "Installed to $installDir"
 
-# ── PATH (user-level, persistant) ────────────────────────────
-# On lit la valeur actuelle du PATH utilisateur seulement (pas le système)
+# ── PATH (user-level, persistent) ────────────────────────────
+# Read the current user PATH only (not system)
 $currentUserPath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User)
 
 if ($currentUserPath -notlike "*$installDir*") {
-    # Persister dans le registre (user-level, pas besoin d'admin)
+    # Persist in registry (user-level, no admin needed)
     $newUserPath = "$installDir;$currentUserPath"
     [Environment]::SetEnvironmentVariable("Path", $newUserPath, [EnvironmentVariableTarget]::User)
 
-    # Mettre à jour la session courante aussi
+    # Also update current session
     $env:PATH = "$installDir;$env:PATH"
 
     success "Added $installDir to your user PATH (persistent)"

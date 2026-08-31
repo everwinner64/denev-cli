@@ -229,7 +229,7 @@ body {
 #cookbook .cb-cyan { color: #00ffff; }
 #cookbook .cb-purple { color: #800080; }
 #cookbook .cb-grey { color: #808080; }
-#cookbook .cb-ligth-purple { color: #ff00ff; }
+#cookbook .cb-light-purple { color: #ff00ff; }
 #cookbook .cb-yellow { color: #ffff00; }
 
 @media (max-width: 730px) { 

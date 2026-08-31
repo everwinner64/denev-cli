@@ -269,7 +269,7 @@ body {
 /* ── Burger menu ─────────────────────────────────── */
 
 #burger-menu {
-    display: none; /* caché sur desktop */
+    display: none; /* hidden on desktop */
 }
 
 /* ===== Documentation ===== */
@@ -277,7 +277,7 @@ body {
 #documentation {
     box-sizing: border-box;
     flex: 1;
-    min-width: 0; /* empêche le débordement en flex */
+    min-width: 0; /* prevents overflow in flex layout */
     width: auto;
     margin: 0;
     padding: 56px 48px 80px 40px;
@@ -461,7 +461,7 @@ body {
     }
 
     #sections {
-        display: none; /* caché par défaut sur mobile */
+        display: none; /* hidden by default on mobile */
     }
 
     body.sidebar-open #sections {

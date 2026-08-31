@@ -1,6 +1,6 @@
 import posthog from 'posthog-js';
 
-// ── Config partagée ─────────────────────────────────
+// ── Shared config ─────────────────────────────────
 
 const PROJECT_KEY = 'phc_nFnUxPEYZ9sXwm24Le5dnXjugGFeVAuz8K8wjhXGVrso';
 
@@ -60,7 +60,7 @@ if (optOut) {
     });
 }
 
-// ── Init global ─────────────────────────────────────
+// ── Global init ─────────────────────────────────────
 
 export function initAnalytics() {
     if (localStorage.getItem("hasOptedOut") == "true") return;
@@ -68,7 +68,7 @@ export function initAnalytics() {
     trackLinkClicks();
 }
 
-// ── Liens <a data-track> ────────────────────────────
+// ── <a data-track> links ────────────────────────────
 
 function trackLinkClicks() {
     if (localStorage.getItem("hasOptedOut") == "true") return;
@@ -83,14 +83,14 @@ function trackLinkClicks() {
     });
 }
 
-// ── Téléchargement ──────────────────────────────────
+// ── Download ────────────────────────────────────────
 
 export function trackDownload(platform, version) {
     if (localStorage.getItem("hasOptedOut") == "true") return;
     posthog.capture('download_clicked', { platform, version }, { transport: 'sendBeacon' });
 }
 
-// ── Copie de commande ───────────────────────────────
+// ── Command copy ────────────────────────────────────
 
 export function trackCommandCopied(commandText) {
     if (localStorage.getItem("hasOptedOut") == "true") return;

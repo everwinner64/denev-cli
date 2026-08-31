@@ -332,7 +332,7 @@ dnv regex explain '/^(?=.*\d).{8,}$/' \
 ╰──────────────────────────────────────────────────────────────────────────────╯
 
 <span class="cb-bold cb-green">Syntaxic tree for:</span> <span class="cb-yellow">^(?=.*\d).{8,}$</span>
-├── <span class="cb-ligth-purple">Anchor</span>: <span class="cb-yellow">^</span> <span class="cb-dim"> =&gt; Start of line / string</span>
+├── <span class="cb-light-purple">Anchor</span>: <span class="cb-yellow">^</span> <span class="cb-dim"> =&gt; Start of line / string</span>
 ├── <span class="cb-yellow">Positive lookahead</span> <span class="cb-dim"> =&gt; Look ahead: check that what follows matches, without </span>
 │   <span class="cb-dim">consuming</span>
 │   ├── <span class="cb-grey">Wildcard</span>: <span class="cb-yellow">. (*)</span> <span class="cb-dim"> =&gt; Any character (except line breaks by default) (0 or </span>
@@ -340,7 +340,7 @@ dnv regex explain '/^(?=.*\d).{8,}$/' \
 │   └── <span class="cb-green">Shorthand class</span>: <span class="cb-yellow">\d</span> <span class="cb-dim"> =&gt; Any digit [0-9]</span>
 ├── <span class="cb-grey">Wildcard</span>: <span class="cb-yellow">. ({8,})</span> <span class="cb-dim"> =&gt; Any character (except line breaks by default) (Repeat</span>
 │   <span class="cb-dim">{8,})</span>
-└── <span class="cb-ligth-purple">Anchor</span>: <span class="cb-yellow">$</span> <span class="cb-dim"> =&gt; End of line / string</span>
+└── <span class="cb-light-purple">Anchor</span>: <span class="cb-yellow">$</span> <span class="cb-dim"> =&gt; End of line / string</span>
 </code></pre>
 
 **Got a pattern worth keeping?**

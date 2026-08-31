@@ -15,6 +15,12 @@
 
 ## One CLI. Everyday developer utilities.
 
+<div align="center">
+
+**📦 This repository hosts the [website](https://denev.pages.dev), docs and [releases](https://github.com/everwinner64/denev-cli/releases/latest) of denev — the CLI source code itself is not open-source.**
+
+</div>
+
 </div>
 
 Denev started with a simple observation.
