@@ -57,7 +57,7 @@ codeSnippets.forEach(snippet => {
     wrapper.appendChild(snippet);
 
     // Icon is placed INSIDE the wrapper but NEXT TO the <pre> (outside scroll)
-    wrapper.insertAdjacentHTML('beforeend', `<div class="copy-button">${copyIcon}</div>`);
+    wrapper.insertAdjacentHTML('beforeend', `<button class="copy-button" aria-label="Copy to clipboard">${copyIcon}</button>`);
 
     wrapper.addEventListener('click', async () => {
         const commandText = snippet.innerText;

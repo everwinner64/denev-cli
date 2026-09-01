@@ -21,7 +21,7 @@ burger.addEventListener('click', () => {
     const path = burger.firstElementChild;
     path.setAttribute('d', isOpen ? cross : burgerPath);
     burger.classList.toggle('closed', !isOpen);
-    burger.classList.toggle('oppened', isOpen);
+    burger.classList.toggle('opened', isOpen);
 
     updateSectionsTop();
 });
@@ -36,7 +36,7 @@ sections.addEventListener('click', (e) => {
     const path = burger.firstElementChild;
     path.setAttribute('d', "M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z");
     burger.classList.add('closed');
-    burger.classList.remove('oppened');
+    burger.classList.remove('opened');
 });
 
 // ── Toggle sub-sections (chevrons) ────────────────
@@ -76,7 +76,7 @@ codeSnippets.forEach(snippet => {
     wrapper.appendChild(snippet);
 
     // Icon is placed INSIDE the wrapper but NEXT TO the <pre> (outside scroll)
-    wrapper.insertAdjacentHTML('beforeend', `<div class="copy-button">${copyIcon}</div>`);
+    wrapper.insertAdjacentHTML('beforeend', `<button class="copy-button" aria-label="Copy to clipboard">${copyIcon}</button>`);
 
     wrapper.addEventListener('click', async () => {
         const commandText = snippet.innerText;

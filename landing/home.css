@@ -37,7 +37,7 @@ footer {
 }
 
 footer a, #opt-out {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     margin: 0;
     text-decoration: none;
     cursor: pointer;
@@ -211,7 +211,7 @@ footer a:hover, #opt-out:hover {
 #hero-phonetic {
     font-size: 1.4rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     margin: 12px 0 0 0;
     letter-spacing: 0.02em;
 }
@@ -488,7 +488,7 @@ footer a:hover, #opt-out:hover {
 #demo-subtitle {
     font-size: 1.05rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     margin: 10px 0 0 0;
 }
 
@@ -525,7 +525,7 @@ footer a:hover, #opt-out:hover {
 .terminal-title {
     margin-left: auto;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.45);
     font-weight: 500;
 }
 
@@ -573,7 +573,7 @@ footer a:hover, #opt-out:hover {
 #pipeline #quiet-description {
     font-size: 1.05rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     margin: 10px 0 0 0;
 }
 
