@@ -412,7 +412,7 @@ footer a:hover, #opt-out:hover {
 /* ===== Demo Section ===== */
 
 .c-green {
-    color: #008000;
+    color: #98C379;
 }
 
 .c-yellow {
@@ -420,11 +420,11 @@ footer a:hover, #opt-out:hover {
 }
 
 .c-blue {
-    color: #0000FF;
+    color: #61AFEF;
 }
 
 .c-purple {
-    color: #800080;
+    color: #C678DD;
 }
 
 .c-cyan {
@@ -432,7 +432,7 @@ footer a:hover, #opt-out:hover {
 }
 
 .c-gray {
-    color: #444444;
+    color: #7F848E;
 }
 
 .c-lavender {
