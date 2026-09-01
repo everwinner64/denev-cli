@@ -182,7 +182,7 @@ body {
 }
 
 #sections:not(:hover) {
-    scrollbar-color: rgba(255, 255, 255, 0) #040c25;;
+    scrollbar-color: rgba(255, 255, 255, 0) #040c25;
 }
 
 @supports (-moz-appearance: none) {
