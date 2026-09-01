@@ -142,7 +142,7 @@ h1 {
 
 .subtitle {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     margin: 0 0 2.5rem;
 }
 
@@ -244,6 +244,7 @@ ul li strong {
 }
 
 .copy-button {
+    all: unset;
     position: absolute;
     color: rgba(255, 255, 255, 0.82);
     top: 0;
@@ -255,6 +256,7 @@ ul li strong {
     border-right: 1px solid rgba(255,255,255,0.09); 
     border-radius: 0 10px;
     z-index: 1;
+    display: block;
 }
 
 .copy-button .copy-icon {
