@@ -126,11 +126,11 @@ alg = HS256
 typ = JWT
 
 <span class="cb-bold cb-blue">Payload (Claims):</span>
-sub = user-42<span class="cb-dim">(string type)</span>
+sub = user-42 <span class="cb-dim">(string type)</span>
 
-role = user<span class="cb-dim">(string type)</span>
+role = user <span class="cb-dim">(string type)</span>
 
-aud = dashboard<span class="cb-dim">(string type)</span>
+aud = dashboard <span class="cb-dim">(string type)</span>
 </code></pre>
 
 **Was it signed with the expected secret?**
@@ -147,11 +147,11 @@ alg = HS256
 typ = JWT
 
 <span class="cb-bold cb-blue">Payload (Claims):</span>
-sub = user-42<span class="cb-dim">(string type)</span>
+sub = user-42 <span class="cb-dim">(string type)</span>
 
-role = user<span class="cb-dim">(string type)</span>
+role = user <span class="cb-dim">(string type)</span>
 
-aud = dashboard<span class="cb-dim">(string type)</span>
+aud = dashboard <span class="cb-dim">(string type)</span>
 
 <span class="cb-green">JWT&#x27;s signature </span><span class="cb-bold cb-underline cb-green">is</span><span class="cb-green"> valid</span>
 </code></pre>
