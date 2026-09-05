@@ -290,7 +290,7 @@ Creates a cryptographic hash of your input. SHA-256 is the default because it st
 | --- | --- |
 | `[input]` | Text, stdin when omitted, or file/directory paths with `--file` |
 | `-f, --file` | Treat input as comma-separated file or directory paths |
-| `-a, --algorithm <algo>` | `SHA256`, `SHA384`, `SHA512`, `SHA1`, `SHA3_256`, `SHA3_384`, `SHA3_512`, or `MD5` |
+| `-a, --algo <algo>` | `SHA256`, `SHA384`, `SHA512`, `SHA1`, `SHA3_256`, `SHA3_384`, `SHA3_512`, or `MD5` |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `--check <hash>` | Compare the calculated digest with a supplied hash |
 | `--nw, --no-warn` | Bypass warnings for weak algorithms |
@@ -303,7 +303,7 @@ Hash text or a file, then use `--check` where a single input is applicable:
 
 ```bash
 dnv crypto hash 'release-candidate'
-dnv crypto hash ./artifact.zip --file --algorithm SHA512
+dnv crypto hash ./artifact.zip --file --algo SHA512
 dnv crypto hash 'hello' --check 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 -q
 ```
 
@@ -329,7 +329,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 | `--key-env <var>` | Read the key from an environment variable |
 | `-f, --file` | Treat input as comma-separated file or directory paths |
 | `-e, --exclude <path>` | Exclusions in file mode |
-| `-a, --algorithm <algo>` | Hash algorithm for the HMAC |
+| `-a, --algo <algo>` | Hash algorithm for the HMAC |
 | `--check <hmac>` | Compare an HMAC |
 | `--nw, --no-warn` | Bypass weak-algorithm warnings |
 | `-c, --copy`, `-q, --quiet` | Copy one result / raw output |
@@ -339,7 +339,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 Use an environment variable in non-interactive automation:
 
 ```bash
-dnv crypto hmac 'payload' --key-env API_HMAC_KEY --algorithm SHA512
+dnv crypto hmac 'payload' --key-env API_HMAC_KEY --algo SHA512
 dnv crypto hmac ./payload.json --file --key-env API_HMAC_KEY -q
 ```
 
@@ -966,7 +966,6 @@ Converts a time value into the representation you need — ISO 8601, RFC 3339, U
 | `-u, --utc` | Use UTC (input must be `now`) |
 | `--tz, --timezone <zone>` | IANA timezone (input must be `now`); conflicts with `--utc` |
 | `-q, --quiet` | JSON output to stdout |
-| `-c, --copy` | Copy the resulting time value to the clipboard |
 
 #### Examples and notes {.examples}
 
