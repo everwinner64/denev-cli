@@ -1,5 +1,4 @@
 [
     { "id": "latest", "label": "Latest" },
-    { "id": "v1.0.1", "label": "V1.0.1" },
-    { "id": "v2.0.0", "label": "V2.0.0" }
+    { "id": "v1.0.1", "label": "V1.0.1" }
 ]
