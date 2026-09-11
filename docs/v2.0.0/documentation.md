@@ -177,7 +177,6 @@ When a command writes a file, it infers the format from the extension you provid
 | `update` | CLI self-update |
 | `stats` | Source-file language statistics |
 | `crypto` | Hashes and HMACs |
-| `color` | Color contrast checking (WCAG) |
 | `jwt` | Generating and inspecting JWTs |
 | `base64` / `b64` | Base64 encoding and decoding |
 | `regex` | Testing, explaining, and saving regular expressions |
@@ -346,43 +345,6 @@ dnv crypto hmac ./payload.json --file --key-env API_HMAC_KEY -q
 
 > ![warning](/images/icons/warning.svg) Warning: As with `crypto hash`, copy and check modes are restricted to a single input.
 {.warning}
-
-### `dnv color` {#color}
-
-The color module lets you check whether a foreground/background color pairing meets accessibility standards — it computes the WCAG contrast ratio and tells you instantly whether your colors pass or fail.
-
-#### `dnv color contrast` {#color-contrast}
-
-#### Description {.desc}
-
-Compares the contrast ratio of two colors against WCAG AA and AAA thresholds for both normal and large text.
-
-#### Syntax {.syntax}
-
-`dnv color contrast <color1> [color2] [options]`
-
-#### Arguments and options {.args}
-
-| Item | Meaning |
-| --- | --- |
-| `<color1>` | First color (required) |
-| `[color2] | Second color; stdin when omitted |
-| `-b, --background <color>` | Opaque background used to resolve colors with an alpha channel |
-| `-c, --copy` | Copy the resulting contrast ratio |
-| `-q, --quiet` | JSON output to stdout |
-
-#### Examples and notes {.examples}
-
-```bash
-dnv color contrast "#ff0000" "#00ff00" -q
-dnv color contrast "rgb(255,0,0)" "hsl(120, 100%, 50%)" --background "hsv(0, 0%, 100%)"
-```
-
-> ![note](/images/icons/note.svg) Note: Colors can be expressed as hex (`#RGB`, `#RGBA`, `#RRGGBB`, `#RRGGBBAA`), `rgb()`/`rgba()`, `hsl()`/`hsla()`, or `hsv()`/`hsva()`. When a color has an alpha channel, `--background` is required to composite it before computing the contrast. If neither color has an alpha channel, `--background` is simply ignored.
-{.note}
-
-> ![tip](/images/icons/tip.svg) Tip: Use `--quiet` to get a machine-readable JSON object with `N_WCAG_AA`, `N_WCAG_AAA`, `L_WCAG_AA`, and `L_WCAG_AAA` fields for scripting or CI accessibility checks. `N` stands for normal text (>= 16px) and `L` for large text (>= 18px, or >= 14px bold).
-{.tip}
 
 ### `dnv jwt` {#jwt}
 
@@ -1395,7 +1357,6 @@ dnv json diff a.json b.json --file --ignore-array-order -q
 | `update` | — |
 | `stats` | — |
 | `crypto hash`, `crypto hmac` | — |
-| `color contrast` | — |
 | `jwt generate`, `jwt inspect` | `jwt gen` |
 | `base64 encode`, `base64 decode` | `base64 enc`, `base64 dec`; module alias `b64` with the same command aliases |
 | `regex test`, `regex explain`, `regex pattern` | — |
