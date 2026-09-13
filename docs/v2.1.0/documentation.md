@@ -250,7 +250,6 @@ dnv stats [path] [options]
 | `-m, --min-lines <n>` | Exclude files with fewer than N lines |
 | `--nv, --no-void` | Exclude empty lines from counts |
 | `--no-comments` | Exclude comment lines from counts |
-| `-g, --gitignore` | Excludes files matching .gitignore rules |
 | `-e, --exclude <path>` | Comma-separated paths or extensions to exclude |
 | `-d, --default-exclude` | Exclude `.git`, `bin`, `obj`, `node_modules`, `dist`, and `coverage` |
 | `-n, --name [n]` | Show per-file details, optionally limited to N files per language |

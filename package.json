@@ -13,7 +13,7 @@
         "node": ">=22"
     },
     "dependencies": {
-        "posthog-js": "^1.429.5",
+        "posthog-js": "^1.430.3",
         "typewriter-effect": "^2.22.0"
     },
     "devDependencies": {
@@ -24,11 +24,11 @@
         "cssnano": "^9.0.4",
         "eslint": "^10.10.0",
         "globals": "^17.12.0",
-        "markdown-it": "^15.0.1",
+        "markdown-it": "^15.0.2",
         "markdown-it-attrs": "^5.0.1",
         "postcss": "^8.5.28",
-        "rollup": "^4.63.1",
+        "rollup": "^4.63.2",
         "rollup-plugin-copy": "^3.5.0",
-        "wrangler": "^4.131.0"
+        "wrangler": "^4.131.1"
     }
 }
