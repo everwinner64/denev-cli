@@ -63,7 +63,7 @@ dnv json pick name,version response.json --file
 **Need to sanitize a payload before sharing it?**
 
 ```bash
-dnv json omit password,apiKey data.json --file -o sanitized.json
+dnv json omit password apiKey data.json --file -o sanitized.json
 ```
 
 <pre><code><span class="cb-bold cb-blue">New JSON string:</span>
@@ -409,7 +409,7 @@ dnv cert generate internal-ca.pem \
 
 ```bash
 dnv cert inspect ./server.pem \
-  --field expiry,issuer
+  --field expiry issuer
 ```
 
 <pre><code><span class="cb-bold cb-blue">Not After:</span>
