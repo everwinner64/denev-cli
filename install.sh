@@ -178,18 +178,26 @@ success "Installed to ${INSTALL_DIR}/${BINARY_NAME} (symlink in ${BIN_DIR}/${BIN
 
 # ── PATH setup ──────────────────────────────────────────
 info "Configuring PATH..."
-LINE='export PATH="$HOME/.local/bin:$PATH"'
 
 # The installer runs through bash even when launched from zsh. Use the
 # user's login shell so this works on macOS/zsh and Git Bash on Windows.
 USER_SHELL="${SHELL:-}"
 USER_SHELL="${USER_SHELL##*/}"
+if [ "$USER_SHELL" = "fish" ]; then
+    LINE='fish_add_path "$HOME/.local/bin"'
+else
+    LINE='export PATH="$HOME/.local/bin:$PATH"'
+fi
+
 case "$USER_SHELL" in
     zsh)
         RC_FILE="$HOME/.zshrc"
         ;;
     bash)
         RC_FILE="$HOME/.bashrc"
+        ;;
+    fish)
+        RC_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/fish/config.fish"
         ;;
     *)
         # SHELL may be unset in some environments. The installer itself is
@@ -231,7 +239,7 @@ if command -v dnv &>/dev/null; then
     dnv --help 2>/dev/null || true
 
     case "$USER_SHELL" in
-        bash|zsh)
+        bash|zsh|fish)
             if ! dnv completion "$USER_SHELL"; then
                 info "Denev was installed, but auto-completion could not be configured for ${USER_SHELL}."
             fi

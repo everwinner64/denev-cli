@@ -139,7 +139,7 @@ Unsafe choices aren't forbidden, they're explained.
 - Unsigned JWTs are highlighted.
 - Potential ReDoS patterns are detected.
 
-If you know what you're doing, `--no-warn` lets you proceed.
+If you know what you're doing, `--force` lets you proceed.
 
 ---
 
@@ -149,7 +149,7 @@ If you know what you're doing, `--no-warn` lets you proceed.
 # Linux, macOS, and Windows (Git Bash, WSL)
 curl -fsSL https://denev.pages.dev/install.sh | bash
 
-# Windows x86_64 (PowerShell 5.1+)
+# Windows x86_64, arm64 (PowerShell 5.1+)
 irm https://denev.pages.dev/install.ps1 | iex
 ```
 

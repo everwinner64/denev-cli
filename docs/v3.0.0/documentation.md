@@ -177,6 +177,7 @@ When a command writes a file, it infers the format from the extension you provid
 | `update` | CLI self-update |
 | `stats` | Source-file language statistics |
 | `crypto` | Hashes and HMACs |
+| `color` | Color contrast checking (WCAG) |
 | `jwt` | Generating and inspecting JWTs |
 | `base64` / `b64` | Base64 encoding and decoding |
 | `regex` | Testing, explaining, and saving regular expressions |
@@ -249,7 +250,8 @@ dnv stats [path] [options]
 | `-m, --min-lines <n>` | Exclude files with fewer than N lines |
 | `--nv, --no-void` | Exclude empty lines from counts |
 | `--no-comments` | Exclude comment lines from counts |
-| `-e, --exclude <path>` | Comma-separated paths or extensions to exclude |
+| `-g, --gitignore` | Excludes files matching .gitignore rules |
+| `-e, --exclude <path>` | Space-separated paths or extensions to exclude |
 | `-d, --default-exclude` | Exclude `.git`, `bin`, `obj`, `node_modules`, `dist`, and `coverage` |
 | `-n, --name [n]` | Show per-file details, optionally limited to N files per language |
 | `-o, --output <path>` | `.json`, `.csv`, `.md`, or `.table`; defaults to `.json` when extensionless |
@@ -289,7 +291,7 @@ Creates a cryptographic hash of your input. SHA-256 is the default because it st
 | Item | Meaning |
 | --- | --- |
 | `[input]` | Text, stdin when omitted, or file/directory paths with `--file` |
-| `-f, --file` | Treat input as comma-separated file or directory paths |
+| `-f, --file` | Treat input as space-separated file or directory paths |
 | `-a, --algorithm <algo>` | `SHA256`, `SHA384`, `SHA512`, `SHA1`, `SHA3_256`, `SHA3_384`, `SHA3_512`, or `MD5` |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `--check <hash>` | Compare the calculated digest with a supplied hash |
@@ -327,7 +329,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 | `[input]` | Text, stdin when omitted, or file/directory paths with `--file` |
 | `-k, --key` | Prompt for a hidden HMAC key |
 | `--key-env <var>` | Read the key from an environment variable |
-| `-f, --file` | Treat input as comma-separated file or directory paths |
+| `-f, --file` | Treat input as space-separated file or directory paths |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `-a, --algorithm <algo>` | Hash algorithm for the HMAC |
 | `--check <hmac>` | Compare an HMAC |
@@ -345,6 +347,43 @@ dnv crypto hmac ./payload.json --file --key-env API_HMAC_KEY -q
 
 > ![warning](/images/icons/warning.svg) Warning: As with `crypto hash`, copy and check modes are restricted to a single input.
 {.warning}
+
+### `dnv color` {#color}
+
+The color module lets you check whether a foreground/background color pairing meets accessibility standards — it computes the WCAG contrast ratio and tells you instantly whether your colors pass or fail.
+
+#### `dnv color contrast` {#color-contrast}
+
+#### Description {.desc}
+
+Compares the contrast ratio of two colors against WCAG AA and AAA thresholds for both normal and large text.
+
+#### Syntax {.syntax}
+
+`dnv color contrast <color1> [color2] [options]`
+
+#### Arguments and options {.args}
+
+| Item | Meaning |
+| --- | --- |
+| `<color1>` | First color (required) |
+| `[color2] | Second color; stdin when omitted |
+| `-b, --background <color>` | Opaque background used to resolve colors with an alpha channel |
+| `-c, --copy` | Copy the resulting contrast ratio |
+| `-q, --quiet` | JSON output to stdout |
+
+#### Examples and notes {.examples}
+
+```bash
+dnv color contrast "#ff0000" "#00ff00" -q
+dnv color contrast "rgb(255,0,0)" "hsl(120, 100%, 50%)" --background "hsv(0, 0%, 100%)"
+```
+
+> ![note](/images/icons/note.svg) Note: Colors can be expressed as hex (`#RGB`, `#RGBA`, `#RRGGBB`, `#RRGGBBAA`), `rgb()`/`rgba()`, `hsl()`/`hsla()`, or `hsv()`/`hsva()`. When a color has an alpha channel, `--background` is required to composite it before computing the contrast. If neither color has an alpha channel, `--background` is simply ignored.
+{.note}
+
+> ![tip](/images/icons/tip.svg) Tip: Use `--quiet` to get a machine-readable JSON object with `N_WCAG_AA`, `N_WCAG_AAA`, `L_WCAG_AA`, and `L_WCAG_AAA` fields for scripting or CI accessibility checks. `N` stands for normal text (>= 16px) and `L` for large text (>= 18px, or >= 14px bold).
+{.tip}
 
 ### `dnv jwt` {#jwt}
 
@@ -448,7 +487,7 @@ Encodes your text, stdin, or file or directory contents as classic Base64 or Bas
 | Item | Meaning |
 | --- | --- |
 | `[input]` | Plain text or file path, or stdin when omitted |
-| `-f, --file` | Treat input as comma-separated file/directory paths |
+| `-f, --file` | Treat input as space-separated file/directory paths |
 | `-u, --url` | Use Base64URL |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `-c, --copy` | Copy a single result |
@@ -480,7 +519,7 @@ Decodes classic Base64 or Base64URL input back into text or bytes, which is the 
 | Item | Meaning |
 | --- | --- |
 | `[input]` | Plain text, or a file path whose contents are Base64 encoded; stdin when omitted |
-| `-f, --file` | Treat input as comma-separated file/directory paths |
+| `-f, --file` | Treat input as space-separated file/directory paths |
 | `-u, --url` | Use Base64URL |
 | `-e, --exclude <path>` | Exclusions in file mode |
 | `-c, --copy` | Copy a single result |
@@ -664,10 +703,10 @@ Validates one or more UUIDs — either the value you pass directly or those foun
 
 ```bash
 dnv uuid validate 550e8400-e29b-41d4-a716-446655440000 --type V4
-dnv uuid validate ids.txt --file --type V4,V7 -q
+dnv uuid validate ids.txt --file --type V4 V7 -q
 ```
 
-> ![note](/images/icons/note.svg) Note: Invalid UUIDs and unknown type syntax are input errors (exit code 2); a missing file is exit code 5. `--type` accepts comma-separated expected versions and is not restricted to V4, V5, or V7.
+> ![note](/images/icons/note.svg) Note: Invalid UUIDs and unknown type syntax are input errors (exit code 2); a missing file is exit code 5. `--type` accepts space-separated expected versions and is not restricted to V4, V5, or V7.
 
 #### `dnv uuid inspect` {#uuid-inspect}
 
@@ -726,7 +765,7 @@ Generates a self-signed certificate along with its private key material, which i
 | `--days <n>` | Validity days; default 365 |
 | `--ca` | Mark as a Certificate Authority (CA) |
 | `--server` | Make a server certificate |
-| `--sans <sans>` | Comma-separated subject alternative names |
+| `--sans <sans>` | space-separated subject alternative names |
 | `--export, --export-keys` | Write separate `.key` and `.pub` files |
 | `--kpw, --keys-password` | Prompt for the exported private-key password |
 | `--kpwe <var>, --keys-password-env <VAR>` | Load for the exported private-key password |
@@ -740,7 +779,7 @@ Generates a self-signed certificate along with its private key material, which i
 #### Examples and notes {.examples}
 
 ```bash
-dnv cert generate dev.pem /CN=localhost --sans localhost,127.0.0.1 --server
+dnv cert generate dev.pem /CN=localhost --sans localhost 127.0.0.1 --server
 dnv cert gen internal-ca.pem /CN=InternalCA --ca --days 3650
 ```
 
@@ -763,7 +802,7 @@ Parses a local PEM, DER, or PFX certificate so you can examine its fields, or ob
 | `[certPath\|domainName]` | .crt, .pem, .der, or .pfx certificate or domain name to inspect. Read from stdin if omitted |
 | `--domain` | Treat input as a domain and retrieve its certificate
 | `-w, --warn-days <n>` | Check expiry within N days |
-| `--field <expiry\|issuer\|serialNumber\|algo>` | Return selected comma-separated fields |
+| `--field <expiry\|issuer\|serialNumber\|algo>` | Return selected space-separated fields |
 | `--pw-env <var>` | PFX password variable |
 | `-o, --output <path>` | JSON file output only |
 | `-q, --quiet` | JSON stdout only |
@@ -772,7 +811,7 @@ Parses a local PEM, DER, or PFX certificate so you can examine its fields, or ob
 #### Examples and notes {.examples}
 
 ```bash
-dnv cert inspect ./server.pem --field expiry,issuer
+dnv cert inspect ./server.pem --field expiry issuer
 dnv cert inspect example.com --domain --warn-days 30 -q
 ```
 
@@ -918,7 +957,7 @@ dnv random password --no-symbols --length 20 -r 5 -o passwords.json
 
 #### Description {.desc}
 
-Chooses one item at random from a comma-separated list you provide, which is handy when you need to pick a winner, select a random configuration profile, or shuffle decision-making in a script.
+Chooses one item at random from a space-separated list you provide, which is handy when you need to pick a winner, select a random configuration profile, or shuffle decision-making in a script.
 
 #### Syntax {.syntax}
 
@@ -928,7 +967,7 @@ Chooses one item at random from a comma-separated list you provide, which is han
 
 | Item | Meaning |
 | --- | --- |
-| `[choices]` | Comma-separated list of items to pick from; stdin when omitted |
+| `[choices]` | Space-separated list of items to pick from; stdin when omitted |
 | `-r, --repeat <n>` | Number of picks to perform |
 | `--seed <n>` | Seed for reproducible non-cryptographic output |
 | `-c, --copy` | Copy one result |
@@ -937,8 +976,8 @@ Chooses one item at random from a comma-separated list you provide, which is han
 #### Examples and notes {.examples}
 
 ```bash
-dnv random pick red,green,blue
-dnv random pick a,b,c,d --repeat 3 --seed 11 -q
+dnv random pick red green blue
+dnv random pick a b c d --repeat 3 --seed 11 -q
 ```
 
 > ![note](/images/icons/note.svg) Note: An empty list is invalid. Use `--seed` only for deterministic selection — never for secrets.
@@ -1273,7 +1312,7 @@ Keeps only the fields you name, recursively, throughout the entire JSON document
 
 | Item | Meaning |
 | --- | --- |
-| `<fields>` | Comma-separated field names to retain |
+| `<fields>` | Space-separated field names to retain |
 | `[JSON\|JSON_File_Path]` | JSON document or file path (with `--file`), or pipe from stdin |
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file |
@@ -1283,7 +1322,7 @@ Keeps only the fields you name, recursively, throughout the entire JSON document
 #### Examples and notes {.examples}
 
 ```bash
-dnv json pick name,version data.json --file
+dnv json pick name version data.json --file
 printf '%s' '{"id":1,"secret":"x"}' | dnv json pick id -q
 ```
 
@@ -1303,7 +1342,7 @@ Removes the fields you name, recursively, throughout the entire JSON document �
 
 | Item | Meaning |
 | --- | --- |
-| `<fields>` | Comma-separated field names to remove |
+| `<fields>` | Space-separated field names to remove |
 | `[JSON\|JSON_File_Path]` | JSON document or file path (with `--file`), or pipe from stdin |
 | `-f, --file` | Treat input as a file path |
 | `-o, --output <path>` | JSON output file |
@@ -1313,7 +1352,7 @@ Removes the fields you name, recursively, throughout the entire JSON document �
 #### Examples and notes {.examples}
 
 ```bash
-dnv json omit password,apiKey data.json --file -o sanitized.json
+dnv json omit password apiKey data.json --file -o sanitized.json
 ```
 
 > ![tip](/images/icons/tip.svg) Tip: Use `omit` before logging or sharing JSON that contains sensitive fields — it saves you from having to manually redact values in a text editor.
@@ -1357,6 +1396,7 @@ dnv json diff a.json b.json --file --ignore-array-order -q
 | `update` | — |
 | `stats` | — |
 | `crypto hash`, `crypto hmac` | — |
+| `color contrast` | — |
 | `jwt generate`, `jwt inspect` | `jwt gen` |
 | `base64 encode`, `base64 decode` | `base64 enc`, `base64 dec`; module alias `b64` with the same command aliases |
 | `regex test`, `regex explain`, `regex pattern` | — |
