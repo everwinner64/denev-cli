@@ -44,7 +44,7 @@ Shared concepts, such as standard input, quiet output, file handling, and exit c
 
 ## Installation {#install}
 
-Denev is designed to run on Windows 10 and 11, Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can download Denev directly from the [download page](/download/#manual-install){target="_blank" rel="noopener noreferrer"}, or, even easier, use one of the following methods:
+Denev is designed to run on Windows 10 and 11 (x86_64 and arm64), Linux (x86_64 and arm64), and macOS (both Intel and Apple Silicon). You can download Denev directly from the [download page](/download/#manual-install){target="_blank" rel="noopener noreferrer"}, or, even easier, use one of the following methods:
 
 Linux, macOS, and Windows (Git Bash, WSL)
 
@@ -52,7 +52,7 @@ Linux, macOS, and Windows (Git Bash, WSL)
 curl -fsSL https://denev.pages.dev/install.sh | bash
 ```
 
-Windows x86_64 (PowerShell 5.1+)
+Windows x86_64, arm64 (PowerShell 5.1+)
 
 ```powershell
 irm https://denev.pages.dev/install.ps1 | iex
@@ -65,7 +65,7 @@ dnv --version
 dnv --help
 ```
 
->![tip](/images/icons/tip.svg) Tip: If you didn't use one of the install scripts, or if PATH update failed during install, run `dnv completion <yourShellName>` to enable auto-completion. Bash, Zsh, and PowerShell 5.1+ are supported.
+>![tip](/images/icons/tip.svg) Tip: If you didn't use one of the install scripts, or if PATH update failed during install, run `dnv completion <yourShellName>` to enable auto-completion. Bash, Zsh, Fish, and PowerShell 5.1+ are supported.
 {.tip}
 
 ### Updating {#updating}

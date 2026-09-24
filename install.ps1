@@ -26,7 +26,13 @@ trap { cleanup ; exit }
 
 # ── Detect OS / Arch ─────────────────────────────────────────
 $OS = "windows"
-$ARCH = "x86_64"
+$architecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture
+
+$ARCH = switch ($architecture) {
+    X64 { "x86_64" }
+    Arm64 { "arm64" }
+    default { die "Unsupported architecture: $architecture" }
+}
 
 # ── Fetch release ────────────────────────────────────────────
 $repo = "everwinner64/denev-cli"

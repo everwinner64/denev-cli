@@ -67,6 +67,13 @@
                 ]
             },
             {
+                "label": "color",
+                "id": "#color",
+                "children": [
+                    { "label": "contrast", "id": "#color-contrast" }
+                ]
+            },
+            {
                 "label": "jwt",
                 "id": "#jwt",
                 "children": [

@@ -7,6 +7,7 @@ document.getElementById("linux-arm64").addEventListener('click', () => getFile("
 document.getElementById("mac-x64").addEventListener('click', () => getFile("denev-macos-x86_64.tar.gz", "macOS-x86_64 (Intel)"));
 document.getElementById("mac-arm64").addEventListener('click', () => getFile("denev-macos-arm64.tar.gz", "macOS-arm64 (Apple Silicon)"));
 document.getElementById("windows-x64").addEventListener('click', () => getFile("denev-windows-x86_64.zip", "Windows-x86_64"));
+document.getElementById("windows-arm64").addEventListener('click', () => getFile("denev-windows-arm64.zip", "Windows-arm64"));
 
 let hasError = false;
 
