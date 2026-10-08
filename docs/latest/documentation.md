@@ -210,6 +210,7 @@ dnv update [options]
 | Item | Meaning |
 | --- | --- |
 | `--target` | Version to target using x.y.z format |
+| `--new` | Show the changelog for the target version |
 | `--force` | Skip all confirmation prompts |
 
 #### Examples and notes {.examples}
@@ -217,7 +218,7 @@ dnv update [options]
 Use it to easily get up to date; the first example below updates the CLI to the latest version, while the second is targeting a specific version:
 
 ```bash
-dnv update
+dnv update --new
 dnv update --target 1.2.0
 ```
 
