@@ -21,7 +21,7 @@ function block() {
     });
 
     document.body.style.overflow = "hidden";
-    document.body.style.backgroundColor = "#030719";
+    document.body.style.backgroundColor = "#080a15";
 }
 
 function unblock() {
@@ -30,7 +30,7 @@ function unblock() {
     });
 
     document.body.style.overflow = "";
-    document.body.style.backgroundColor = "#040C25";
+    document.body.style.backgroundColor = "#06070F";
 }
 
 const optOut = document.getElementById("opt-out");
