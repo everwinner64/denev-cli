@@ -17,8 +17,71 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    background-color: #040C25;
+    background-color: #06070F;
     font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+body::before {
+    width: 520px;
+    height: 520px;
+    top: -180px;
+    left: 8%;
+    background: radial-gradient(circle, rgba(110, 139, 245, 0.22), transparent 70%);
+    animation: dv-drift-1 24s ease-in-out infinite alternate;
+}
+
+body::after {
+    width: 620px;
+    height: 620px;
+    top: 42%;
+    right: -220px;
+    background: radial-gradient(circle, rgba(139, 111, 217, 0.16), transparent 70%);
+    animation: dv-drift-2 30s ease-in-out infinite alternate;
+}
+
+@keyframes dv-drift-1 {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    20%  { transform: translate3d(70px, 40px, 0) scale(1.05); }
+    40%  { transform: translate3d(130px, -20px, 0) scale(0.97); }
+    60%  { transform: translate3d(90px, 80px, 0) scale(1.04); }
+    80%  { transform: translate3d(30px, 60px, 0) scale(0.99); }
+    100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes dv-drift-2 {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    20%  { transform: translate3d(-80px, 50px, 0) scale(0.98); }
+    40%  { transform: translate3d(-30px, -60px, 0) scale(1.06); }
+    60%  { transform: translate3d(-120px, 20px, 0) scale(1.02); }
+    80%  { transform: translate3d(-60px, -30px, 0) scale(0.97); }
+    100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+#doc-layout {
+    position: relative;
+    z-index: 1;
+}
+
+#main-container {
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after {
+        animation: none;
+    }
 }
 
 :root {
@@ -34,7 +97,7 @@ body {
     right: 0;
     z-index: 1000;
 
-    background: rgba(4, 12, 37, 0.7);
+    background: rgba(10, 10, 21, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -178,7 +241,7 @@ pre {
     padding: 18px 20px;
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 10px;
-    background: #07112f;
+    background: #070810;
     margin: 0.25rem 0 1.5rem;
 }
 
@@ -251,7 +314,9 @@ ul li strong {
     right: 0;
     width: 38px; /* 10px (right gap) + 18px (icon) + 10px (left gap) */
     height: 38px; /* 10px (top gap) + 18px (icon) + 10px (bottom gap) */
-    background: #07112F;
+    background: rgba(8, 10, 22, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border-top: 1px solid rgba(255,255,255,0.09); 
     border-right: 1px solid rgba(255,255,255,0.09); 
     border-radius: 0 10px;
