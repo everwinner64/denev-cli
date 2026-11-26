@@ -313,6 +313,8 @@ dnv crypto hash 'hello' --check 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e
 > ![warning](/images/icons/warning.svg) Warning: Prefer SHA-256 or stronger. `--check` cannot be used with `--copy` and is restricted to a single input.
 {.warning}
 
+> ![note](/images/icons/warning.svg) Note: SHA-3 may not be available on some OSes such as Windows 10 or macOS.
+
 #### `dnv crypto hmac` {#crypto-hmac}
 
 #### Description {.desc}
@@ -332,7 +334,7 @@ Computes an HMAC for your text or files using a key that you supply directly or 
 | `--key-env <var>` | Read the key from an environment variable |
 | `-f, --file` | Treat input as space-separated file or directory paths |
 | `-e, --exclude <path>` | Exclusions in file mode |
-| `-a, --algorithm <algo>` | Hash algorithm for the HMAC |
+| `-a, --algorithm <algo>` | `SHA256`, `SHA384`, `SHA512`, `SHA1`, `SHA3_256`, `SHA3_384`, `SHA3_512`, or `MD5` |
 | `--check <hmac>` | Compare an HMAC |
 | `--nw, --no-warn` | Bypass weak-algorithm warnings |
 | `-c, --copy`, `-q, --quiet` | Copy one result / raw output |
@@ -348,6 +350,8 @@ dnv crypto hmac ./payload.json --file --key-env API_HMAC_KEY -q
 
 > ![warning](/images/icons/warning.svg) Warning: As with `crypto hash`, copy and check modes are restricted to a single input.
 {.warning}
+
+> ![note](/images/icons/warning.svg) Note: SHA-3 may not be available on some OSes such as Windows 10 or macOS.
 
 ### `dnv color` {#color}
 
@@ -433,6 +437,8 @@ dnv jwt gen '{"role":"user"}' --secret-env JWT_SECRET --sub user-42 --aud dashbo
 
 > ![warning](/images/icons/warning.svg) Warning: Use environment variables for non-interactive secrets. A missing or empty variable, invalid duration, unsupported algorithm, or incompatible signing inputs is an input error (2).
 {.warning}
+
+> ![note](/images/icons/warning.svg) Note: Available signing algorithms are `HS256`, `HS384`, `HS512`, `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, and `ES512`
 
 > ![tip](/images/icons/tip.svg) Tip: Claims can contain placeholders. Available placeholders are {{n}}, {{uuid}}, {{timestamp}}, and {{rand}}. {{n}} represents the current iteration number. {{uuid}} generate a new random at every iteration. {{timestamp}} uses the UTC Unix timestamp. {{rand}} uses a cryptographically secure 4 bytes string.
 {.tip}
