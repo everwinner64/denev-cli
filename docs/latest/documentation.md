@@ -372,7 +372,7 @@ Compares the contrast ratio of two colors against WCAG AA and AAA thresholds for
 | Item | Meaning |
 | --- | --- |
 | `<color1>` | First color (required) |
-| `[color2] | Second color; stdin when omitted |
+| `[color2]` | Second color; stdin when omitted |
 | `-b, --background <color>` | Opaque background used to resolve colors with an alpha channel |
 | `-c, --copy` | Copy the resulting contrast ratio |
 | `-q, --quiet` | JSON output to stdout |
@@ -438,7 +438,7 @@ dnv jwt gen '{"role":"user"}' --secret-env JWT_SECRET --sub user-42 --aud dashbo
 > ![warning](/images/icons/warning.svg) Warning: Use environment variables for non-interactive secrets. A missing or empty variable, invalid duration, unsupported algorithm, or incompatible signing inputs is an input error (2).
 {.warning}
 
-> ![note](/images/icons/warning.svg) Note: Available signing algorithms are `HS256`, `HS384`, `HS512`, `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, and `ES512`
+> ![note](/images/icons/note.svg) Note: Available signing algorithms are `HS256`, `HS384`, `HS512`, `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, and `ES512`
 
 > ![tip](/images/icons/tip.svg) Tip: Claims can contain placeholders. Available placeholders are {{n}}, {{uuid}}, {{timestamp}}, and {{rand}}. {{n}} represents the current iteration number. {{uuid}} generate a new random at every iteration. {{timestamp}} uses the UTC Unix timestamp. {{rand}} uses a cryptographically secure 4 bytes string.
 {.tip}
@@ -474,6 +474,8 @@ dnv jwt inspect "$TOKEN" --secret-env JWT_SECRET --algorithm HS256
 ```
 
 > ![note](/images/icons/note.svg) Note: When you inspect a token without supplying a verification key, the command decodes it so you can see the contents, but that alone does not establish trust — anyone could have created it. If the token is malformed, you get an input error (exit code 2); if verification fails because the signature does not match, you get exit code 1.
+
+> ![note](/images/icons/note.svg) Note: Available signing algorithms are `HS256`, `HS384`, `HS512`, `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, and `ES512`
 
 ### `dnv base64` (alias module: `dnv b64`) {#base64}
 
