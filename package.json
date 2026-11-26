@@ -13,7 +13,7 @@
         "node": ">=22"
     },
     "dependencies": {
-        "posthog-js": "^1.453.0",
+        "posthog-js": "^1.455.1",
         "typewriter-effect": "^2.22.0"
     },
     "devDependencies": {
@@ -27,8 +27,8 @@
         "markdown-it": "^15.0.3",
         "markdown-it-attrs": "^5.0.1",
         "postcss": "^8.5.33",
-        "rollup": "^4.68.7",
+        "rollup": "^4.68.8",
         "rollup-plugin-copy": "^3.5.0",
-        "wrangler": "^4.165.0"
+        "wrangler": "^4.168.0"
     }
 }
